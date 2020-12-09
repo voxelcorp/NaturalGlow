@@ -1,0 +1,486 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: inline-block;
+}
+@media only screen and (max-width: 426px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.875em;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: inherit;
+  color: black;
+  font-weight: bold;
+  padding: 0.25em 0.75em 0.25em 0.75em;
+  border: none;
+  border: 0.1em solid #000;
+}
+@media only screen and (max-width: 426px) {
+  button {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  button {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  button {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  button {
+    font-size: 1.25em;
+  }
+}
+
+button:hover {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+form label {
+  display: inline-block;
+  min-width: 5em;
+  text-align: right;
+  margin-right: 0.5em;
+}
+
+form button {
+  width: 50%;
+  margin: 0 25% 0 25%;
+}
+
+input {
+  padding: 0.1em 1% 0.1em 1%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+label, input {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  label, input {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  label, input {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  label, input {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  label, input {
+    font-size: 1.25em;
+  }
+}
+
+input, textarea {
+  border: 0.1em solid #2c3e50;
+  border-radius: 0.25em;
+}
+
+textarea {
+  min-width: 90%;
+  max-width: 90%;
+  min-height: 20vh;
+  font-weight: bolder;
+  padding: 1vh 5% 1vh 5%;
+  margin: 1vh 0 1vh 0;
+}
+@media only screen and (max-width: 426px) {
+  textarea {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  textarea {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  textarea {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  textarea {
+    font-size: 1.25em;
+  }
+}
+
+select {
+  padding: 0.5em;
+  border: 0.1em solid #2c3e50;
+  border-radius: 0.5em;
+}
+
+select, option {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  select, option {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  select, option {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  select, option {
+    font-size: 0.875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  select, option {
+    font-size: 1.09375em;
+  }
+}
+
+.inputContent {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.fullWidthMobile {
+  display: inline-block;
+}
+@media only screen and (max-width: 426px) {
+  .fullWidthMobile {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .fullWidthMobile {
+    width: 100%;
+  }
+}
+
+.halfWidth {
+  display: inline-block;
+  width: 49%;
+}
+
+.container {
+  position: relative;
+}
+
+.content {
+  min-height: 90vh;
+  margin: 5vh 0 5vh 0;
+}
+@media only screen and (max-width: 426px) {
+  .content {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .content {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .content {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
+
+.roundBtn {
+  border-radius: 1em;
+}
+
+.btnsBox {
+  display: inline-block;
+}
+
+.pushTop {
+  position: absolute;
+  top: 0;
+}
+
+.mainTitle {
+  width: 100%;
+  text-align: center;
+  font-weight: bolder;
+  margin: 2vh 0 5vh 0;
+}
+@media only screen and (max-width: 426px) {
+  .mainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mainTitle {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mainTitle {
+    font-size: 1.875em;
+  }
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 2em 5% 2em 5%;
+  border: 0.2em solid #2c3e50;
+  border-radius: 1em;
+}
+@media only screen and (max-width: 426px) {
+  .modalContent {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .modalContent {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .modalContent {
+    width: 50%;
+  }
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 0.5em;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.logoBox {
+  margin-top: 2.5vh;
+}
+@media only screen and (max-width: 426px) {
+  .logoBox {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .logoBox {
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 0%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .logoBox {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
+
+#products {
+  margin: 3vh 0 3vh 0;
+}
+
+.product {
+  display: inline-block;
+  margin: 3vh 1% 3vh 1%;
+}
+@media only screen and (max-width: 426px) {
+  .product {
+    width: 98%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .product {
+    width: 48%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .product {
+    width: 23%;
+  }
+}
+
+.product img {
+  background-color: #8F4D3F;
+  min-width: 100%;
+  height: auto;
+}
+
+.productInfo {
+  margin-top: 1vh;
+  min-height: 3vh;
+  font-weight: bold;
+}
+
+.productInfo p {
+  margin: 0.5vh 0 0.5vh 0;
+}
+@media only screen and (max-width: 426px) {
+  .productInfo p {
+    font-size: 0.859375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .productInfo p {
+    font-size: 0.859375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .productInfo p {
+    font-size: 0.6875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .productInfo p {
+    font-size: 0.859375em;
+  }
+}
+
+#productName {
+  text-align: center;
+  border-bottom: 0.25em dotted #49DBA4;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+@media only screen and (max-width: 426px) {
+  #productName {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #productName {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #productName {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #productName {
+    font-size: 1.25em;
+  }
+}
+
+#productQuantity {
+  text-align: center;
+}
+@media only screen and (max-width: 426px) {
+  #productQuantity {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #productQuantity {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #productQuantity {
+    font-size: 0.875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #productQuantity {
+    font-size: 1.09375em;
+  }
+}
+
+#productPrice {
+  text-align: right;
+}
+@media only screen and (max-width: 426px) {
+  #productPrice {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #productPrice {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #productPrice {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #productPrice {
+    font-size: 1.25em;
+  }
+}
+
+/*# sourceMappingURL=index.css.map */

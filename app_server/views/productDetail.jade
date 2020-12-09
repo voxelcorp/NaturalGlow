@@ -1,0 +1,40 @@
+extends layout
+
+block headExtensions
+  link(rel='stylesheet', href='/css/productDetail.css')
+  
+block content
+  .content
+    #productMainImg
+      img(src= mainImg)
+    #availableText
+      p #{ProductInfo.available}
+    .container
+      .gridContent
+        //MAIN INFO
+        #productData
+          #productName.dataContainer
+            p #{ProductInfo.name}
+            p #{ProductInfo.quantity}
+          #productBuy.dataContainer
+            p #{ProductInfo.price} €
+        //IMAGES
+        #productImgs
+          .mainTitle
+            span Imagens
+          each image in ProductImages
+            .productImgContainer
+              img(src= 'images/products/'+image.path)
+        //DESCRIPTION
+        #description
+          .mainTitle
+            span Descricao
+          p #{ProductDescription}
+        //INGREDIENTS
+        #ingredients
+          .mainTitle
+            span Ingredientes
+          each ingredient in ProductIngredients
+            .ingredientContainer
+              .tag
+                p #{ingredient}

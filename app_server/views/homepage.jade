@@ -1,0 +1,24 @@
+extends layout
+
+block headExtensions
+  link(rel='stylesheet', href='/css/homepage.css')
+  link(rel='stylesheet', href='/css/addOns.css')
+block content
+  .content
+    h1.mainTitle Gestao
+
+    .logoBox
+      img(src='/images/logoBig.png')
+    #orderDetails
+    #products
+      h1.mainTitle Produtos
+      each product in pageProducts
+        .product
+          form(method='post' action='/product' onclick='forceSubmit()')
+            input(type='hidden' name='productId' value=product._id)
+            img(src= product.mainImg)
+            .productInfo
+              p#productName #{product.name}
+              p#productQuantity #{product.quantity} #{product.quantityType}
+              p#productPrice #{product.price} $
+  script(src='js/homepage.js')

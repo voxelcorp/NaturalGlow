@@ -1,0 +1,55 @@
+//Create product pop up
+.modal#productModal
+  .modalContent
+    .closeBtn#closeProductPopupBtn x
+    .mainTitle Add product
+    form(enctype='multipart/form-data' method='post' action='/api/products' id='productForm')
+      .formContent
+        //Images
+        .inputContent
+          .mainTitle
+            span Imagens
+          #imagesPreviewInfo
+            p Principal
+            .borderInfo
+          input(type='file' name='images' accept='image/x-png, image/jpeg' id='productImages' class='inputFile' onchange='showImages(event)' size='50' multiple required)
+          input(type='hidden' name='imgsChoosenByUser' id='mainImgName')
+          input(type='hidden' name='mainImg' id='mainImgName')
+          label(for='productImages' class='inputFileLabel' id='imagesFileLabel')
+            i(class='material-icons') publish
+            span Adicionar imagens
+          #imagesPreviewContent
+        //Name
+        #inputNameContent.inputContent
+          label Name
+          input(type='text' name='name' id='productInputName' required)
+        //Price  
+        #inputPriceContent.inputContent
+          label Price
+          input(type='decimal' name='price' id='productInputPrice' required)
+        //Quantity
+        #inputQuantityContent.inputContent
+          label Quantity
+          input(type='number' name='quantity' id='productInputQuantity' step='0.1' required)
+        //Quantity type
+        #quantityTypeContent
+          select(id='productType' name='quantityType' required)
+            option(value='gr') Grams
+            option(value='oz') Onzes
+            option(value='lt') Liters
+        //Description  
+        .mainTitle 
+          span Descricao
+        textarea(name='description' required)
+        //Ingredients
+        #addIngredientContent.inputContent
+          .mainTitle 
+            span Ingredientes
+          .inputContent
+            label Name
+            input(type='text' name='ingredient' required)
+          button(class='addBtn hint--bottom' aria-label='Adicionar ingrediente.' id='addIngredientBtn' type='submit')
+            img(src='/images/Layouts/Professional/addBtn.png')
+      button(id='saveProduct' type='submit') Save
+script(src='js/productPopup.js')
+script(src='js/library.js')
