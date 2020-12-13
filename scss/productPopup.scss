@@ -1,0 +1,36 @@
+@import 'general.scss';
+
+#productImagesPreviewContent {
+  display: none;
+  text-align: center;
+  margin-top: 5vh;
+  padding-bottom: 5vh;
+  border-bottom: 0.5em dotted #2c3e50;
+}
+
+.imagesPreviewContainer {
+  height: 14.5vw;
+  width: 29%;
+}
+
+.imagesPreviewContainer:hover {
+  cursor: pointer;
+}
+
+#previewMainImg:hover {
+  cursor: default;
+}
+
+.imagesPreviewContainer img {
+  @include containImg(90%);
+  vertical-align: bottom;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.inputFileLabel {
+  background-color: $mainGreen;
+}

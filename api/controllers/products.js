@@ -2,8 +2,8 @@
 //------------------
 //GLOBAL VARS
 var mongoose = require('mongoose');
+var ingredientController = require('../controllers/ingredients');
 var Product = mongoose.model('Product');
-var Ingredient = mongoose.model('Ingredient');
 
 //-----
 //FUNCTIONS
@@ -112,29 +112,6 @@ var moveFile = function (res, file) {
   });
 }
 
-//INGREDIENTS
-//Get the ingredient details and save them in the database.
-var saveIngredient = function (res, ingredient) {
-  if(!ingredient) {
-    sendJsonResponse(res, 404, "missing ingredient. couldn't save.");
-  }
-  getIngredient(res, ingredient);
-  // Ingredient.create({
-  //   name: ingredient
-  // }, function (err, newIngredient) {
-  //   if(err) {
-  //     sendJsonResponse(res, 400, err);
-  //   }
-  //   sendJsonResponse(res, 200, newIngredient);
-  // });
-}
-
-var getIngredient = function (res, ingredientName) {
-  Ingredient
-
-  sendJsonResponse(res, 200, ingredientName);
-}
-
 //-----
 //MODULES
 
@@ -145,8 +122,7 @@ module.exports.createProduct = function (req, res) {
     sendJsonResponse(res, 404, "missing information, couldn't create.");
   }
   for(ingredient in req.body.ingredient) {
-    //sendJsonResponse(res, 200, req.body.ingredient.length);
-    saveIngredient(res, req.body.ingredient[ingredient]);
+    ingredientController.saveIngredient(null, res, req.body.ingredient[ingredient]);
   }
   // Product.create({
   //   name: req.body.name,

@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import 'library.scss';
+@import 'colours.scss';
+
+// VARS
+
+$browserContext: 16; //pixel density of fonts.
+//---
+
+* {
+  margin: 0;
+  padding: 0;
+  color: $grey;
+  font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @include responsiveText(24);
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  @include responsiveText(16);
+  background: inherit;
+  color: black;
+  font-weight: bold;
+  padding: .25em .75em .25em .75em;
+  border: none;
+  border: .1em solid #000;
+}
+
+button:hover {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+form label {
+  display: inline-block;
+  min-width: 5em;
+  text-align: right;
+  margin-right: .5em;
+}
+
+form button {
+  width: 50%;
+  margin: 0 25% 0 25%;
+}
+
+input {
+  padding: .1em 1% .1em 1%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+label, input {
+  @include responsiveText(16);
+  font-weight: bolder;
+}
+
+input, textarea {
+  border: .1em solid $grey;
+  border-radius: .25em;
+}
+
+textarea {
+  @include responsiveText(16);
+  min-width: 90%;
+  max-width: 90%;
+  min-height: 20vh;
+  font-weight: bolder;
+  padding: 1vh 5% 1vh 5%;
+  margin: 1vh 0 1vh 0;
+}
+
+select {
+  padding: .5em;
+  border: .1em solid $grey;
+  border-radius: .5em;
+}
+
+select, option {
+  @include responsiveText(14);
+  font-weight: bolder;
+}
+
+//TABLES
+$tableBorderColor: $grey;
+table {
+    width: 100%;
+    text-align: center;
+    border-left: .5em solid $tableBorderColor;
+    border-collapse: collapse;
+    margin-top: 5vh;
+}
+
+table th {
+  cursor: default;
+  @include responsiveText(24);
+  background-color: $mainGreen;
+  //border-bottom: .1em solid $tableBorderColor;
+  padding: .25em;
+}
+
+table td {
+  @include responsiveText(16);
+  font-weight: bold;
+  //border-right: .1em solid $tableBorderColor;
+  padding: 1vh .25em 1vh .25em;
+}
+
+table tr:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+//CLASSES
+.inputContent {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+@include mobileOnly {
+  .inputContent, .inputContent label {
+    text-align: center;
+  }
+}
+
+.fullWidthMobile {
+  @include mobileWidth(100%);
+  display: inline-block;
+}
+
+.halfWidth {
+  display: inline-block;
+  width: 49%;
+}
+
+.container {
+  position: relative;
+}
+
+.content {
+  @include responsiveWidth(90%, 70%, 90%, true);
+  min-height: 90vh;
+  margin: 5vh 0 5vh 0;
+}
+
+.btnsBox {
+  display: inline-block;
+}
+
+.pushTop {
+  position: absolute;
+  top: 0;
+}
+
+.mainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(32);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.mainTitle span {
+  font-family: 'Permanent Marker', cursive;
+  border-bottom: .1em solid $mainGreen;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent {
+  @include responsiveWidth(70%, 50%, 70%);
+  position: relative;
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 2em 5% 2em 5%;
+  border: .2em solid $grey;
+  border-radius: 1em;
+}
+
+//INPUTS
+
+//FILE
+.inputFile {
+  width: .1px;
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputFileLabel, .inputFileLabel i {
+  @include responsiveText(20);
+}
+
+.inputFileLabel {
+  color: #FFFF;
+  text-align: center;
+  background-color: $grey;
+  padding: 1vh 2.5% 1vh 2.5%;
+  display: inline-block;
+}
+
+.inputFileLabel * {
+  vertical-align: middle;
+}
+
+.inputFileLabel:hover {
+  background-color: $darkGreen;
+  cursor: pointer;
+}
+
+.inputFile:focus + label {
+  outline-offset: .1em;
+  outline: .2em dotted white;
+  outline: -webkit-focus-ring-color auto .2em;
+}
+
+.deleteBtn {
+  @include responsiveText(24);
+  @include responsiveWidth(50%, 30%, 50%, true);
+  display: none;
+  margin-left: 40%;
+  font-weight: bolder;
+  padding: 0;
+  position: absolute;
+  top: -.75em;
+  color: #FFF;
+  background-color: $red;
+  border: .1em solid $darkRed;
+  border-radius: .5em;
+  @include mobileOnly {
+    @include responsiveText(32);
+    display: block;
+  }
+}
+
+.closeBtn {
+  @include responsiveText(32);
+  float: right;
+  top: 1vh;
+  right: 2.5%;
+  font-weight: bolder;
+  color: $grey;
+  @include mobileOnly {
+    text-align: center;
+    float: none;
+    color: #FFFF;
+    background-color: $grey;
+    border-bottom: .2em solid $mainGreen;
+  }
+}
+
+.closeBtn:hover {
+  color: $mainGreen;
+  cursor: pointer;
+}

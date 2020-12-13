@@ -66,14 +66,14 @@ var openProductPopup = function (event, element) {
   productId = event.target.parentNode.parentNode.id; //Returns to tr and gets the productId
   productData = getSingleProduct(productId);
   //---
-  popup.style.display = 'block';
+  displayPopup();
   productForm.method = 'put';
   productImages.required = false;
-  console.log(productImages);
   fillPopup(productData, popupInputs);
 }
 
-//Get the popup inputs and the product data and fills the popup with the info.
+//-----
+//OBJECTIVE: Get the popup inputs and the product data and fills the popup with the info.
 var fillPopup = function (data, fields) {
   if(!data || !fields) {
     return null;
@@ -85,24 +85,25 @@ var fillPopup = function (data, fields) {
       if(inputName != 'images') {
         fields[i].value = data[inputName];
       } else if(inputName == 'images') {
-         prepImgs = prepImages(data[inputName]);
-         showImages(null, prepImgs);
+         prepImgs = prepProductImages(data[inputName]);
+         showImages(null, prepImgs, 'stored');
       }
     }
   }
 }
 
-//Get the images from the product and formats the array to have an image name, src and main.
-var prepImages = function (dbImages) {
+//-----
+//OBJECTIVE: Get the images from the product and formats the array to have an image name, src and main.
+var prepProductImages = function (productImages, prepType) {
   var prepImgs = {};
-  if(!dbImages || dbImages.length <= 0) {
+  if(!productImages || productImages.length <= 0) {
     return {};
   }
-  for (var i = 0; i < dbImages.length; i++) {
+  for (var i = 0; i < productImages.length; i++) {
     var newImg = {};
-    newImg.name = dbImages[i].path;
-    newImg.src = imagesDir + dbImages[i].path;
-    newImg.main = dbImages[i].main;
+    newImg.name = productImages[i].path;
+    newImg.src = imagesDir + productImages[i].path;
+    newImg.main = productImages[i].main;
     prepImgs[i] = newImg;
   }
   return prepImgs;
