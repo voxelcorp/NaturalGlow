@@ -2,7 +2,7 @@
 .modal#productModal
   .modalContent
     .closeBtn#closeProductPopupBtn x
-    .mainTitle Add product
+    .mainTitle#productTitle Adicionar novo produto
     form(enctype='multipart/form-data' method='post' action='/api/products' id='productForm')
       .formContent
         //Images
@@ -13,7 +13,7 @@
             p Principal
             .borderInfo
           input(type='file' name='images' accept='image/x-png, image/jpeg' id='productImages' class='inputFile' onchange='showImages(event)' size='50' multiple required)
-          input(type='hidden' id='imgsChoosenByUser')
+          input(type='hidden' name='choosenImages' id='imgsChoosenByUser')
           input(type='hidden' name='mainImg' id='mainImgName')
           label(for='productImages' class='inputFileLabel' id='imagesFileLabel')
             i(class='material-icons') publish
@@ -48,9 +48,10 @@
             span Ingredientes
           .inputContent
             label Name
-            input(list='ingredient' required)
+            input(list='ingredient' name='ingredient' required)
             datalist(id='ingredient' class='ingredientDatalist')
-          button(class='addBtn hint--bottom' aria-label='Adicionar ingrediente.' id='addIngredientBtn' type='submit')
+            button(class='removeBtn hint--error hint--bottom' aria-label='Remover ingrediente.' onclick='removeIngredient(this)') x
+          button(class='addBtn hint--bottom' aria-label='Adicionar ingrediente.' id='addIngredientBtn' type='submit' onclick='newIngredientInput()')
             img(src='/images/Layouts/Professional/addBtn.png')
       button(id='saveProduct' type='submit') Save
 script(src='https://unpkg.com/axios/dist/axios.min.js')

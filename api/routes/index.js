@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var ctrlProducts = require('../controllers/products');
 var ctrlIngredients = require('../controllers/ingredients');
+var ctrlPost = require('../controllers/post');
+
+//GENERAL
+router.get('/post/:url/:content', ctrlPost.submitPost);
 
 //PRODUCTS
 
@@ -13,11 +17,10 @@ router.get('/products/:productId', ctrlProducts.infoSingleProduct);
 router.post('/products', ctrlProducts.createProduct);
 
 //PUT "UPDATE"
-router.put('/products/', ctrlProducts.updateProduct);
-router.put('/products/:productId', ctrlProducts.updateProduct);
+router.post('/products/update/:productId', ctrlProducts.updateProduct);
 
 //DELETE "REMOVE"
-router.delete('/products/:productId', ctrlProducts.deleteProduct);
+router.get('/products/delete/:productId', ctrlProducts.deleteProduct);
 
 //-----
 //INGREDIENTS

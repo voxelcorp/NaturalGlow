@@ -9,8 +9,8 @@
 }
 
 .imagesPreviewContainer {
-  height: 14.5vw;
-  width: 29%;
+  @include responsiveWidth(99%, 29%, 45%);
+  @include responsiveHeight(75vw, 14.5vw, 45vw);
 }
 
 .imagesPreviewContainer:hover {
@@ -22,7 +22,7 @@
 }
 
 .imagesPreviewContainer img {
-  @include containImg(90%);
+  @include containImg(80%);
   vertical-align: bottom;
   position: absolute;
   bottom: 0;
@@ -33,4 +33,18 @@
 
 .inputFileLabel {
   background-color: $mainGreen;
+}
+
+//INGREDIENTS
+
+.removeBtn {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0;
+  margin-left: 1%;
+  padding: 0;
+  text-align: center;
+  border-radius: .5em;
+  background-color: $red;
+  border: none;
 }

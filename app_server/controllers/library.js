@@ -2,25 +2,33 @@ module.exports.request = require('request');
 module.exports.apiOptions = {
   server: 'http://localhost:3000'
 }
+
 module.exports.sendJsonResponse = function (res, status, content) {
+  res.status(status);
+  res.json(content);
+};
+
+var sendJsonResponse = function (res, status, content) {
   res.status(status);
   res.json(content);
 };
 
 //Gets data and does the required changes to it for accessibility porpuses.
 module.exports.formatProductData = function (res, data) {
+  var productImagesFolder = "/images/products/";
   if(!data || data.length <= 0) {
     return {};
   }
   var formatedProduct = {};
-  if(data.length > 1) {
+  if(Array.isArray(data) == true) {
+
     for (var i = 0; i < data.length; i++) {
-      var mainImg = "/images/products/" + detectMain(res, data[i].images);
+      var mainImg = productImagesFolder + detectMain(res, data[i].images);
       formatedProduct[i] = loopProduct(res, data[i]);
       formatedProduct[i].mainImg = mainImg;
     }
   } else {
-    var mainImg = "/images/products/" + detectMain(res, data.images);
+    var mainImg = productImagesFolder + detectMain(res, data.images);
     formatedProduct = loopProduct(res, data);
     formatedProduct.mainImg = mainImg;
   }

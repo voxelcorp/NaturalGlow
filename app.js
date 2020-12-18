@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fileUpload = require('express-fileupload');
+var FormData = require('form-data');
 require('./api/models/db');
 
 var indexRouter = require('./app_server/routes/index');

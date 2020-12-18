@@ -58,17 +58,17 @@ var getSingleProduct = function (productId) {
 //OBJECTIVE: open popup and get product info from the clicked row.
 var openProductPopup = function (event, element) {
   event.stopPropagation(); //Stop onclick from tr row. Check "redirectToProduct()"
-  var popup, popupInputs, productData, productId, productForm;
+  var popup, popupInputs, productData, productId, productForm, productTitle;
   popup = document.getElementById('productModal');
   productForm = document.getElementById('productForm');
-  productImages = document.getElementById('productImages');
+  productImagesFileInput = document.getElementById('productImages');
   popupInputs = popup.childNodes[0].childNodes[2].elements;
   productId = event.target.parentNode.parentNode.id; //Returns to tr and gets the productId
   productData = getSingleProduct(productId);
   //---
   displayPopup();
-  productForm.method = 'put';
-  productImages.required = false;
+  productForm.action += '/update/'+productId;
+  productImagesFileInput.required = false;
   fillPopup(productData, popupInputs);
 }
 
@@ -82,13 +82,25 @@ var fillPopup = function (data, fields) {
   for(i = 0; i < fields.length; i++) {
     var inputName = fields[i].name;
     if(inputName && data[inputName]) {
-      if(inputName != 'images') {
-        fields[i].value = data[inputName];
-      } else if(inputName == 'images') {
+      if(inputName == 'images') {
          prepImgs = prepProductImages(data[inputName]);
          showImages(null, prepImgs, 'stored');
+      }else {
+        fields[i].value = data[inputName];
       }
     }
+  }
+  //Must be in its own because is required to create new inputs.
+  fillIngredients(data.ingredients);
+}
+
+var fillIngredients = function (ingredients) {
+  for(ing in ingredients) {
+    if(ing != 0) {
+      newIngredientInput();
+    }
+    var emptyInput = lastIngredientInput().getElementsByTagName('input')[0];
+    emptyInput.value = ingredients[ing].name;
   }
 }
 
@@ -107,4 +119,17 @@ var prepProductImages = function (productImages, prepType) {
     prepImgs[i] = newImg;
   }
   return prepImgs;
+}
+
+var deleteProduct = function(event, deleteBtn) {
+  event.stopPropagation();
+  var productId = deleteBtn.value;
+  var productRow = deleteBtn.parentNode.parentNode;
+  axios.get('api/products/delete/'+productId)
+    .then(function(res) {
+      productRow.remove();
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
 }

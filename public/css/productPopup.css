@@ -244,6 +244,7 @@ table tr:hover {
 }
 
 .inputContent {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 100%;
@@ -564,9 +565,35 @@ table tr:hover {
   border-bottom: 0.5em dotted #2c3e50;
 }
 
-.imagesPreviewContainer {
-  height: 14.5vw;
-  width: 29%;
+@media only screen and (max-width: 426px) {
+  .imagesPreviewContainer {
+    width: 99%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .imagesPreviewContainer {
+    width: 45%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .imagesPreviewContainer {
+    width: 29%;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .imagesPreviewContainer {
+    height: 75vw;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .imagesPreviewContainer {
+    height: 45vw;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .imagesPreviewContainer {
+    height: 14.5vw;
+  }
 }
 
 .imagesPreviewContainer:hover {
@@ -579,7 +606,7 @@ table tr:hover {
 
 .imagesPreviewContainer img {
   display: block;
-  max-height: 90%;
+  max-height: 80%;
   max-width: 100%;
   width: auto;
   margin: auto;
@@ -593,6 +620,18 @@ table tr:hover {
 
 .inputFileLabel {
   background-color: #49DBA4;
+}
+
+.removeBtn {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0;
+  margin-left: 1%;
+  padding: 0;
+  text-align: center;
+  border-radius: 0.5em;
+  background-color: #e74c3c;
+  border: none;
 }
 
 /*# sourceMappingURL=productPopup.css.map */

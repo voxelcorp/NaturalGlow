@@ -244,6 +244,7 @@ table tr:hover {
 }
 
 .inputContent {
+  position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 100%;

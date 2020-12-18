@@ -33,37 +33,49 @@ var checkIngredientExists = function (res, ingredient, ingredients) {
   }else if(!ingredients) {
     sendJsonResponse(res, 404, 'missing ingredients from db.');
   }
+
   for(var i = 0; i < ingredients.length; i++) {
     if(ingredient == ingredients[i].name) {
-      return true;
+      return {check: true, ingredient: ingredients[i]};
     }
-      return false;
   }
+  return {check: false};
 }
 
 //-----
 //MODULES
 
 //OBJECTIVE: Get the ingredient details and save them in the database.
-module.exports.saveIngredient = function (req, res, ingredient) {
+module.exports.saveIngredient = function (req, res, ingredient, callback = null) {
+  if(!ingredient) {
+    sendJsonResponse(res, 404, 'missing ingredient.');
+  }
   getIngredients(res, function (err, ingredients) {
     if(!ingredients) {
-      sendJsonResponse(res, 404, "missing ingredient. couldn't save.");
+      sendJsonResponse(res, 404, "ingredients not found.");
     }else if(err) {
       sendJsonResponse(res, 400, err);
     }
     var ingredientCheck = checkIngredientExists(res, ingredient, ingredients);
-    if(ingredientCheck != true) {
+    if(ingredientCheck.check != true) {
       Ingredient.create({
         name: ingredient
       }, function (err, newIngredient) {
         if(err) {
           sendJsonResponse(res, 400, err);
         }
-        sendJsonResponse(res, 200, newIngredient);
+        if(callback != null) { //If being used as a middle ground function.
+          callback(newIngredient);
+        }else {
+          sendJsonResponse(res, 200, newIngredient);
+        }
       });
     }else {
-      sendJsonResponse(res, 400, "Couldnt save, ingredient name already exists.");
+      if(callback != null) { //If being used as a middle ground function.
+        callback(ingredientCheck.ingredient);
+      }else {
+        sendJsonResponse(res, 400, "Couldnt save, ingredient name already exists.");
+      }
     }
   });
 }

@@ -56,6 +56,7 @@ module.exports.productDetails = function (req, res) {
   if(!productId) {
     library.sendJsonResponse(res, 404, 'productId not found, missing required information.');
   }
+
   path = '/api/products/' + productId;
   requestOptions = {
     url: apiOptions.server + path,

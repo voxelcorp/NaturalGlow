@@ -5,9 +5,9 @@ var productForm = document.getElementById('productForm');
 
 //OBJECTIVE: Display add product popup.
 var addProductBtn = document.getElementById('addProductBtn');
-addProductBtn.onclick = function () {
-  displayPopup();
-}
+// addProductBtn.onclick = function () {
+//   displayPopup();
+// }
 
 //-----
 //OBJECTIVE: Display popup.
@@ -36,17 +36,21 @@ closeBtn.onclick = function () {
 //OBJECTIVE: Adds the main img name to the form before submitting.
 productForm.onsubmit = function () {
   event.preventDefault();
-  var mainImageInput = document.getElementById('mainImgName');
   var productImages = document.getElementById('previewMainImg');
-  mainImageInput.value = productImages.getAttribute('name');
-  //---
-  //All images to be saved.
-  var productImages = {
-    new: storeImages('new'),
-    current: storeImages('stored')
+  if(!productImages) {
+    console.log('missing main img.');
+  }else {
+    var mainImageInput = document.getElementById('mainImgName');
+    mainImageInput.value = productImages.getAttribute('name');
+    //---
+    //All images to be saved.
+    var productImages = {
+      new: storeImages('new'),
+      current: storeImages('stored')
+    }
+    document.getElementById('imgsChoosenByUser').value = JSON.stringify(productImages); //Adds images to form.
+    this.submit();
   }
-  document.getElementById('imgsChoosenByUser').value = JSON.stringify(productImages); //Adds to form.
-  // this.submit();
 }
 
 // -> INGREDIENTS <-
@@ -88,7 +92,7 @@ var addIngredientsData = function (datalist, ingredients) {
 
 //-----
 //OBJECTIVE: Detects the number of ingredients and retrieves the last one of them.
-var newIngredientInput = function () {
+var lastIngredientInput = function () {
   var ingredientsContent = document.getElementById('addIngredientContent');
   var ingredientsCount = ingredientsContent.childNodes.length - 1; //Counting starts at 0.
   var lastIngredient = ingredientsContent.childNodes[ingredientsCount -1]; //the last will always be the addBtn.
@@ -97,12 +101,22 @@ var newIngredientInput = function () {
 
 //-----
 //OBJECTIVE: Copy ingredient input when the addbtn is pressed.
-var addBtn = document.getElementById('addIngredientBtn');
-addBtn.onclick = function () {
+var newIngredientInput = function () {
+  var addBtn = document.getElementById('addIngredientBtn');
   event.preventDefault();
-  var ingredientConvertToHTML = "<div class='inputContent'> " + newIngredientInput().innerHTML + "</div>";
+  var ingredientConvertToHTML = "<div class='inputContent'> " + lastIngredientInput().innerHTML + "</div>";
   addBtn.insertAdjacentHTML('beforeBegin', ingredientConvertToHTML);
   addBtn.blur();
+}
+
+//-----
+//OBJECTIVE: Remove ingredient when btn is clicked.
+var removeIngredient = function (btn) {
+  if(btn.parentNode.parentNode.childNodes.length > 3) { //Must be one ingredient at all times.
+    btn.parentNode.remove();
+  }else {
+    alert('Não é possivel remover ultimo ingrediente.');
+  }
 }
 
 // -> IMAGES <-
@@ -124,7 +138,7 @@ var storeImages = function (imageType) {
     for(var i = 0; i < newImagesList.length; i++) {
       if(i != 0) { // Ignore title.
         var imgToBeStored = {};
-        imgToBeStored.name = newImagesList[i].getAttribute('name');
+        imgToBeStored.path = newImagesList[i].getAttribute('name');
         if(newImagesList[i].id == '') {
           imgToBeStored.main = 0;
         }else {
@@ -142,6 +156,7 @@ var storeImages = function (imageType) {
 var showImages = function (event, imgs = null, imagesType = 'new') {
   if(imagesType == 'new') {
     var imgContent = document.getElementById("imagesPreviewContent");
+    imgContent.innerHTML = '<h1 class="mainTitle">Imagens Novas</h1>'; //Remove any stored preview images.
   }else if(imagesType == 'stored') {
     var imgContent = document.getElementById("productImagesPreviewContent");
     imgContent.style.display = 'block'; //None by default.
