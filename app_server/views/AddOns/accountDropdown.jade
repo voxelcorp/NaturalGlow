@@ -1,0 +1,12 @@
+//-Button settings
+button(id='loginPopupBtn' onclick='openPopup("accountDropdown")') 
+  p(id='loginText') #{username}
+  span(class='material-icons loginIcon') account_circle
+//MODAL
+#accountDropdown
+  .dropdown
+    button Perfil
+    button Encomendas
+    button Sair
+script(src='js/library.js')
+script(src='js/accountDropdown.js')

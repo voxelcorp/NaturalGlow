@@ -14,6 +14,17 @@ $browserContext: 16; //pixel density of fonts.
   font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
 }
 
+header {
+  line-height: 3em;
+  height: 3em;
+  position: fixed;
+  top: 0;
+}
+
+#headerSpacing {
+  margin-top: 5em;
+}
+
 img {
   width: 100%;
 }
@@ -46,7 +57,7 @@ button:hover {
 form label {
   display: inline-block;
   min-width: 5em;
-  text-align: right;
+  text-align: center;
   margin-right: .5em;
 }
 
@@ -106,14 +117,12 @@ table th {
   cursor: default;
   @include responsiveText(24);
   background-color: $mainGreen;
-  //border-bottom: .1em solid $tableBorderColor;
   padding: .25em;
 }
 
 table td {
   @include responsiveText(16);
   font-weight: bold;
-  //border-right: .1em solid $tableBorderColor;
   padding: 1vh .25em 1vh .25em;
 }
 
@@ -123,12 +132,45 @@ table tr:hover {
 }
 
 //CLASSES
+.errMessage {
+  @include responsiveText(15);
+  color: $darkRed;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.notice {
+  @include responsiveText(20);
+  text-align: center;
+  font-weight: bolder;
+  padding: 1em;
+}
+
+.borderedContent {
+  border: .5em solid $mainGreen;
+  border-top-color: $grey;
+  border-bottom-color: $grey;
+  border-radius: .25em;
+  padding: 2em 0 2em 0;
+}
+
+.inputCentered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .inputContent {
-  position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 100%;
-  margin-top: 2vh;
   margin-bottom: 2vh;
 }
 
@@ -148,7 +190,21 @@ table tr:hover {
   width: 49%;
 }
 
+.halfWidth button {
+  @include responsiveWidth(90%, 90%);
+  margin: 0 5% 0 5%;
+}
+
 .container {
+  z-index: -1;
+  position: relative;
+  height: 100%;
+}
+
+.rightSideContent {
+  display: table;
+  float: right;
+  height: 100%;
   position: relative;
 }
 
@@ -175,9 +231,47 @@ table tr:hover {
   letter-spacing: .15em;
 }
 
-.mainTitle span {
+.currentMainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(30);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.bigMainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(40);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.smallMainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(24);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.mainTitle span, .currentMainTitle span, .smallMainTitle span {
   font-family: 'Permanent Marker', cursive;
   border-bottom: .1em solid $mainGreen;
+}
+
+//MODALS
+
+.modalDesign {
+  background: #FFF;
+  border: .5em solid $grey;
+  border-left-color: $mainGreen;
+  border-right-color: $mainGreen;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  border-radius: 1em;
+  padding: .5em;
+  text-align: center;
 }
 
 .modal {
@@ -203,6 +297,41 @@ table tr:hover {
 }
 
 //INPUTS
+
+//DROPDOWN
+.dropdown {
+  display: flow-root;
+  width: 100%;
+}
+
+.dropdown button {
+  @include responsiveText(17);
+  display: block;
+  vertical-align: top;
+  width: 100%;
+  border: .25em solid $grey;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: .4em 0 .4em 0;
+}
+
+.dropdown button:last-child {
+  border-bottom: none;
+}
+
+.dropdown button:nth-child(even) {
+  background-color: #ced6e0;
+}
+
+.dropdown button:nth-child(odd) {
+  background-color: #f1f2f6;
+}
+
+.dropdown button:hover {
+  color: $darkGreen;
+  // color: #FFF;
+}
 
 //FILE
 .inputFile {
@@ -241,6 +370,14 @@ table tr:hover {
   outline: -webkit-focus-ring-color auto .2em;
 }
 
+//BUTTONS
+
+.resetBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
 .deleteBtn {
   @include responsiveText(24);
   @include responsiveWidth(50%, 30%, 50%, true);
@@ -270,13 +407,42 @@ table tr:hover {
   @include mobileOnly {
     text-align: center;
     float: none;
-    color: #FFFF;
-    background-color: $grey;
+    color: $grey;
+    background-color: inherit;
     border-bottom: .2em solid $mainGreen;
   }
+}
+
+.smallBtn {
+  width: 30%;
+  margin: 0 35% 0 35%;
+  @include mobileOnly {
+    width: 70%;
+    margin: 0 15% 0 15%;
+  }
+}
+
+.largeInput {
+  @include responsiveText(20);
+  width: 50%;
+}
+
+.colouredHover:hover {
+  background-color: $mainGreen;
+  color: $grey;
 }
 
 .closeBtn:hover {
   color: $mainGreen;
   cursor: pointer;
+}
+
+.linkUnderline {
+  @include responsiveText(12);
+  cursor: pointer;
+  text-decoration: underline;
+  color: $blue;
+  text-decoration-color: $blue;
+  border: none;
+  font-weight: bolder;
 }

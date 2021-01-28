@@ -7,14 +7,26 @@ html
     link(rel='stylesheet', href='/css/layout.css')
     link(rel='stylesheet', href='/css/addOns.css')
     link(rel='stylesheet', href='/css/productPopup.css')
+    link(rel='stylesheet', href='/css/user.css')
     link(rel='stylesheet', href='/css/external/hint.css')
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
     block headExtensions
   body
     header
       .container
         a(href='/')
           h1 Natural Glow
-    block content
+        .rightSideContent
+          //LOGIN CHECK
+          //-UI options
+          if username
+            include addOns/accountDropdown
+          else
+            include addOns/loginPopup
+          //-//
+    #headerSpacing
+      block content
     footer
       #copyrights
         p | &copy; Voxel.Inc || &copy; DisparoDuplo.Lda | 2020
+script(src='/js/library.js')

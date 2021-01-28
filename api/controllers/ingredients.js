@@ -1,14 +1,11 @@
 //INGREDIENTS
 //GLOBAL VARS
 var mongoose = require('mongoose');
+var library = require('../controllers/library');
 var Ingredient = mongoose.model('Ingredient');
 
 //-----
 //FUNCTIONS
-var sendJsonResponse = function (res, status, content) {
-  res.status(status);
-  res.json(content);
-};
 
 //OBJECTIVE: Gets all the ingredients from the db. SENT IN CALLBACK.
 var getIngredients = function (res, callback) {
@@ -29,9 +26,9 @@ var getIngredients = function (res, callback) {
 //OBJECTIVE: Loops threw all ingredients and checks if any of them as the name of the new ingredient.
 var checkIngredientExists = function (res, ingredient, ingredients) {
   if(!ingredient) {
-    sendJsonResponse(res, 404, 'missing ingredient to check.');
+    library.sendJsonResponse(res, 404, 'missing ingredient to check.');
   }else if(!ingredients) {
-    sendJsonResponse(res, 404, 'missing ingredients from db.');
+    library.sendJsonResponse(res, 404, 'missing ingredients from db.');
   }
 
   for(var i = 0; i < ingredients.length; i++) {
@@ -52,9 +49,9 @@ module.exports.saveIngredient = function (req, res, ingredient, callback = null)
   }
   getIngredients(res, function (err, ingredients) {
     if(!ingredients) {
-      sendJsonResponse(res, 404, "ingredients not found.");
+      library.sendJsonResponse(res, 404, "ingredients not found.");
     }else if(err) {
-      sendJsonResponse(res, 400, err);
+      library.sendJsonResponse(res, 400, err);
     }
     var ingredientCheck = checkIngredientExists(res, ingredient, ingredients);
     if(ingredientCheck.check != true) {
@@ -62,19 +59,19 @@ module.exports.saveIngredient = function (req, res, ingredient, callback = null)
         name: ingredient
       }, function (err, newIngredient) {
         if(err) {
-          sendJsonResponse(res, 400, err);
+          library.sendJsonResponse(res, 400, err);
         }
         if(callback != null) { //If being used as a middle ground function.
           callback(newIngredient);
         }else {
-          sendJsonResponse(res, 200, newIngredient);
+          library.sendJsonResponse(res, 200, newIngredient);
         }
       });
     }else {
       if(callback != null) { //If being used as a middle ground function.
         callback(ingredientCheck.ingredient);
       }else {
-        sendJsonResponse(res, 400, "Couldnt save, ingredient name already exists.");
+        library.sendJsonResponse(res, 400, "Couldnt save, ingredient name already exists.");
       }
     }
   });
@@ -86,12 +83,12 @@ module.exports.allIngredients = function (req, res) {
     .find()
     .exec( function (err, ingredients) {
       if(!ingredients) {
-        sendJsonResponse(res, 404, 'ingredients were found in db.');
+        library.sendJsonResponse(res, 404, 'ingredients were found in db.');
         return;
       }else if(err) {
-        sendJsonResponse(res, 400, err);
+        library.sendJsonResponse(res, 400, err);
         return;
       }
-      sendJsonResponse(res, 200, ingredients);
+      library.sendJsonResponse(res, 200, ingredients);
     });
 }

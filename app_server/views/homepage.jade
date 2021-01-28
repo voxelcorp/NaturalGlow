@@ -4,11 +4,11 @@ block headExtensions
   link(rel='stylesheet', href='/css/homepage.css')
 block content
   .content
-    .logoBox
-      img(src='/images/logoBig.png')
+    include addOns/mainLogo
     #orderDetails
     #products
-      h1.mainTitle Produtos
+      h1.currentMainTitle
+        span Produtos
       each product in pageProducts
         .product
           form(method='post' action='/product' onclick='forceSubmit()')
@@ -18,4 +18,4 @@ block content
               p#productName #{product.name}
               p#productQuantity #{product.quantity} #{product.quantityType}
               p#productPrice #{product.price} $
-  script(src='js/homepage.js')
+  script(src='/js/homepage.js')

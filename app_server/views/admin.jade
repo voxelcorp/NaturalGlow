@@ -4,10 +4,12 @@ block headExtensions
   link(rel='stylesheet', href='/css/admin.css')
 block content
   .content
-    h1.mainTitle Gestao
+    h1.currentMainTitle
+      span Gestao
     //PRODUCTS
     .productsOption
-      h1.mainTitle Produtos
+      h1.currentMainTitle
+        span Produtos
       #addProduct
         button(type='submit' id='addProductBtn' onclick='displayPopup()') Adicionar Produto
         include addOns/addProductPopup
@@ -33,5 +35,4 @@ block content
                   button(type='submit' value='productId' class='modifyProduct' onclick='openProductPopup(event, this)') Modificar
                 td
                   button(value=product._id class='deleteProduct' onclick='deleteProduct(event, this)') Remover
-                    //- a(href='./api/products/delete/'+product._id) Remover
-  script(src='js/admin.js')
+  script(src='/js/admin.js')

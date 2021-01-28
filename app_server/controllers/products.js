@@ -6,8 +6,9 @@ var request = library.request;
 //HOMEPAGE
 var renderHomepage = function (req, res, productData) {
   res.render('homepage', {
+    username: library.checkUsername(req),
     title: 'Natural Glow',
-    pageProducts: productData
+    pageProducts: productData,
   });
 };
 
@@ -30,6 +31,7 @@ module.exports.productsList = function (req, res) {
 //PRODUCT DETAIL
 var renderProductPage = function (req, res, productData) {
 res.render('productDetail', {
+  username: library.checkUsername(req),
   title: productData.name,
   ProductInfo: {
     stock: 'Disponivel',
@@ -39,13 +41,7 @@ res.render('productDetail', {
   },
   mainImg: productData.mainImg,
   ProductImages: productData.images,
-  ProductIngredients: {
-    ingredient1: 'Glicerina',
-    ingredient2: 'Nao Glicerina',
-    ingredient3: 'Glicerina',
-    ingredient4: 'Nao Glicerina',
-    ingredient5: 'Glicerina',
-  },
+  ProductIngredients: productData.ingredients,
   ProductDescription: productData.description
 });
 }

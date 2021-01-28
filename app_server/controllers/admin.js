@@ -9,6 +9,7 @@ module.exports.adminOptions = function (req, res) {
 
 var renderProductsTable = function (req, res, data) {
   res.render('admin', {
+    username: library.checkUsername(req),
     title: 'Natural Glow',
     StringifyProducts: JSON.stringify(data),
     products: data

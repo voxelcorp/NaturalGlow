@@ -3,6 +3,16 @@ module.exports.apiOptions = {
   server: 'http://localhost:3000'
 }
 
+//Check if session exists.
+module.exports.checkUsername = function (req) {
+  console.log(req.session);
+  if(req.session.username) {
+    return req.session.username;
+  }else {
+    return null;
+  }
+}
+
 module.exports.sendJsonResponse = function (res, status, content) {
   res.status(status);
   res.json(content);

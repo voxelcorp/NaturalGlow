@@ -1,0 +1,27 @@
+@import 'general.scss';
+
+.registerContent {
+  @include responsiveWidth(90%, 60%, 50%, true);
+  margin: 2.5em 0 10em 0;
+}
+
+#registerForm {
+  margin-top: 2.5em;
+}
+
+#registerForm label{
+  min-width: 10em;
+}
+
+#registerForm .inputCentered, #registerForm .mainTitle {
+  margin-bottom: 2em;
+}
+
+#registerForm button {
+  margin: 0 auto;
+  display: block;
+}
+
+#userConfirmedNotice {
+  display: none;
+}

@@ -53,5 +53,7 @@ process.on('SIGTERM', function () {
   })
 });
 
+//SCHEMAS AND MODELS ADD HERE.
 require('./products');
 require('./ingredients');
+require('./users');

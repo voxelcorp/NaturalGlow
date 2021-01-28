@@ -538,7 +538,7 @@ table tr:hover {
   border-bottom: 0.1em solid #49DBA4;
 }
 
-.modalDesign {
+.modalDesign, #accountDropdown, #loginPopup {
   background: #FFF;
   border: 0.5em solid #2d3436;
   border-left-color: #49DBA4;
@@ -887,4 +887,161 @@ table tr:hover {
   }
 }
 
-/*# sourceMappingURL=general.css.map */
+@media only screen and (max-width: 426px) {
+  .loginIcon {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .loginIcon {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .loginIcon {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .loginIcon {
+    font-size: 1.875em;
+  }
+}
+
+#loginPopupBtn {
+  display: table-row;
+  vertical-align: middle;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+#loginPopupBtn p, #loginPopupBtn span {
+  display: table-cell;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#closeLoginPopupBtn {
+  position: absolute;
+  right: 5%;
+}
+
+#loginErrorMsg {
+  line-height: 1em;
+}
+
+#loginPopup {
+  display: none;
+  position: absolute;
+  margin-top: 1em;
+  right: 0;
+}
+@media only screen and (max-width: 426px) {
+  #loginPopup {
+    width: 88vw;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #loginPopup {
+    width: 50vw;
+  }
+}
+@media only screen and (min-width: 769px) {
+  #loginPopup {
+    width: 20vw;
+  }
+}
+@media only screen and (max-width: 426px) {
+  #loginPopup {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #loginPopup {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #loginPopup {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #loginPopup {
+    font-size: 0.9375em;
+  }
+}
+
+#forgotPasswordLink {
+  padding-left: 1em;
+  display: block;
+  line-height: 1em;
+  text-align: left;
+}
+@media only screen and (max-width: 426px) {
+  #forgotPasswordLink {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #forgotPasswordLink {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #forgotPasswordLink {
+    font-size: 0.875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #forgotPasswordLink {
+    font-size: 1.09375em;
+  }
+}
+
+#accountDropdown {
+  display: none;
+  position: absolute;
+  padding: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  right: 0;
+}
+@media only screen and (max-width: 426px) {
+  #accountDropdown {
+    width: 92.5vw;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #accountDropdown {
+    width: 50vw;
+  }
+}
+@media only screen and (min-width: 769px) {
+  #accountDropdown {
+    width: 10vw;
+  }
+}
+@media only screen and (max-width: 426px) {
+  #accountDropdown {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #accountDropdown {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #accountDropdown {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #accountDropdown {
+    font-size: 0.9375em;
+  }
+}
+
+/*# sourceMappingURL=user.css.map */

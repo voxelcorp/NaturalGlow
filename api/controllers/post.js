@@ -1,12 +1,9 @@
 //FUNCTIONS
-var sendJsonResponse = function (res, status, content) {
-  res.status(status);
-  res.json(content);
-};
+var library = require('../controllers/library');
 
 module.exports.submitPost = function (req, res) {
   if(!req.params.content) {
-    sendJsonResponse(res, 404, 'missing post content.');
+    library.sendJsonResponse(res, 404, 'missing post content.');
   }
   res.render('post', {
     url: req.params.url,

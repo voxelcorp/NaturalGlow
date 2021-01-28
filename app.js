@@ -1,11 +1,16 @@
+require('dotenv').config();
 var createError = require('http-errors');
+var session = require('express-session');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fileUpload = require('express-fileupload');
 var FormData = require('form-data');
+var passport = require('passport');
+
 require('./api/models/db');
+require('./api/config/passport');
 
 var indexRouter = require('./app_server/routes/index');
 var apiRouter = require('./api/routes/index');
@@ -23,6 +28,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
+
+app.use(session({secret: process.env.JWT_SECRET}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
@@ -42,6 +51,14 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+//Catch unauthorized error.
+app.use(function (err, req, res, next) {
+  if(err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message": err.name + ": " + err.message});
+  }
 });
 
 module.exports = app;

@@ -6,6 +6,17 @@
   font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
 }
 
+header {
+  line-height: 3em;
+  height: 3em;
+  position: fixed;
+  top: 0;
+}
+
+#headerSpacing {
+  margin-top: 5em;
+}
+
 img {
   width: 100%;
 }
@@ -76,7 +87,7 @@ button:hover {
 form label {
   display: inline-block;
   min-width: 5em;
-  text-align: right;
+  text-align: center;
   margin-right: 0.5em;
 }
 
@@ -243,12 +254,83 @@ table tr:hover {
   cursor: pointer;
 }
 
+.errMessage {
+  color: #c0392b;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+@media only screen and (max-width: 426px) {
+  .errMessage {
+    font-size: 1.171875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .errMessage {
+    font-size: 1.171875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .errMessage {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .errMessage {
+    font-size: 1.171875em;
+  }
+}
+
+.notice {
+  text-align: center;
+  font-weight: bolder;
+  padding: 1em;
+}
+@media only screen and (max-width: 426px) {
+  .notice {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .notice {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .notice {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .notice {
+    font-size: 1.5625em;
+  }
+}
+
+.borderedContent {
+  border: 0.5em solid #49DBA4;
+  border-top-color: #2d3436;
+  border-bottom-color: #2d3436;
+  border-radius: 0.25em;
+  padding: 2em 0 2em 0;
+}
+
+.inputCentered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
 .inputContent {
-  position: relative;
   display: inline-block;
   vertical-align: middle;
   width: 100%;
-  margin-top: 2vh;
   margin-bottom: 2vh;
 }
 
@@ -276,7 +358,35 @@ table tr:hover {
   width: 49%;
 }
 
+.halfWidth button {
+  margin: 0 5% 0 5%;
+}
+@media only screen and (max-width: 426px) {
+  .halfWidth button {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .halfWidth button {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .halfWidth button {
+    width: 90%;
+  }
+}
+
 .container {
+  z-index: -1;
+  position: relative;
+  height: 100%;
+}
+
+.rightSideContent {
+  display: table;
+  float: right;
+  height: 100%;
   position: relative;
 }
 
@@ -342,9 +452,102 @@ table tr:hover {
   }
 }
 
-.mainTitle span {
+.currentMainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .currentMainTitle {
+    font-size: 2.34375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .currentMainTitle {
+    font-size: 2.34375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .currentMainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .currentMainTitle {
+    font-size: 2.34375em;
+  }
+}
+
+.bigMainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .bigMainTitle {
+    font-size: 3.125em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .bigMainTitle {
+    font-size: 3.125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .bigMainTitle {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .bigMainTitle {
+    font-size: 3.125em;
+  }
+}
+
+.smallMainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .smallMainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .smallMainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .smallMainTitle {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .smallMainTitle {
+    font-size: 1.875em;
+  }
+}
+
+.mainTitle span, .currentMainTitle span, .smallMainTitle span {
   font-family: "Permanent Marker", cursive;
   border-bottom: 0.1em solid #49DBA4;
+}
+
+.modalDesign {
+  background: #FFF;
+  border: 0.5em solid #2d3436;
+  border-left-color: #49DBA4;
+  border-right-color: #49DBA4;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  border-radius: 1em;
+  padding: 0.5em;
+  text-align: center;
 }
 
 .modal {
@@ -381,6 +584,58 @@ table tr:hover {
   .modalContent {
     width: 50%;
   }
+}
+
+.dropdown {
+  display: flow-root;
+  width: 100%;
+}
+
+.dropdown button {
+  display: block;
+  vertical-align: top;
+  width: 100%;
+  border: 0.25em solid #2d3436;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: 0.4em 0 0.4em 0;
+}
+@media only screen and (max-width: 426px) {
+  .dropdown button {
+    font-size: 1.328125em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .dropdown button {
+    font-size: 1.328125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .dropdown button {
+    font-size: 1.0625em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .dropdown button {
+    font-size: 1.328125em;
+  }
+}
+
+.dropdown button:last-child {
+  border-bottom: none;
+}
+
+.dropdown button:nth-child(even) {
+  background-color: #ced6e0;
+}
+
+.dropdown button:nth-child(odd) {
+  background-color: #f1f2f6;
+}
+
+.dropdown button:hover {
+  color: #0E8F5E;
 }
 
 .inputFile {
@@ -434,6 +689,12 @@ table tr:hover {
   outline-offset: 0.1em;
   outline: 0.2em dotted white;
   outline: -webkit-focus-ring-color auto 0.2em;
+}
+
+.resetBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
 .deleteBtn {
@@ -546,15 +807,84 @@ table tr:hover {
   .closeBtn {
     text-align: center;
     float: none;
-    color: #FFFF;
-    background-color: #2d3436;
+    color: #2d3436;
+    background-color: inherit;
     border-bottom: 0.2em solid #49DBA4;
   }
+}
+
+.smallBtn {
+  width: 30%;
+  margin: 0 35% 0 35%;
+}
+@media only screen and (max-width: 426px) {
+  .smallBtn {
+    width: 70%;
+    margin: 0 15% 0 15%;
+  }
+}
+
+.largeInput {
+  width: 50%;
+}
+@media only screen and (max-width: 426px) {
+  .largeInput {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .largeInput {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .largeInput {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .largeInput {
+    font-size: 1.5625em;
+  }
+}
+
+.colouredHover:hover {
+  background-color: #49DBA4;
+  color: #2d3436;
 }
 
 .closeBtn:hover {
   color: #49DBA4;
   cursor: pointer;
+}
+
+.linkUnderline {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #2980b9;
+  text-decoration-color: #2980b9;
+  border: none;
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  .linkUnderline {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .linkUnderline {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .linkUnderline {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .linkUnderline {
+    font-size: 0.9375em;
+  }
 }
 
 #productImagesPreviewContent {

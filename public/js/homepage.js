@@ -1,6 +1,5 @@
 //OBJECTIVE: ACTIVATE PRODUCT POPUP
 //On click of a product it detects the form associated to it and submits.
-
 var forceSubmit = function () {
   var form = getForm(event.target);
   form.submit();

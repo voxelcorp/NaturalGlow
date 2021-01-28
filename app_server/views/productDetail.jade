@@ -19,19 +19,19 @@ block content
             p #{ProductInfo.price} €
         //IMAGES
         #productImgs
-          .mainTitle
+          .currentMainTitle
             span Imagens
           each image in ProductImages
             .productImgContainer
               img(src= 'images/products/'+image.path)
         //DESCRIPTION
         #description
-          .mainTitle
+          .currentMainTitle
             span Descricao
           p #{ProductDescription}
         //INGREDIENTS
         #ingredients
-          .mainTitle
+          .smallMainTitle
             span Ingredientes
           each ingredient in ProductIngredients
             .ingredientContainer

@@ -1,0 +1,71 @@
+@import 'general.scss';
+
+//USER BUTTON
+
+.loginIcon {
+  @include responsiveText(24);
+}
+
+#loginPopupBtn {
+  display: table-row;
+  vertical-align: middle;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+#loginPopupBtn p, #loginPopupBtn span {
+  display: table-cell;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#closeLoginPopupBtn {
+  position: absolute;
+  right: 5%;
+}
+
+#loginErrorMsg {
+  line-height: 1em;
+}
+
+//LOGIN
+
+//DIMENSIONS
+
+#loginPopup {
+  @extend .modalDesign;
+  display: none;
+  @include responsiveWidth(88vw, 20vw, 50vw);
+  @include responsiveText(12);
+  position: absolute;
+  margin-top: 1em;
+  right: 0;
+}
+
+//LINKS
+
+#forgotPasswordLink {
+  @include responsiveText(14);
+  padding-left: 1em;
+  display: block;
+  line-height: 1em;
+  text-align: left;
+}
+
+
+//ACCOUNT OPTIONS
+
+//DIMENSIONS
+
+#accountDropdown {
+  @extend .modalDesign;
+  display: none;
+  @include responsiveWidth(92.5vw, 10vw, 50vw);
+  @include responsiveText(12);
+  position: absolute;
+  padding: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  right: 0;
+}

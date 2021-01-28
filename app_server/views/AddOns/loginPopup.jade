@@ -1,0 +1,22 @@
+//-Button settings
+button(id='loginPopupBtn' onclick='openPopup("loginPopup")') 
+  p(id='loginText') Entrar
+  span(class='material-icons loginIcon') account_circle
+//MODAL
+#loginPopup
+  button(id='closeLoginPopupBtn' class='closeBtn resetBtn' onclick='closePopup("loginPopup")') x
+  h1 Iniciar Sessão
+  form(action="#" method="method" id='loginForm' onsubmit='submitLogin(event)')
+    .inputCentered
+      label Utilizador
+      input(type='text' id='usernameInput' required)
+    .inputCentered
+      label Senha
+      input(type='password' id='pwInput' required)
+    a(id='forgotPasswordLink' href='/sendEmail/2').linkUnderline Esqueci-me da senha
+    p(id='loginErrorMsg').errMessage
+    .halfWidth
+      button(type='submit' name='loginPopupBtn' onclick='submitLogin(event)') Entrar
+    .halfWidth
+      button(type='submit' onclick='redirect("register", event)') Registrar
+script(src='/js/loginPopup.js')
