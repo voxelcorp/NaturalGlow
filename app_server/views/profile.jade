@@ -1,0 +1,61 @@
+extends layout
+
+block headExtensions
+block content
+  .content
+    //- Account Details
+    #accountDetails
+      .currentMainTitle
+        span Dados da conta
+      form(id='profileDataForm' class='borderedContent' onkeyup='checkInputs(this)' onsubmit='submitProfileChanges(event, this)')
+        span(id='resetDataFormBtn' class='closeBtn resetBtn' style='display: none;' onclick='changeStatusInputs("profileDataForm", event, true);changeBtns([this, confirmFormBtn], editFormBtn);resetInputs(profileDataForm);') x
+        .inputCentered.mediumInput
+          label(for='name') Nome
+          input(type='hidden' id='nameOriginal' value=userData.name)
+          input(type='text' id='name' spellcheck="false" value=userData.name disabled)
+        .inputCentered.mediumInput
+          label(for='username') Utilizador
+          input(type='hidden' id='usernameOriginal' value=userData.username)
+          input(type='text' id='username' spellcheck="false" value=userData.username disabled)
+        .inputCentered.mediumInput
+          label(for='email') Email
+          input(type='hidden' id='emailOriginal' value=userData.email)
+          input(type='email' id='email' spellcheck="false" value=userData.email disabled)
+        .inputCentered
+          button(id='editFormBtn' class='smallBtn' onclick='changeStatusInputs("profileDataForm", event);changeBtns(this, [confirmFormBtn, resetDataFormBtn])') Editar
+          button(id='confirmFormBtn' class='smallBtn' style='display: none;') Confirmar
+    
+    //Password changes.
+    #profilePwContent
+      .currentMainTitle
+        span Alterar Senha
+      .inputCentered
+        button(id='openPwPopupBtn' class='indieBtn' onclick='openPopup(this, "profilePwForm", false);closePopup("openPwPopupBtn", false);changeStatusInputs("profilePwForm", event);resetInputs(profilePwForm);') Abrir
+      form(id='profilePwForm' class='noShow borderedContent' onsubmit='validatePasswordForm(event, this)')
+          span(class='closeBtn resetBtn' onclick='closePopup("profilePwForm", false);openPopup(this, "openPwPopupBtn", false)') x
+          .inputCentered.mediumInput
+            label(for='oldPw') Senha atual
+            input(type='password' id='oldPw')
+          .inputCentered.mediumInput
+            label(for='newPw') Nova senha
+            input(type='password' id='newPw')
+          .inputCentered.mediumInput
+            label(for='newPwRepeat') Confirmar senha
+            input(type='password' id='newPwRepeat')
+          .inputCentered
+            button(class='smallBtn') Atualizar
+            
+    //Order Details
+    .halfWidth
+    #orderDetails
+      .currentMainTitle
+        span Encomendas
+      table
+        tr
+          th Id
+          th Data
+          th Valor
+          th Estado
+        tr
+      .notice Ainda não fez nenhuma encomenda
+    script(src='/js/profile.js')

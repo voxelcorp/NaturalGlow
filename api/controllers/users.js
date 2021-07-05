@@ -5,7 +5,6 @@ var User = mongoose.model('User');
 
 module.exports.register = function (req, res) {
   if(!req.body.name || !req.body.username || !req.body.email || !req.body.password) {
-    console.log(req.body);
     library.sendJsonResponse(res, 400, 'All fields required.');
     return;
   }
@@ -49,6 +48,8 @@ module.exports.login = function (req, res) {
       token = user.generateJwt();
       req.session.token = token;
       req.session.username = user.username;
+      req.session.admin = user.admin;
+      req.session.cart = new Array();
       res.redirect('/');
     } else {
       library.sendJsonResponse(res, 401, info);
@@ -90,14 +91,22 @@ module.exports.verifyEmail = function (req, res) {
 module.exports.changePw = function (req, res) {
   if(!req.body.newPw) {
     library.sendJsonResponse(res, 404, 'couldnt make changes, missing new password.');
+    return;
   }else if(!req.body.email) {
     library.sendJsonResponse(res, 404, 'couldnt make search, missing email.');
+    return;
   }else {
     var newPW = req.body.newPw;
     getUserByEmail(req.body.email, res, function (user) {
       if(user.validPassword(newPW)) {
         library.sendJsonResponse(res, 401, 'new password needs to be different to database.');
+        return;
       }else {
+        // Changing password inside profile page.
+        if(req.body.currentPw && !user.validPassword(req.body.currentPw)) {
+          library.sendJsonResponse(res, 406, 'password incorrect.');
+          return;
+        }
         user.setPassword(newPW);
         user.save(function (err, updatedUser) {
           if(err) {
@@ -111,6 +120,88 @@ module.exports.changePw = function (req, res) {
   }
 }
 
+//Detects the params that were sent to be updated and makes the required changes.
+module.exports.updateUserInfo = function (req, res) {
+  var updateData = detectData(req, res);
+  var email = detectEmail(req, res);
+  if(!updateData) {
+    library.sendJsonResponse(res, 404, 'missing update data.');
+    return;
+  }else if(!email) {
+    library.sendJsonResponse(res, 404, 'missing email.');
+    return;
+  }
+  getUserByEmail(email, res, function (user) {
+    if(!user) {
+      library.sendJsonResponse(res, 404, 'no user found.');
+      return;
+    }
+    var user = changeUserInfo(user, updateData);
+    if(user == null) {
+      library.sendJsonResponse(res, 404, 'no changes found.');
+      return;
+    }
+    user.save(function (err, user) {
+      if(err) {
+        library.sendJsonResponse(res, 304, err);
+        return;
+      }
+      //After changes recreate token based on new data.
+      token = user.generateJwt();
+      req.session.token = token;
+      req.session.username = user.username;
+      library.sendJsonResponse(res, 200, user);
+      return;
+    });
+  });
+}
+
+//Check if user as data field and if so updates it.
+var changeUserInfo = function (user, updateData) {
+  if(!user) {
+    return null;
+  }else if(!updateData) {
+    return null;
+  }
+  for(userInfo in updateData) { //Email verified. Update approved.
+    if(user[userInfo] && userInfo == 'email' && updateData[userInfo] != updateData['id']) {
+      if(updateData['verified'] && updateData['verified'] == true) {
+        user.updateEmail(updateData[userInfo]);
+      }else { //Send email to be updated.
+        user.verifyEmailUpdate(updateData[userInfo], updateData['id']);
+      }
+    }else {
+      user[userInfo] = updateData[userInfo];
+    }
+  }
+  return user;
+}
+
+//Check if post exists.
+var detectData = function (req, res) {
+  var data;
+  if(req.body) {
+    data = req.body;
+  }
+  if(!data) {
+    library.sendJsonResponse(res, 404, 'missing update data');
+    return null;
+  }
+  return data;
+}
+
+//Retrieve email from post. Email is used as the user identifier.
+var detectEmail = function (req, res) {
+  var email;
+  if(req.body.id) {
+    email = req.body.id;
+  }
+  if(!email) {
+    library.sendJsonResponse(res, 404, 'missing email.');
+    return null;
+  }
+  return email;
+}
 //---
 //GETS
 //Returns user by username.
@@ -148,14 +239,17 @@ var getUserByEmail = function (email, res, callback = null) {
   .exec(function (err, data) {
     if(err) {
       library.sendJsonResponse(res, 400, err);
+      return;
     }
     if(data == null) {
       library.sendJsonResponse(res, 204, 'user not found.');
+      return;
     }else {
       if(callback) {
         callback(data);
       }else {
         library.sendJsonResponse(res, 200, data);
+        return;
       }
     }
   });

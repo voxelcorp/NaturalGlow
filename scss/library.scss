@@ -12,11 +12,13 @@ $desktopWidth: 1025px;
 
 @mixin containImg ($maxHeight, $maxWidth: 100%) {
   display: block;
-  max-height: $maxHeight;
+  height: $maxHeight;
   max-width: $maxWidth;
   width: auto;
   margin: auto;
 }
+
+
 
 @mixin centerDivHorizontal ($divWidth) {
   $margin: (100% - $divWidth) / 2;
@@ -26,6 +28,18 @@ $desktopWidth: 1025px;
 
 @function em($pixels, $context: $browserContext) {
   @return #{$pixels/$context}em;
+}
+
+@mixin responsiveImg ($mobile, $desktop, $tablet: $mobile, $context: $browserContext) {
+  @media only screen and (max-width: $mobileWidth) { // mobile
+    @include containImg($mobile);
+  }
+  @media only screen and (min-width: $mobileWidth) and (max-width: $tabletWidth) { // tablet
+    @include containImg($tablet);
+  }
+  @media only screen and (min-width: $tabletWidth) { // desktop
+    @include containImg($desktop);
+  }
 }
 
 @mixin responsiveText ($fontSize, $context: $browserContext) {
@@ -91,6 +105,12 @@ $desktopWidth: 1025px;
   @media only screen and (min-width: $tabletWidth) { // desktop
     $height: $desktop;
     height: $height;
+  }
+}
+
+@mixin desktopOnly () {
+  @media only screen and(min-width: $tabletWidth) { // mobile
+      @content;
   }
 }
 

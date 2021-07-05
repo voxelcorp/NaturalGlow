@@ -8,19 +8,36 @@ var logger = require('morgan');
 var fileUpload = require('express-fileupload');
 var FormData = require('form-data');
 var passport = require('passport');
+//Redis
+var redis = require('redis');
+var connectRedis = require('connect-redis');
+var redisUrl = process.env.REDIS_URL;
 
 require('./api/models/db');
 require('./api/config/passport');
 
 var indexRouter = require('./app_server/routes/index');
 var apiRouter = require('./api/routes/index');
-//var usersRouter = require('./routes/users');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server/views'));
 app.set('view engine', 'jade');
+
+// Configure Redis.
+var RedisStore = connectRedis(session);
+const redisClient = redis.createClient({
+  host: redisUrl,
+  port: 6379
+});
+//
+redisClient.on('error', function (err) {
+  console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+  console.log('Connected to redis successfully');
+});
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,9 +46,28 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
-app.use(session({secret: process.env.JWT_SECRET}));
-app.use(passport.initialize());
-app.use(passport.session());
+//Configure session middleware;
+app.use(session({
+  store: new RedisStore({client: redisClient}),
+  secret: process.env.JWT_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    httpOnly: false,
+  }
+}));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+//Store session.
+app.use(function (req, res, next) {
+  if(req.session) {
+    res.locals.user = req.session;
+  }
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
@@ -48,6 +84,10 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+  if(err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.redirect('/');
+  }
   // render the error page
   res.status(err.status || 500);
   res.render('error');

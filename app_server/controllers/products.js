@@ -6,7 +6,6 @@ var request = library.request;
 //HOMEPAGE
 var renderHomepage = function (req, res, productData) {
   res.render('homepage', {
-    username: library.checkUsername(req),
     title: 'Natural Glow',
     pageProducts: productData,
   });
@@ -31,7 +30,6 @@ module.exports.productsList = function (req, res) {
 //PRODUCT DETAIL
 var renderProductPage = function (req, res, productData) {
 res.render('productDetail', {
-  username: library.checkUsername(req),
   title: productData.name,
   ProductInfo: {
     stock: 'Disponivel',

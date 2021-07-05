@@ -1,0 +1,13 @@
+//Check products.js for more info.
+.currentProduct.container
+  form(method='post' action='/product' name='productForm')
+    input(type='hidden' name='productId' value=product._id)
+    img(src= product.mainImg)
+    .productInfo
+      p#productName #{product.name}
+      p#productQuantity #{product.quantity} #{product.quantityType}
+      p#productPrice #{product.price} $
+  .overflowInputs.hidden
+    .errMessage.noShow Produto adicionado
+    button(name='addProductBtn') Adicionar ao carrinho
+    button(name='openProductBtn') Abrir

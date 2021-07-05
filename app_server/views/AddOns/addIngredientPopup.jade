@@ -1,0 +1,15 @@
+//Create product pop up
+//- .modal
+#ingredientModal.modal
+  .modalContent
+    button(id='closeIngredientPopupBtn' class='closeBtn resetBtn' onclick='closePopup("ingredientModal")') x
+    .smallMainTitle 
+      span Adicionar novo ingrediente
+    form(id='ingredientForm' onsubmit='createNewIngredient(event, this, ingredientName);')
+      .formContent
+        .inputCentered
+          label(for='ingredientName') Nome
+          input(type='text' id='ingredientName' name='ingredientName' required)
+      .inputCentered
+        button(class='smallBtn' type='submit') Salvar
+script(src='/js/addIngredients.js')

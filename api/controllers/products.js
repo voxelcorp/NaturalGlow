@@ -240,6 +240,7 @@ var saveIngredientInProduct = function (res, ingredient, product) {
     if(!ingredientInDb) {
       library.sendJsonResponse(res, 404, 'missing ingredient. check db.');
     }
+    console.log(ingredientInDb);
     product.ingredients.push({
       id: ingredientInDb.id,
       name: ingredientInDb.name

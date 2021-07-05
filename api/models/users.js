@@ -1,6 +1,10 @@
+var library = require('../controllers/library');
+var apiOptions = library.apiOptions;
+
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+var axios = require('axios');
 
 var userSchema = new mongoose.Schema({
   email: {type: String, unique: true, required: true},
@@ -11,6 +15,22 @@ var userSchema = new mongoose.Schema({
   admin: {type: Boolean, default: false},
   verified: {type: Boolean, default: false}
 });
+
+userSchema.methods.verifyEmailUpdate = function (email, id) {
+  axios.get(apiOptions.server+'/email/' + email + '/4/' + id)
+  .then(function (res) {
+    console.log('email sent.');
+  })
+  .catch(function (err) {
+    console.log(err);
+    return;
+  });
+}
+
+userSchema.methods.updateEmail = function (email) {
+  this.email = email;
+  this.verified = true;
+}
 
 userSchema.methods.setPassword = function (password) {
   this.salt = crypto.randomBytes(16).toString('hex');

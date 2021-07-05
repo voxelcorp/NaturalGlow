@@ -9,9 +9,9 @@ block content
       .currentMainTitle 
         span #{pageTitle}
       form(class='borderedContent' onsubmit='emailVerification(event)' style='margin-top: 2em;')
-        .inputCentered
+        .inputCentered.largeInput
           label(for='email') Email
-          input(type='email' id='email' class='largeInput' required)
+          input(type='email' id='email' required)
           input(type='hidden' id='emailSubject' value=subject)
         button(type='submit' id='submitEmail' class='colouredHover smallBtn' style='margin-top: 1em;') Enviar
     #successMsg.borderedContent(style='text-align:center;display:none;')

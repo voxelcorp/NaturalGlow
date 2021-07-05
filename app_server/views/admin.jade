@@ -7,32 +7,21 @@ block content
     h1.currentMainTitle
       span Gestao
     //PRODUCTS
-    .productsOption
+    #productsOption
       h1.currentMainTitle
         span Produtos
       #addProduct
-        button(type='submit' id='addProductBtn' onclick='displayPopup()') Adicionar Produto
+        .inputCentered
+          button(type='submit' onclick='displayPopup()') Adicionar Produto
         include addOns/addProductPopup
       #productsTableContent
-        input(type='hidden' id='products' value=StringifyProducts)
-        table
-          thead
-            tr
-              th Nome
-              th Tipo
-              th Preco
-              th Stock
-              th Modificar
-              th Remover
-          tbody
-            each product in products
-              tr(id=product._id onclick='redirectToProduct(this)')
-                td #{product.name}
-                td -
-                td #{product.price}
-                td #{product.stock}
-                td
-                  button(type='submit' value='productId' class='modifyProduct' onclick='openProductPopup(event, this)') Modificar
-                td
-                  button(value=product._id class='deleteProduct' onclick='deleteProduct(event, this)') Remover
+    //PRODUCTS
+    #ingredientsOption
+      h1.currentMainTitle
+        span Ingredientes
+      #addIngredient
+        .inputCentered
+          button(type='submit' onclick='openPopup(this, "ingredientModal");') Adicionar Ingrediente
+        include addOns/addIngredientPopup
+      #ingredientsTableContent
   script(src='/js/admin.js')

@@ -1,9 +1,9 @@
 //Create product pop up
-.modal#productModal
+#productModal.modal
   .modalContent
-    .closeBtn#closeProductPopupBtn x
+    button(id='closeProductPopupBtn' class='closeBtn resetBtn' onclick='closePopup("productModal")') x
     .mainTitle#productTitle Adicionar novo produto
-    form(enctype='multipart/form-data' method='post' action='/api/products' id='productForm')
+    form(enctype='multipart/form-data' method='post' action='/api/products' id='productForm' onsubmit='submitProductForm(this)')
       .formContent
         //Images
         .inputContent
@@ -54,5 +54,4 @@
           button(class='addBtn hint--bottom' aria-label='Adicionar ingrediente.' id='addIngredientBtn' type='submit' onclick='newIngredientInput()')
             img(src='/images/Layouts/Professional/addBtn.png')
       button(id='saveProduct' type='submit') Save
-script(src='js/productPopup.js')
-script(src='js/library.js')
+script(src='/js/productPopup.js')

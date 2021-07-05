@@ -1,13 +1,4 @@
 //All functions linked to the popup.
-//VARIABLES
-var productForm = document.getElementById('productForm');
-//---
-
-//OBJECTIVE: Display add product popup.
-var addProductBtn = document.getElementById('addProductBtn');
-// addProductBtn.onclick = function () {
-//   displayPopup();
-// }
 
 //-----
 //OBJECTIVE: Display popup.
@@ -15,26 +6,24 @@ var displayPopup = function () {
     var popup = document.getElementById('productModal');
     var newImagesContainer = document.getElementById('imagesPreviewContent');
     var productImagesContainer = document.getElementById('productImagesPreviewContent');
+    var productForm = document.getElementById('productForm');
     //---
     popup.style.display = "block";
+    //INPUTS RESET
     productForm.reset();
+    //IMAGES RESET
     newImagesContainer.innerHTML = '<h1 class="mainTitle">Imagens Novas</h1>'; //Remove any stored preview images.
     productImagesContainer.style.display = 'none';
     productImagesContainer.innerHTML = '<h1 class="mainTitle">Imagens Atuais</h1>'; //Remove any stored preview images.
+    //INGREDIENTS RESET
+    resetIngredients();
     loopIngredientsDataInputs(); //Adds the ingredients to the search method in the ingredients input.
 }
 
-//-----
-//OBJECTIVE: Close popup.
-var closeBtn = document.getElementById('closeProductPopupBtn');
-closeBtn.onclick = function () {
-  var popup = document.getElementById('productModal');
-  popup.style.display = 'none';
-}
 
 //-----
 //OBJECTIVE: Adds the main img name to the form before submitting.
-productForm.onsubmit = function () {
+var submitProductForm = function (form) {
   event.preventDefault();
   var productImages = document.getElementById('previewMainImg');
   if(!productImages) {
@@ -49,35 +38,25 @@ productForm.onsubmit = function () {
       current: storeImages('stored')
     }
     document.getElementById('imgsChoosenByUser').value = JSON.stringify(productImages); //Adds images to form.
-    this.submit();
+    form.submit();
   }
 }
 
 // -> INGREDIENTS <-
-
-//OBJECTIVE: Get all ingredients from API.
-var getIngredients = function (callback) {
-  axios.get('/api/ingredients')
-    .then(function (res) {
-      if(!res.data) {
-        callback(null, null);
-      }
-      callback(null, res.data);
-    })
-    .catch(function (err) {
-      callback(err, null);
-    });
-}
-
 //-----
-//OBJECTIVE: Add ingredients from API to input.
+//OBJECTIVE: Add available ingredients from API to datalist on all inputs.
 var loopIngredientsDataInputs = function () {
-  getIngredients(function (err, ingredients) {
+  axios.get('/api/ingredients')
+  .then((ingredients) => {
     var ingredientDataInput = document.getElementsByClassName('ingredientDatalist');
     for(var i = 0; i < ingredientDataInput.length; i++) {
-      addIngredientsData(ingredientDataInput[i], ingredients);
+      addIngredientsData(ingredientDataInput[i], ingredients.data);
     }
-  });
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  })
 }
 
 //-----
@@ -86,27 +65,42 @@ var addIngredientsData = function (datalist, ingredients) {
   var html = '';
   for(var i = 0; i < ingredients.length; i++) {
     html += '<option value="' + ingredients[i].name + '">' + ingredients[i].name + '</option>';
+    console.log(html);
   }
+  console.log(ingredients);
   datalist.innerHTML += html;
 }
 
 //-----
+//OBJECTIVE: Delete all inputs until only one remains.
+var resetIngredients = function () {
+  while(lastIngredientInput(true).count > 2) {
+    lastIngredientInput().remove();
+  }
+}
+
+//-----
 //OBJECTIVE: Detects the number of ingredients and retrieves the last one of them.
-var lastIngredientInput = function () {
+var lastIngredientInput = function (count = false) {
   var ingredientsContent = document.getElementById('addIngredientContent');
   var ingredientsCount = ingredientsContent.childNodes.length - 1; //Counting starts at 0.
   var lastIngredient = ingredientsContent.childNodes[ingredientsCount -1]; //the last will always be the addBtn.
+  if(count == true) {
+    return {
+      count: ingredientsCount,
+      ingredient: lastIngredient
+    };
+  }
   return lastIngredient;
 }
 
 //-----
 //OBJECTIVE: Copy ingredient input when the addbtn is pressed.
 var newIngredientInput = function () {
-  var addBtn = document.getElementById('addIngredientBtn');
-  event.preventDefault();
+  var addIngredientBtn = document.getElementById('addIngredientBtn');
   var ingredientConvertToHTML = "<div class='inputContent'> " + lastIngredientInput().innerHTML + "</div>";
-  addBtn.insertAdjacentHTML('beforeBegin', ingredientConvertToHTML);
-  addBtn.blur();
+  addIngredientBtn.insertAdjacentHTML('beforeBegin', ingredientConvertToHTML);
+  addIngredientBtn.blur();
 }
 
 //-----
@@ -284,4 +278,65 @@ var deleteImage = function (img) {
   var imgsContainer = img.parentNode;
   img.remove();
   becameMain(imgsContainer.childNodes[1]); //One Main image is always required. 0 -> Title | 1 -> Remaining Image.
+}
+
+
+//PRODUCT-FORM-UPDATE
+
+//OBJECTIVE: open popup and get product info from the clicked row.
+var openProductPopup = function (e, element) {
+  event.stopPropagation(); //Stop onclick from tr row. Check "redirectToProduct()"
+  var popup, popupInputs, productData, productId, productForm, productTitle;
+  popup = document.getElementById('productModal');
+  productForm = document.getElementById('productForm');
+  productImagesFileInput = document.getElementById('productImages');
+  popupInputs = popup.childNodes[0].childNodes[2].elements;
+  productId = e.target.parentNode.parentNode.id; //Returns to tr and gets the productId
+
+  getSingleProductData(productId)
+  .then((productData) => {
+    displayPopup();
+    productForm.action += '/update/'+productId;
+    productImagesFileInput.required = false;
+    fillPopup(productData, popupInputs);
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  });
+}
+
+//-----
+//OBJECTIVE: Get the popup inputs and the product data and fills the popup with the info.
+var fillPopup = function (data, fields) {
+  fillForm(data, fields);
+  //Must be in its own because is required to create new inputs.
+  fillIngredients(data.ingredients);
+}
+
+var fillIngredients = function (ingredients) {
+  for(ing in ingredients) {
+    if(ing != 0) {
+      newIngredientInput();
+    }
+    var emptyInput = lastIngredientInput().getElementsByTagName('input')[0];
+    emptyInput.value = ingredients[ing].name;
+  }
+}
+
+//-----
+//OBJECTIVE: Get the images from the product and formats the array to have an image name, src and main.
+var prepProductImages = function (productImages, prepType) {
+  var prepImgs = {};
+  if(!productImages || productImages.length <= 0) {
+    return {};
+  }
+  for (var i = 0; i < productImages.length; i++) {
+    var newImg = {};
+    newImg.name = productImages[i].path;
+    newImg.src = imagesDir + productImages[i].path;
+    newImg.main = productImages[i].main;
+    prepImgs[i] = newImg;
+  }
+  return prepImgs;
 }

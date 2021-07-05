@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 var readLine = require('readline');
 var dbURI = 'mongodb://localhost/local';
 
+mongoose.set('useFindAndModify', false);
+
 mongoose.connect(dbURI, {useNewUrlParser: true});
 const db = mongoose.connection;
 

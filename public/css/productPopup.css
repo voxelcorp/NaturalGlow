@@ -11,6 +11,7 @@ header {
   height: 3em;
   position: fixed;
   top: 0;
+  z-index: 99;
 }
 
 #headerSpacing {
@@ -100,6 +101,11 @@ input {
   padding: 0.1em 1% 0.1em 1%;
   display: inline-block;
   vertical-align: top;
+  outline: none;
+}
+
+input:disabled {
+  background-color: #dcdde1;
 }
 
 label, input {
@@ -254,6 +260,34 @@ table tr:hover {
   cursor: pointer;
 }
 
+.highlightText {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  .highlightText {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .highlightText {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .highlightText {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .highlightText {
+    font-size: 1.40625em;
+  }
+}
+
+.noShow {
+  display: none;
+}
+
 .errMessage {
   color: #c0392b;
   font-weight: bolder;
@@ -308,12 +342,16 @@ table tr:hover {
   }
 }
 
+.grid {
+  display: inline-grid;
+}
+
 .borderedContent {
   border: 0.5em solid #49DBA4;
   border-top-color: #2d3436;
   border-bottom-color: #2d3436;
   border-radius: 0.25em;
-  padding: 2em 0 2em 0;
+  padding: 2em;
 }
 
 .inputCentered {
@@ -325,6 +363,10 @@ table tr:hover {
   width: 100%;
   margin-top: 2vh;
   margin-bottom: 2vh;
+}
+
+.inputCentered label {
+  min-width: 7.5em;
 }
 
 .inputContent {
@@ -388,6 +430,21 @@ table tr:hover {
   float: right;
   height: 100%;
   position: relative;
+}
+
+.rightSideContent button {
+  display: table-row;
+  vertical-align: middle;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin: 0 0.2em 0 0.2em;
+}
+
+.rightSideContent button p, .rightSideContent button span {
+  display: table-cell;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .content {
@@ -540,7 +597,7 @@ table tr:hover {
 
 .modalDesign {
   background: #FFF;
-  border: 0.5em solid #2d3436;
+  border: 0.6em solid #2d3436;
   border-left-color: #49DBA4;
   border-right-color: #49DBA4;
   border-bottom-left-radius: 1em;
@@ -586,12 +643,113 @@ table tr:hover {
   }
 }
 
+.alignCenter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.enabledInput {
+  border-bottom: 0.2em solid #2d3436;
+}
+
+@media only screen and (max-width: 426px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.5625em;
+  }
+}
+.largeInput input {
+  width: 50%;
+}
+@media only screen and (max-width: 426px) {
+  .largeInput input {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.40625em;
+  }
+}
+
+.mediumInput input {
+  width: 35%;
+}
+@media only screen and (max-width: 426px) {
+  .mediumInput input {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .smallInput input, .smallInput label {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .smallInput input, .smallInput label {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .smallInput input, .smallInput label {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .smallInput input, .smallInput label {
+    font-size: 1.25em;
+  }
+}
+
+.smallInput input {
+  width: 20%;
+}
+@media only screen and (max-width: 426px) {
+  .smallInput input {
+    width: auto;
+  }
+}
+
 .dropdown {
   display: flow-root;
   width: 100%;
 }
 
-.dropdown button {
+.dropdown button, .dropdown a {
   display: block;
   vertical-align: top;
   width: 100%;
@@ -600,24 +758,25 @@ table tr:hover {
   border-right: none;
   border-top: none;
   padding: 0.4em 0 0.4em 0;
+  outline: none;
 }
 @media only screen and (max-width: 426px) {
-  .dropdown button {
+  .dropdown button, .dropdown a {
     font-size: 1.328125em;
   }
 }
 @media only screen and (min-width: 426px) and (max-width: 769px) {
-  .dropdown button {
+  .dropdown button, .dropdown a {
     font-size: 1.328125em;
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 1025px) {
-  .dropdown button {
+  .dropdown button, .dropdown a {
     font-size: 1.0625em;
   }
 }
 @media only screen and (min-width: 1025px) {
-  .dropdown button {
+  .dropdown button, .dropdown a {
     font-size: 1.328125em;
   }
 }
@@ -671,7 +830,7 @@ table tr:hover {
 .inputFileLabel {
   color: #FFFF;
   text-align: center;
-  background-color: #2d3436;
+  background-color: #49DBA4;
   padding: 1vh 2.5% 1vh 2.5%;
   display: inline-block;
 }
@@ -806,44 +965,45 @@ table tr:hover {
 @media only screen and (max-width: 426px) {
   .closeBtn {
     text-align: center;
-    float: none;
     color: #2d3436;
     background-color: inherit;
     border-bottom: 0.2em solid #49DBA4;
   }
 }
 
-.smallBtn {
+.smallBtn, .indieBtn {
   width: 30%;
   margin: 0 35% 0 35%;
 }
 @media only screen and (max-width: 426px) {
-  .smallBtn {
+  .smallBtn, .indieBtn {
     width: 70%;
     margin: 0 15% 0 15%;
   }
 }
 
-.largeInput {
-  width: 50%;
+.indieBtn {
+  margin: 1em 0 1em 0;
+  border: 0.25em solid #2d3436;
+  border-radius: 0.5em;
 }
 @media only screen and (max-width: 426px) {
-  .largeInput {
+  .indieBtn {
     font-size: 1.5625em;
   }
 }
 @media only screen and (min-width: 426px) and (max-width: 769px) {
-  .largeInput {
+  .indieBtn {
     font-size: 1.5625em;
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 1025px) {
-  .largeInput {
+  .indieBtn {
     font-size: 1.25em;
   }
 }
 @media only screen and (min-width: 1025px) {
-  .largeInput {
+  .indieBtn {
     font-size: 1.5625em;
   }
 }
@@ -936,7 +1096,7 @@ table tr:hover {
 
 .imagesPreviewContainer img {
   display: block;
-  max-height: 80%;
+  height: 80%;
   max-width: 100%;
   width: auto;
   margin: auto;

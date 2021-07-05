@@ -19,6 +19,7 @@ header {
   height: 3em;
   position: fixed;
   top: 0;
+  z-index: 99;
 }
 
 #headerSpacing {
@@ -70,6 +71,11 @@ input {
   padding: .1em 1% .1em 1%;
   display: inline-block;
   vertical-align: top;
+  outline: none;
+}
+
+input:disabled {
+  background-color: #dcdde1;
 }
 
 label, input {
@@ -132,6 +138,15 @@ table tr:hover {
 }
 
 //CLASSES
+.highlightText {
+  @include responsiveText(18);
+  font-weight: bolder;
+}
+
+.noShow {
+  display: none;
+}
+
 .errMessage {
   @include responsiveText(15);
   color: $darkRed;
@@ -148,12 +163,16 @@ table tr:hover {
   padding: 1em;
 }
 
+.grid {
+  display: inline-grid;
+}
+
 .borderedContent {
   border: .5em solid $mainGreen;
   border-top-color: $grey;
   border-bottom-color: $grey;
   border-radius: .25em;
-  padding: 2em 0 2em 0;
+  padding: 2em;
 }
 
 .inputCentered {
@@ -165,6 +184,10 @@ table tr:hover {
   width: 100%;
   margin-top: 2vh;
   margin-bottom: 2vh;
+}
+
+.inputCentered label {
+  min-width: 7.5em;
 }
 
 .inputContent {
@@ -206,6 +229,21 @@ table tr:hover {
   float: right;
   height: 100%;
   position: relative;
+}
+
+.rightSideContent button {
+  display: table-row;
+  vertical-align: middle;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin: 0 .2em 0 .2em;
+}
+
+.rightSideContent button p, .rightSideContent button span {
+  display: table-cell;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .content {
@@ -264,7 +302,7 @@ table tr:hover {
 
 .modalDesign {
   background: #FFF;
-  border: .5em solid $grey;
+  border: .6em solid $grey;
   border-left-color: $mainGreen;
   border-right-color: $mainGreen;
   border-bottom-left-radius: 1em;
@@ -297,6 +335,54 @@ table tr:hover {
 }
 
 //INPUTS
+.alignCenter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.enabledInput {
+  border-bottom: .2em solid $grey;
+
+}
+
+.largeInput input, .largeInput label {
+  @include responsiveText(20);
+  @include mobileOnly {
+
+  }
+}
+
+.largeInput input {
+  width: 50%;
+  @include mobileOnly {
+    width: auto;
+  }
+}
+
+.mediumInput input, .mediumInput label {
+  @include responsiveText(18);
+}
+
+.mediumInput input {
+  width: 35%;
+  @include mobileOnly {
+    width: auto;
+  }
+}
+
+.smallInput input, .smallInput label {
+  @include responsiveText(16);
+}
+
+.smallInput input {
+  width: 20%;
+  @include mobileOnly {
+    width: auto;
+  }
+}
 
 //DROPDOWN
 .dropdown {
@@ -304,7 +390,7 @@ table tr:hover {
   width: 100%;
 }
 
-.dropdown button {
+.dropdown button, .dropdown a {
   @include responsiveText(17);
   display: block;
   vertical-align: top;
@@ -314,6 +400,7 @@ table tr:hover {
   border-right: none;
   border-top: none;
   padding: .4em 0 .4em 0;
+  outline: none;
 }
 
 .dropdown button:last-child {
@@ -330,7 +417,6 @@ table tr:hover {
 
 .dropdown button:hover {
   color: $darkGreen;
-  // color: #FFF;
 }
 
 //FILE
@@ -350,7 +436,7 @@ table tr:hover {
 .inputFileLabel {
   color: #FFFF;
   text-align: center;
-  background-color: $grey;
+  background-color: $mainGreen;
   padding: 1vh 2.5% 1vh 2.5%;
   display: inline-block;
 }
@@ -406,7 +492,6 @@ table tr:hover {
   color: $grey;
   @include mobileOnly {
     text-align: center;
-    float: none;
     color: $grey;
     background-color: inherit;
     border-bottom: .2em solid $mainGreen;
@@ -422,9 +507,12 @@ table tr:hover {
   }
 }
 
-.largeInput {
+.indieBtn {
+  @extend .smallBtn;
   @include responsiveText(20);
-  width: 50%;
+  margin: 1em 0 1em 0;
+  border: .25em solid $grey;
+  border-radius: .5em;
 }
 
 .colouredHover:hover {

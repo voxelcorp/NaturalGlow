@@ -4,9 +4,9 @@
 //If a row on a table is clicked it gets the product id and redirects it to the productPage
 
 //Creates the form and adds the product it to it before posting.
-var redirectToProduct = function (actionObj) {
+var redirectToProduct = function (productId) {
   var redirectForm = createForm('post', '/product');
-  var productId = createInput('text', 'productId', actionObj.id);
+  var productId = createInput('text', 'productId', productId);
   redirectForm.appendChild(productId);
   document.body.appendChild(redirectForm);
   redirectForm.submit();
@@ -32,99 +32,52 @@ var createInput = function (type, name, value) {
 }
 
 //-----
-//OBJECTIVE: Retrieve products and store them.
-var getProducts = function () {
-  var products = document.getElementById('products').value;
-  products = JSON.parse(products);
-  if(!products) {
-    return null;
-  }
-  return products;
+//INGREDIENTS
+var createDeleteModal = function (e, deleteBtn) {
+  e.stopPropagation();
+  var ingredientId = deleteBtn.parentNode.parentNode.id;
+  var html = "<div class='modal' style='display:block'><div class='modalContent' id='deleteIngredientModal'>";
+  html += "<div class='currentMainTitle'><span>Remover Ingrediente</span></div><p class='inputCentered highlightText' style='text-align:center;'>Ao confirmar irá eliminar o ingrediente permanentemente.</p><button class='smallBtn' onclick='deleteIngredient(\""+ ingredientId +"\", \"deleteIngredientModal\")'>Confirmar</button>";
+  html += "</div></div>";
+  document.body.innerHTML += html;
+  return html;
 }
-
-var getSingleProduct = function (productId) {
-  var products = getProducts();
-  if(!products || !productId) {
-    return null;
-  }
-  for(i in products) {
-    if(products[i]._id === productId) {
-      return products[i];
-    }
-  }
-  return null;
-}
-//-----
-//OBJECTIVE: open popup and get product info from the clicked row.
-var openProductPopup = function (event, element) {
-  event.stopPropagation(); //Stop onclick from tr row. Check "redirectToProduct()"
-  var popup, popupInputs, productData, productId, productForm, productTitle;
-  popup = document.getElementById('productModal');
-  productForm = document.getElementById('productForm');
-  productImagesFileInput = document.getElementById('productImages');
-  popupInputs = popup.childNodes[0].childNodes[2].elements;
-  productId = event.target.parentNode.parentNode.id; //Returns to tr and gets the productId
-  productData = getSingleProduct(productId);
-  //---
-  displayPopup();
-  productForm.action += '/update/'+productId;
-  productImagesFileInput.required = false;
-  fillPopup(productData, popupInputs);
-}
-
-//-----
-//OBJECTIVE: Get the popup inputs and the product data and fills the popup with the info.
-var fillPopup = function (data, fields) {
-  if(!data || !fields) {
-    return null;
-  }
-  var prepImgs;
-  for(i = 0; i < fields.length; i++) {
-    var inputName = fields[i].name;
-    if(inputName && data[inputName]) {
-      if(inputName == 'images') {
-         prepImgs = prepProductImages(data[inputName]);
-         showImages(null, prepImgs, 'stored');
-      }else {
-        fields[i].value = data[inputName];
-      }
-    }
-  }
-  //Must be in its own because is required to create new inputs.
-  fillIngredients(data.ingredients);
-}
-
-var fillIngredients = function (ingredients) {
-  for(ing in ingredients) {
-    if(ing != 0) {
-      newIngredientInput();
-    }
-    var emptyInput = lastIngredientInput().getElementsByTagName('input')[0];
-    emptyInput.value = ingredients[ing].name;
+var deleteIngredient = async function(ingredientId, modal, confirmed = false) {
+  if(confirmed == true) {
+    axios.get('api/ingredients/_id/'+ingredientId+'/remove')
+      .then(function(res) {
+        showChangesNotice(document.getElementById(modal));
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }else {
+    //CONFIRM DELETE SECOND TIME IF ITS CHANGING PRODUCTS
+    await axios.get('/api/ingredients/_id/'+ingredientId+'/products')
+    .then((data) => {
+        if(data.data.length > 0) {
+          var html = '<div class="notice"><p>Ao confirmar irá alterar os seguintes produtos:</p><br>';
+          for(product in data.data) {
+            html += '<p><span>&#8226;</span>' + data.data[product].name + '</p>';
+          }
+          html += "<br><button onclick='deleteIngredient(\"" + ingredientId + "\", \"" + modal + "\", true)'>Confirmar</button></div>";
+          document.getElementById(modal).innerHTML = html;
+        }else {
+          deleteIngredient(ingredientId, modal, true);
+        }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }
 
-//-----
-//OBJECTIVE: Get the images from the product and formats the array to have an image name, src and main.
-var prepProductImages = function (productImages, prepType) {
-  var prepImgs = {};
-  if(!productImages || productImages.length <= 0) {
-    return {};
-  }
-  for (var i = 0; i < productImages.length; i++) {
-    var newImg = {};
-    newImg.name = productImages[i].path;
-    newImg.src = imagesDir + productImages[i].path;
-    newImg.main = productImages[i].main;
-    prepImgs[i] = newImg;
-  }
-  return prepImgs;
-}
-
+//---
+//PRODUCTS
 var deleteProduct = function(event, deleteBtn) {
   event.stopPropagation();
-  var productId = deleteBtn.value;
   var productRow = deleteBtn.parentNode.parentNode;
+  var productId = productRow.id;
   axios.get('api/products/delete/'+productId)
     .then(function(res) {
       productRow.remove();
@@ -132,4 +85,74 @@ var deleteProduct = function(event, deleteBtn) {
     .catch(function (err) {
       console.log(err);
     });
+}
+
+window.onload = function createTables() {
+  createIngredientsTable();
+  createProductsTable();
+}
+
+//---
+//TABLES
+
+var createIngredientsTable = function () {
+  var ingredientContainer = document.getElementById('ingredientsTableContent');
+  axios.get('/api/ingredients')
+  .then((res) => {
+    data = res.data;
+    data = addData(data, [
+      {modificar: "<button type='submit' class='modifyProduct' onclick='modifyIngredientPopup(event, this, \"ingredientModal\")'>Modificar</button>"},
+      {remover: "<button type='submit' class='deleteProduct' onclick='createDeleteModal(event, this)'>Remover</button>"}
+    ]);
+    ingredientContainer.innerHTML = createTable(data, ['_id']);
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  });
+}
+
+var createProductsTable = async function () {
+  var ingredientContainer = document.getElementById('productsTableContent');
+  await axios.get('/api/products')
+  .then((res) => {
+    data = res.data;
+    data = removeData(data, ['images', 'ingredients', 'quantity', 'quantityType', '__v', 'description']);
+    data = addData(data, [
+      {modificar: "<button type='submit' class='modifyProduct' onclick='openProductPopup(event, this)'>Modificar</button>"},
+      {remover: "<button type='submit' class='deleteProduct' onclick='deleteProduct(event, this)'>Remover</button>"}
+    ]);
+    for(product in data) {
+      data[product].price = parseFloat(data[product].price.$numberDecimal) + " €";
+    }
+    ingredientContainer.innerHTML = createTable(data, ['_id']);
+    onClickRow(ingredientContainer.firstChild, redirectToProduct);
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  });
+
+}
+
+var onClickRow = function (table, func) {
+  if(!table || !func) {
+    return;
+  }
+  var tableRows = table.childNodes[0].rows;
+  for(var i = 0; i < tableRows.length; i++) {
+    if(i != 0) {
+      tableRows[i].addEventListener('click', function () {
+        func(this.id);
+      })
+      // tableRows[i].onclick = function () {
+      //   console.log(tableRows[i].id);
+      //
+      // };
+
+      continue;
+    }
+
+  }
+
 }

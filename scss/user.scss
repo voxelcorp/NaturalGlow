@@ -6,20 +6,6 @@
   @include responsiveText(24);
 }
 
-#loginPopupBtn {
-  display: table-row;
-  vertical-align: middle;
-  border: none;
-  padding: 0;
-  outline: none;
-}
-
-#loginPopupBtn p, #loginPopupBtn span {
-  display: table-cell;
-  vertical-align: middle;
-  display: inline-block;
-}
-
 #closeLoginPopupBtn {
   position: absolute;
   right: 5%;
@@ -36,7 +22,7 @@
 #loginPopup {
   @extend .modalDesign;
   display: none;
-  @include responsiveWidth(88vw, 20vw, 50vw);
+  @include responsiveWidth(88vw, 25em, 50vw);
   @include responsiveText(12);
   position: absolute;
   margin-top: 1em;
@@ -53,6 +39,9 @@
   text-align: left;
 }
 
+#loginPopup input {
+  border: .2em solid $grey;
+}
 
 //ACCOUNT OPTIONS
 
@@ -61,11 +50,53 @@
 #accountDropdown {
   @extend .modalDesign;
   display: none;
-  @include responsiveWidth(92.5vw, 10vw, 50vw);
+  @include responsiveWidth(92.5vw, 11vw, 50vw);
   @include responsiveText(12);
   position: absolute;
   padding: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   right: 0;
+}
+
+//CART SHOPPING
+
+//DIMENSIONS
+
+#cartDropdown {
+  @extend .modalDesign;
+  display: none;
+  @include responsiveWidth(88vw, 30vw, 75vw);
+  @include responsiveText(8);
+  position: absolute;
+  padding: 1em;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  right: 0;
+}
+
+#cartDropdown p {
+  @include responsiveText(24);
+}
+
+#cartDropdown table {
+  margin-top: 0;
+}
+#cartDropdown table th {
+  padding: .1em;
+}
+#cartDropdown table tr:hover {
+  cursor: default;
+}
+
+#configTable button {
+  @include responsiveText(22);
+  background-color: $mainGreen;
+  padding: .5em;
+}
+
+#cartTotal {
+  font-weight: bolder;
+  letter-spacing: .1em;
+  color: $red;
 }

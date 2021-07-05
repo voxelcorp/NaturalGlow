@@ -1,0 +1,21 @@
+extends layout
+
+block headExtensions
+
+
+block content
+  .content
+    include addOns/mainLogo
+    h1.currentMainTitle
+      span O seu carrinho
+    #fullCart
+      #cartTable
+      #configTable.noShow
+        .inputCentered(style='margin: 0;')
+          p Total: 
+            span#cartTotal
+        button(class='smallBtn') Comprar
+        button(class='smallBtn') Editar
+      //EMPTY  
+      p#noItemsNotice.highlightText Carrinho vazio
+      

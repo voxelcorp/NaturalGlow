@@ -1,13 +1,12 @@
 module.exports.request = require('request');
 module.exports.apiOptions = {
   server: 'http://localhost:3000'
-}
+};
 
 //Check if session exists.
-module.exports.checkUsername = function (req) {
-  console.log(req.session);
-  if(req.session.username) {
-    return req.session.username;
+module.exports.checkUser = function (req) {
+  if(req.session) {
+    return req.session;
   }else {
     return null;
   }
@@ -25,28 +24,30 @@ var sendJsonResponse = function (res, status, content) {
 
 //Gets data and does the required changes to it for accessibility porpuses.
 module.exports.formatProductData = function (res, data) {
-  var productImagesFolder = "/images/products/";
   if(!data || data.length <= 0) {
     return {};
   }
   var formatedProduct = {};
   if(Array.isArray(data) == true) {
-
     for (var i = 0; i < data.length; i++) {
-      var mainImg = productImagesFolder + detectMain(res, data[i].images);
-      formatedProduct[i] = loopProduct(res, data[i]);
-      formatedProduct[i].mainImg = mainImg;
+      formatedProduct[i] = storeProductData(res, data[i]);
     }
   } else {
-    var mainImg = productImagesFolder + detectMain(res, data.images);
-    formatedProduct = loopProduct(res, data);
-    formatedProduct.mainImg = mainImg;
+    formatedProduct = storeProductData(res, data);
   }
   return formatedProduct;
 }
 
+var storeProductData = function (res, data) {
+  var stored = {};
+  var mainImg = "/images/products/" + detectMain(res, data.images);
+  stored = loopProduct(data);
+  stored.mainImg = mainImg;
+  return stored;
+}
+
 //Gets a product and loops threw it making the required changes.
-var loopProduct = function (res, product) {
+var loopProduct = function (product) {
   if(!product) {
     return {};
   }

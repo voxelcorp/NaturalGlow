@@ -16,6 +16,7 @@ var ctrlProducts = require('../controllers/products');
 var ctrlAdmin = require('../controllers/admin');
 var ctrlUsers = require('../controllers/users');
 var ctrlEmails = require('../controllers/emails');
+var ctrlCart = require('../controllers/cart');
 
 //GENERAL
 
@@ -29,27 +30,35 @@ router.post('/product', ctrlProducts.productDetails);
 router.get('/register', ctrlUsers.userRegister);
 
 //---
-//USERS. Require auth token.
+//CART
+router.get('/cart/edit', ctrlCart.cartEditPage);
+//retrieve
+router.get('/cart', ctrlCart.getCart)
+//add
+router.get('/cart/:productId/:name/:price/:quantity', ctrlCart.addToCart);
 
-//Admin pages.
-// router.get('/admin', ctrlProducts.adminOptions);
+//---
+//USERS
+
 router.get('/admin', auth, ctrlAdmin.productsTable);
-
-//Profile page.
+//Logout
+router.get('/logout', ctrlUsers.logout);
+//Logged in.
 router.get('/profile', auth, ctrlUsers.profilePage);
 
 //---
 // EMAILS
 
 //SEND
-router.get('/email/:to/:subject', ctrlEmails.sendEmail);
+router.get('/email/:to/:subject/:userId', ctrlEmails.sendEmail);
 
-//Send validation email page.
+//Validation email page.
 router.get('/sendEmail/:subject', ctrlEmails.emailPage);
 
 //RECEIVE
 //Validates the account email.
 router.get('/emailResponse/:email/confirm', ctrlEmails.confirmEmail);
+router.get('/emailResponse/:email/confirmEmailUpdate/:id', ctrlEmails.confirmEmailUpdate);
 router.get('/emailResponse/:email/changePw', ctrlEmails.newPwPage);
 
 

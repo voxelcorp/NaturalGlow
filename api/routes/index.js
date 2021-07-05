@@ -40,12 +40,17 @@ router.get('/products/delete/:productId', auth, ctrlProducts.deleteProduct);
 
 //GET "RETRIEVE"
 router.get('/ingredients', ctrlIngredients.allIngredients);
+router.get('/ingredients/:paramType/:paramValue', ctrlIngredients.singleIngredient);
+router.get('/ingredients/:paramType/:paramValue/products', ctrlIngredients.productsByIngredient);
+router.post('/ingredients/checkName', ctrlIngredients.checkNameAvailable);
 
 //POST "CREATE"
+router.post('/ingredients', ctrlIngredients.saveIngredient);
 
 //PUT "UPDATE"
-
+router.post('/ingredients/update', ctrlIngredients.updateIngredient)
 //DELETE "REMOVE"
+router.get('/ingredients/:paramType/:paramValue/remove', ctrlIngredients.removeIngredient);
 
 //-----
 // -> USERS <-
@@ -61,7 +66,6 @@ router.post('/login', ctrlUsers.login);
 //PUT "UPDATE"
 router.post('/user/emailConfirm', ctrlUsers.verifyEmail);
 router.post('/user/changePw', ctrlUsers.changePw);
-
-//DELETE "REMOVE"
+router.post('/user/changeUser', ctrlUsers.updateUserInfo)
 
 module.exports = router;

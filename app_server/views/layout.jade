@@ -2,6 +2,7 @@ doctype html
 html
   head
     title= title
+    input(type='hidden' id='username' value=user.username)
     meta(name='viewport', content='width=device-width', initial-scale='1.0')
     link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
     link(rel='stylesheet', href='/css/layout.css')
@@ -10,6 +11,9 @@ html
     link(rel='stylesheet', href='/css/user.css')
     link(rel='stylesheet', href='/css/external/hint.css')
     script(src='https://unpkg.com/axios/dist/axios.min.js')
+    script(src='/js/library.js')
+    script(src='/js/cart.js')
+    script(src='/js/libraryServer.js')
     block headExtensions
   body
     header
@@ -19,14 +23,14 @@ html
         .rightSideContent
           //LOGIN CHECK
           //-UI options
-          if username
+          if user.username
+            include addOns/cartPopup
             include addOns/accountDropdown
           else
             include addOns/loginPopup
-          //-//
+          //
     #headerSpacing
       block content
     footer
       #copyrights
         p | &copy; Voxel.Inc || &copy; DisparoDuplo.Lda | 2020
-script(src='/js/library.js')

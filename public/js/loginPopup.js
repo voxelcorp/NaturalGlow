@@ -1,5 +1,10 @@
 //Configures all functions related to the login popup.
 
+document.getElementById("loginPopupBtn").addEventListener("click", function (e) {
+  openPopup(this, "loginPopup");
+});
+
+
 //Submits the form when the login button is pressed.
 var submitLogin = function (e) {
   e.preventDefault();

@@ -2,20 +2,13 @@ extends layout
 
 block headExtensions
   link(rel='stylesheet', href='/css/homepage.css')
+  link(rel='stylesheet', href='/css/products.css')
 block content
   .content
     include addOns/mainLogo
-    #orderDetails
     #products
       h1.currentMainTitle
         span Produtos
       each product in pageProducts
-        .product
-          form(method='post' action='/product' onclick='forceSubmit()')
-            input(type='hidden' name='productId' value=product._id)
-            img(src= product.mainImg)
-            .productInfo
-              p#productName #{product.name}
-              p#productQuantity #{product.quantity} #{product.quantityType}
-              p#productPrice #{product.price} $
-  script(src='/js/homepage.js')
+        include addOns/productFrame
+  script(src='/js/products.js')

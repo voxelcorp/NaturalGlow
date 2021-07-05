@@ -643,7 +643,7 @@ table tr:hover {
   }
 }
 
-.alignCenter {
+.alignCenter, .overflowInputs {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1047,50 +1047,183 @@ table tr:hover {
   }
 }
 
-.registerContent {
-  margin: 2.5em 0 10em 0;
+.currentProduct {
+  margin: 0 1% 10em 1%;
+  display: inline-block;
+  vertical-align: top;
+  z-index: 1;
 }
 @media only screen and (max-width: 426px) {
-  .registerContent {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+  .currentProduct {
+    font-size: 0.78125em;
   }
 }
 @media only screen and (min-width: 426px) and (max-width: 769px) {
-  .registerContent {
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+  .currentProduct {
+    font-size: 0.78125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .currentProduct {
+    font-size: 0.625em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .currentProduct {
+    font-size: 0.78125em;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .currentProduct {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .currentProduct {
+    width: 48%;
   }
 }
 @media only screen and (min-width: 769px) {
-  .registerContent {
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+  .currentProduct {
+    width: 31%;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .currentProduct {
+    height: 75vw;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .currentProduct {
+    height: 32vw;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .currentProduct {
+    height: 19vw;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 426px) {
+  .currentProduct {
+    font-size: 0.859375em;
+  }
+}
+@media only screen and (min-width: 769px) and (min-width: 426px) and (max-width: 769px) {
+  .currentProduct {
+    font-size: 0.859375em;
+  }
+}
+@media only screen and (min-width: 769px) and (min-width: 769px) and (max-width: 1025px) {
+  .currentProduct {
+    font-size: 0.6875em;
+  }
+}
+@media only screen and (min-width: 769px) and (min-width: 1025px) {
+  .currentProduct {
+    font-size: 0.859375em;
   }
 }
 
-#registerForm {
-  margin-top: 2.5em;
+@media only screen and (max-width: 426px) {
+  .currentProduct img {
+    display: block;
+    height: 75vw;
+    max-width: 100%;
+    width: auto;
+    margin: auto;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .currentProduct img {
+    display: block;
+    height: 32vw;
+    max-width: 100%;
+    width: auto;
+    margin: auto;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .currentProduct img {
+    display: block;
+    height: 19vw;
+    max-width: 100%;
+    width: auto;
+    margin: auto;
+  }
 }
 
-#registerForm label {
-  min-width: 10em;
+.currentProduct:hover {
+  cursor: default;
 }
 
-#registerForm .inputCentered, #registerForm .mainTitle {
-  margin-bottom: 2em;
+.fadeIn {
+  opacity: 1;
+  height: 100%;
 }
 
-#registerForm button {
-  margin: 0 auto;
-  display: block;
+.hidden {
+  opacity: 0;
+  height: 0;
 }
 
-#userConfirmedNotice {
-  display: none;
+.overflowInputs {
+  transition: all 300ms ease-in;
+  height: 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(45, 52, 54, 0.75);
 }
 
-/*# sourceMappingURL=register.css.map */
+.overflowInputs:hover {
+  cursor: default;
+}
+
+.overflowInputs button {
+  font-weight: bolder;
+  flex: 0 0 100%;
+  background-color: #ecf0f1;
+  opacity: 100%;
+  border: none;
+  height: 25%;
+}
+@media only screen and (max-width: 426px) {
+  .overflowInputs button {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .overflowInputs button {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .overflowInputs button {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .overflowInputs button {
+    font-size: 1.5625em;
+  }
+}
+
+.overflowInputs button:first-child {
+  border-bottom: 0.25em solid #49DBA4;
+}
+
+.overflowInputs button:last-child {
+  border-top: 0.25em solid #49DBA4;
+}
+
+.overflowInputs button:hover {
+  cursor: pointer;
+}
+
+.overflowInputs button:focus {
+  outline: none;
+}
+
+/*# sourceMappingURL=products.css.map */

@@ -1,0 +1,14 @@
+//-Button settings
+button(id='cartBtn' onclick='openPopup(this, "cartDropdown");updateCart();')
+  span(class='material-icons loginIcon') shopping_cart
+//MODAL
+#cartDropdown(style='z-index: 2')
+  #cartTable
+  #configTable.noShow
+    .inputCentered(style='margin: 0;')
+      p Total: 
+        span#cartTotal
+    button(class='smallBtn') Comprar
+    button(class='smallBtn') Editar
+  //EMPTY  
+  p#noItemsNotice.highlightText Carrinho vazio 
