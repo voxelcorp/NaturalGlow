@@ -59,9 +59,6 @@ app.use(session({
   }
 }));
 
-// app.use(passport.initialize());
-// app.use(passport.session());
-
 //Store session.
 app.use(function (req, res, next) {
   if(req.session) {
@@ -72,7 +69,6 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
-//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -100,6 +96,10 @@ app.use(function (err, req, res, next) {
     res.status(401);
     res.json({"message": err.name + ": " + err.message});
   }
+});
+
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
 
 module.exports = app;
