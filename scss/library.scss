@@ -3,6 +3,7 @@ $tinyWidth: 376px;
 $mobileWidth: 426px;
 $tabletWidth: 769px;
 $desktopWidth: 1025px;
+$browserContext: 16; //pixel density of fonts.
 
 // MIXINS
 @mixin alignTextVertical ($height) {

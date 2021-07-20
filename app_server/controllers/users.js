@@ -23,14 +23,13 @@ module.exports.profilePage = function (req, res) {
     console.log('session not found.');
     res.redirect('/');
   }
-  getUserData(username, 1).then(function (userData) {
+  getUserData(username, 1).then(async function (userData) {
     res.render('profile', {
       username: userData.username,
       userData: userData,
       title: 'Nova conta'
     });
   });
-
 }
 
 //Logout user.

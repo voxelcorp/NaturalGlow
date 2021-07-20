@@ -2,7 +2,7 @@
 //- .modal
 #ingredientModal.modal
   .modalContent
-    button(id='closeIngredientPopupBtn' class='closeBtn resetBtn' onclick='closePopup("ingredientModal")') x
+    button(id='closeIngredientPopupBtn' class='closeBtn resetBtn' onclick='closePopup(ingredientModal)') x
     .smallMainTitle 
       span Adicionar novo ingrediente
     form(id='ingredientForm' onsubmit='createNewIngredient(event, this, ingredientName);')

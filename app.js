@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var fileUpload = require('express-fileupload');
 var FormData = require('form-data');
+var multer = require('multer');
 var passport = require('passport');
 //Redis
 var redis = require('redis');

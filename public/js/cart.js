@@ -8,14 +8,11 @@ var updateCart = async function() {
   var cartTotal = document.getElementById('cartTotal');
   var emptyCart = document.getElementById('noItemsNotice');
 
-  // console.log(cartTable);
   if(cart.data.length > 0) {
     for(item in cart.data) {
       var product = cart.data[item];
-      // console.log(product);
     }
     var finalData = arrangeArray(cart.data, {
-      id: 'id',
       Nome: "name",
       Preço: 'price',
       "Q": 'quantity',
@@ -30,17 +27,6 @@ var updateCart = async function() {
   }
 }
 
-var calculateTotal = function (cart) {
-  if(!cart) {
-    return null;
-  }
-  var total = 0;
-  for (product in cart) {
-    total += cart[product].price * cart[product].quantity;
-  }
-  return total.toFixed(2);
-}
-
 //Gets the product details and adds them to cart.
 var addProductToCart = async function (e, productId, productName, productPrice) {
   e.stopPropagation();
@@ -50,5 +36,19 @@ var addProductToCart = async function (e, productId, productName, productPrice) 
     console.log('missing information.');
     return;
   }
+
+  let addModalConfig = function () {
+    let addModal = document.getElementById("addCartModal");
+    addModal.style.display = 'block';
+    let closeBtn = document.getElementById("closeAddCartModalBtn");
+    closeBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      addModal.style.display = 'none';
+    });
+  }
+
   var addCart = await axios.get('/cart/'+productId+'/'+productName+'/'+productPrice+'/1');
+  addModalConfig();
+
+
 }

@@ -3,11 +3,11 @@ button(id='loginPopupBtn' onclick='openPopup(this, "accountDropdown")')
   p(id='loginText') #{user.username}
   span(class='material-icons loginIcon') account_circle
 //MODAL
-#accountDropdown
+#accountDropdown.noShow
   .dropdown
     button(onclick='window.location.href="/profile"') Perfil
     if user.admin == true
       button(onclick='window.location.href="/admin"') Gestão
-    button Encomendas
+    button(onclick='window.location.href="/profile"') Encomendas
     button(onclick='logout(event)') Sair
 script(src='/js/accountDropdown.js')

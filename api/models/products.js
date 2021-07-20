@@ -8,6 +8,7 @@ var productSchema = new mongoose.Schema({
   images: {type: [productImagesSchema], required: true},
   ingredients: {type: [productIngredientsSchema], required: true},
   description: {type: String, required: true},
+  tag: {type: mongoose.Schema.Types.ObjectId, required: true},
   stock: {type: Number, default: 1}
 });
 

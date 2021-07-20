@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var ingredientController = require('../controllers/ingredients');
 var library = require('../controllers/library');
 var Product = mongoose.model('Product');
+var Grid = mongoose.model('Grid');
 const fs = require('fs');
 
 //-----
@@ -281,7 +282,8 @@ module.exports.createProduct = function (req, res) {
     quantityType: req.body.quantityType,
     price: req.body.price,
     description: req.body.description,
-    stock: req.body.stock
+    stock: req.body.stock,
+    tag: mongoose.Types.ObjectId(req.body.productTag)
   }, function (err, product) {
     if(err) {
       library.sendJsonResponse(res, 400, err);
@@ -314,11 +316,13 @@ module.exports.updateProduct = function (req, res) {
         library.sendJsonResponse(res, 400, err);
         return;
       }
+      // console.log(req.body);
       product.name = req.body.name;
       product.quantity = req.body.quantity;
       product.quantityType = req.body.quantityType;
       product.price = req.body.price;
       product.description = req.body.description;
+      product.tag = mongoose.Types.ObjectId(req.body.productTag);
       if(req.body.stock) {
         product.stock = req.body.stock;
       }
@@ -353,7 +357,6 @@ module.exports.deleteProduct = function (req, res) {
             if(!product) {
               library.sendJsonResponse(res, 404, 'productId not found.');
             }
-            console.log(res, 200, "Product deleteted.");
             res.redirect('/admin');
           }
         });
@@ -396,4 +399,58 @@ module.exports.allProducts = function (req, res) {
         }
       }
   });
+}
+
+module.exports.productsBySection = function (req, res) {
+  if(!req.body.sectionId) {
+    library.sendJsonResponse(res, 404, "missing section id.");
+    return;
+  }
+  Product
+  .find({"tag": mongoose.Types.ObjectId(req.body.sectionId)})
+  .exec(function (err, products) {
+    if(err) {
+      library.sendJsonResponse(res, 400, err);
+    }
+    if(products.length > 0) {
+      library.sendJsonResponse(res, 200, products);
+    }else {
+      library.sendJsonResponse(res, 200, []);
+    }
+  });
+}
+
+var getAllGridsID = async function () {
+  return await Grid.find({});
+}
+
+module.exports.productsWithoutSection = async function (req, res) {
+  let grids = await getAllGridsID();
+  console.log();
+  let products = await Product.find({});
+  if(!grids || grids.length == 0) {
+    library.sendJsonResponse(res, 200, products);
+    return;
+  }else if(!products || products.length == 0) {
+    library.sendJsonResponse(res, 404, "missing info.");
+    return;
+  }
+  let noSectionProducts = [];
+  let sectionProducts = [];
+  for(product in products) {
+    for(details in grids) {
+      for (section in grids[details]["sections"]) {
+        let sectionDetails = grids[details]["sections"][section];
+        if(String(products[product].tag) == String(sectionDetails._id)) {
+          sectionProducts.push(products[product]._id);
+        }
+        if(!sectionProducts.includes(products[product]._id)) {
+          if(!noSectionProducts.includes(products[product])) {
+            noSectionProducts.push(products[product]);
+          }
+        }
+      }
+    }
+  }
+  library.sendJsonResponse(res, 200, noSectionProducts);
 }

@@ -31,15 +31,50 @@ var addData = function (array, fields) {
   if(!array || !fields) {
     return {};
   }
+  // console.log(fields);
   var finalArray = [];
   for(var i = 0; i < array.length; i++) {
     for(var x = 0; x < fields.length; x++) {
-      for(key in fields[x]) {
-        array[i][key] = fields[x][key];
+      if(Object.keys(fields[x]).length > 1) {
+        for(key in fields[x]) {
+          if(key != 'value' && key != 'href') {
+            if(fields[x].href) {
+              array[i][key] = addLink(array[i], fields[x]);
+            }else {
+              array[i][key] = addValue(array[i], fields[x]);
+            }
+
+          }
+        }
+      }else {
+        for(key in fields[x]) {
+            array[i][key] = fields[x][key];
+        }
       }
     }
   }
   return array;
+}
+
+var addLink = function (currentRow, currentField) {
+  if(!currentRow[currentField.value]) {
+    console.log("missing data.");
+    return;
+  }
+  let html = currentField[Object.keys(currentField)[0]];
+  let href = currentField.href.replace('value', currentRow[currentField.value]);
+  let anchor = html.replace('<a>', '<a '+href+'>');
+  return anchor;
+}
+
+var addValue = function (currentRow, currentField) {
+    if(currentField["value"]) {
+      var input = Object.keys(currentField)[0];
+      var updatedInput = currentField[input].slice(0, -1); //Remove ">"
+      updatedInput += " value=" + currentRow[currentField["value"]] + ">";
+      return updatedInput;
+    }
+    return null;
 }
 
 //Remove certain fields from array.
@@ -143,7 +178,58 @@ var checkPasswords = async function (inputs, errMsg) {
 
 //Creates a table
 //Requires Array. EX: {name: {"Name1", "Name2"}, price: {"2,34", "3,34"} }
-var createTable = function (content, hidden = []) {
+var createTable = function (content, hidden = [], force = null) {
+  var table = '';
+  if(force == 'desktop') {
+    table = desktopTable(content, hidden);
+  }else if(force == 'mobile') {
+    return mobileTable(content, hidden);
+
+  }
+
+  if (window.innerWidth > 900) {
+    table = desktopTable(content, hidden);
+  }else {
+    table = mobileTable(content, hidden);
+  }
+  return table;
+}
+
+var mobileTable = function (content, hidden) {
+  if(content == null) {
+    return null;
+  }
+  var tableHtml = '<div class="mobileTable">';
+  for(var x = 0; x < content.length; x++) {
+    let id = '';
+    if(content[x].id) {
+      id = content[x].id;
+    }else if(content[x]._id) {
+      id = content[x]._id;
+    }
+    tableHtml += '<div class="alignCenter" id="'+id+'">';
+      for(prop in content[x]) {
+        if(prop == 'id' || prop == '_id') {
+          continue;
+        }
+        let currentProp = content[x][prop];
+        if(prop == 'Nome') {
+          tableHtml += '<h1 class="currentMainTitle"><span>'+currentProp+'</span></h1>';
+        }else if (prop == '') {
+          tableHtml += '<p class="subTitle">'+prop+'</p><p class="subValue">'+currentProp+'</p>';
+        }else {
+          tableHtml += '<p class="subTitle">'+prop+'</p><p class="subValue">'+currentProp+'</p>';
+        }
+      }
+    tableHtml += '</div>';
+  }
+
+  tableHtml += '</div>';
+
+  return tableHtml;
+}
+
+var desktopTable = function (content, hidden) {
   if(content == null) {
     return null;
   }
@@ -168,7 +254,11 @@ var createTable = function (content, hidden = []) {
     //TD
     for(var i = 0; i < headings.length; i++) {
       if(i == 0) {
-        tableHtml += '<tr id= "'+ content[x]["_id"] +'">';
+        if(content[x]["_id"]) {
+          tableHtml += '<tr id= "'+ content[x]["_id"] +'">';
+        }else if(content[x]["id"]) {
+          tableHtml += '<tr id= "'+ content[x]["id"] +'">';
+        }
       }
       if(!hidden.includes(headings[i])) {
         tableHtml += '<td>' + content[x][headings[i]] + '</td>';

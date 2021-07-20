@@ -1,0 +1,85 @@
+@import 'general.scss';
+
+#fullImgShowcase {
+  @include responsiveWidth(85%, 65%);
+}
+
+//HOMEPAGE
+#contact, #about {
+  background-color: $clouds;
+
+  margin: 5em 0 10em 0;
+}
+
+#sections {
+  margin: 5em 0 15em 0;
+}
+//ABOUT
+#about {
+  padding: 5em 15% 5em 15%;
+}
+
+#about p {
+  @include responsiveText(24);
+  text-align: justify;
+  @include mobileOnly {
+    @include responsiveText(16);
+    text-align: center;
+  }
+  font-weight: bolder;
+}
+//SERVICES
+.serviceContent {
+  display: inline-block;
+  margin: 2em 5% 2em 5%;
+}
+.serviceImgContent {
+  height: 20em;
+  @include mobileOnly {
+    height: 10em;
+  }
+}
+//CONTACTS
+#contact {
+  width: 100%;
+  padding: 1em 0 1em 0;
+}
+
+#contact form {
+  margin: 0 20% 0 20%;
+}
+
+#contact .mainTitle {
+  @include responsiveText(32);
+}
+
+//EDIT GRID
+#editCellUI {
+  position: absolute;
+  background: $grey;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 2em;
+}
+
+#editCellUI button {
+  font-family: "cursive";
+  font-weight: lighter;
+  color: #FFF;
+  background-color: $blue;
+  border-top: .1em solid $grey;
+  margin: 0 1% 0 1%;
+}
+
+#editCellUI .greenBtn {
+  background-color: $mainGreen;
+}
+
+#editCellUI button[name='removeCell'] {
+  background-color: $orange;
+}
+
+#editCellUI button:hover {
+  opacity: .7;
+}

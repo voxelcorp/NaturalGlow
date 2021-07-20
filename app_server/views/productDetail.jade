@@ -2,33 +2,34 @@ extends layout
 
 block headExtensions
   link(rel='stylesheet', href='/css/productDetail.css')
+  link(rel='stylesheet', href='/css/grid.css')
+  input(type='hidden' id='currentProductData' value=JSONProduct)
 block content
   .content
-    #productMainImg
-      img(src= mainImg)
+    #productDetailsMainImg
+      .albumContent.alignCenter
+        img(src= mainImg)
     #availableText
       p #{ProductInfo.available}
     .container
       .gridContent
         //MAIN INFO
-        #productData
+        #productData.flexByHalf.alignCenter
           #productName.dataContainer
             p #{ProductInfo.name}
             p #{ProductInfo.quantity}
           #productBuy.dataContainer
             p #{ProductInfo.price} €
+          button(class= 'greenBtn indieBtn' id='addSingleProductBtn') Comprar
         //IMAGES
-        #productImgs
+        #productImgs.inputCentered
           .currentMainTitle
             span Imagens
           each image in ProductImages
-            .productImgContainer
-              img(src= 'images/products/'+image.path)
-        //DESCRIPTION
-        #description
-          .currentMainTitle
-            span Descricao
-          p #{ProductDescription}
+            .gridContainer
+              .grid.OneByOne.alignCenter
+                .albumContent
+                  img(src= 'images/products/'+image.path class='containImg' lazy)
         //INGREDIENTS
         #ingredients
           .smallMainTitle
@@ -37,3 +38,9 @@ block content
             .ingredientContainer
               .tag
                 p #{ingredient.name}
+        //DESCRIPTION
+        #description.flatContent
+          .currentMainTitle
+            span Descrição
+          p #{ProductDescription}
+  script(src='/js/productDetail.js')

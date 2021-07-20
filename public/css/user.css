@@ -1,4 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Knewave&display=swap");
+@media only screen and (max-width: 426px) {
+  #productData {
+    text-align: center;
+  }
+  #productData #productBuy {
+    border-top: 0.1em solid #49DBA4;
+    padding-top: 0.5em;
+    text-align: center;
+  }
+}
+
+#productDetailsMainImg {
+  padding-bottom: 1vh;
+  border-bottom: 0.75em solid #2c3e50;
+  border-radius: 0.75em;
+  height: 77vh;
+}
+@media only screen and (max-width: 426px) {
+  #productDetailsMainImg {
+    height: 62vh;
+  }
+}
+
+#productDetailsMainImg .albumContent {
+  height: 100%;
+}
+
+#productImgs .gridContainer {
+  display: flex;
+}
+
+#productImgs .albumContent {
+  height: 100%;
+}
+
+#description {
+  padding-bottom: 5em;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,10 +52,24 @@ header {
   position: fixed;
   top: 0;
   z-index: 99;
+  background: #FFF;
+  width: 95%;
+  padding: 0.5em 2.5% 0.5em 2.5%;
+  box-shadow: 0px 0px 5px #ecf0f1;
+}
+@media only screen and (max-width: 426px) {
+  header {
+    height: 6em;
+  }
 }
 
 #headerSpacing {
   margin-top: 5em;
+}
+@media only screen and (max-width: 426px) {
+  #headerSpacing {
+    margin-top: 10em;
+  }
 }
 
 img {
@@ -196,12 +250,89 @@ select, option {
   }
 }
 
+.mobileTable div {
+  width: 100%;
+  background-color: #ecf0f1;
+  margin-top: 1em;
+  display: inline-flex;
+  padding: 1em 0 2em 0;
+}
+@media only screen and (max-width: 426px) {
+  .mobileTable div {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mobileTable div {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mobileTable div {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mobileTable div {
+    font-size: 1.25em;
+  }
+}
+
+.mobileTable div .currentMainTitle span {
+  font-weight: bold;
+}
+@media only screen and (max-width: 426px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.703125em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.703125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.5625em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.703125em;
+  }
+}
+
+.mobileTable p input {
+  max-width: 50%;
+  text-align: center;
+}
+
+.mobileTable p {
+  margin-bottom: 1em;
+  word-break: break-word;
+}
+
+.subValue {
+  text-align: center;
+  width: 48%;
+  margin: 0 1% 0 1%;
+}
+
+.subTitle {
+  text-align: left;
+  margin-left: 10%;
+  width: 40%;
+  font-weight: bold;
+  color: #967354;
+}
+
 table {
   width: 100%;
   text-align: center;
   border-left: 0.5em solid #2d3436;
   border-collapse: collapse;
   margin-top: 5vh;
+  overflow-x: scroll;
 }
 
 table th {
@@ -255,9 +386,35 @@ table td {
   }
 }
 
+table td input {
+  text-align: center;
+}
+
+table td input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
 table tr:hover {
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+.mobileOnly {
+  display: none;
+}
+@media only screen and (max-width: 426px) {
+  .mobileOnly {
+    display: inline-block;
+  }
+}
+
+.desktopOnly {
+  display: inline-block;
+}
+@media only screen and (max-width: 426px) {
+  .desktopOnly {
+    display: none;
+  }
 }
 
 .highlightText {
@@ -284,8 +441,60 @@ table tr:hover {
   }
 }
 
+.flexByHalf {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexByHalf > * {
+  flex: 0 0 50%;
+}
+@media only screen and (max-width: 426px) {
+  .flexByHalf > * {
+    flex: 0 0 100%;
+  }
+}
+
+.greenBtn {
+  background-color: #2d3436;
+  border-radius: 0.5em;
+  color: #FFF;
+  margin: 0.5em 0 0 0;
+}
+@media only screen and (max-width: 426px) {
+  .greenBtn {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .greenBtn {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .greenBtn {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .greenBtn {
+    font-size: 0.9375em;
+  }
+}
+
+.greenBtn:hover {
+  opacity: 0.8;
+  color: #2d3436;
+  background-color: #49DBA4;
+  border-color: transparent;
+}
+
 .noShow {
   display: none;
+}
+
+.lightBg {
+  background-color: #F5F5DC;
 }
 
 .errMessage {
@@ -317,6 +526,7 @@ table tr:hover {
 }
 
 .notice {
+  word-break: break-word;
   text-align: center;
   font-weight: bolder;
   padding: 1em;
@@ -344,6 +554,29 @@ table tr:hover {
 
 .grid {
   display: inline-grid;
+}
+
+.flatContent {
+  background: #ecf0f1;
+  padding: 2em 0 3em 0;
+  margin: 2em 0 1em 0;
+}
+
+.tinyUpMargin {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.smallMargin, #configTable button {
+  margin: 2em 5% 2em 5%;
+}
+
+.mediumMargin {
+  margin: 4em 10% 4em 10%;
+}
+
+.largeMargin {
+  margin: 8em 20% 8em 20%;
 }
 
 .borderedContent {
@@ -420,16 +653,20 @@ table tr:hover {
 }
 
 .container {
-  z-index: -1;
   position: relative;
   height: 100%;
 }
 
 .rightSideContent {
-  display: table;
+  display: inline-flex;
   float: right;
   height: 100%;
   position: relative;
+}
+@media only screen and (max-width: 426px) {
+  .rightSideContent {
+    height: auto;
+  }
 }
 
 .rightSideContent button {
@@ -438,7 +675,7 @@ table tr:hover {
   border: none;
   padding: 0;
   outline: none;
-  margin: 0 0.2em 0 0.2em;
+  margin: 0 1em 0 0;
 }
 
 .rightSideContent button p, .rightSideContent button span {
@@ -477,6 +714,16 @@ table tr:hover {
   display: inline-block;
 }
 
+.redBtn {
+  border-color: #c0392b;
+  background-color: #e74c3c;
+  border-radius: 0.2em;
+}
+
+.redBtn:hover, .redBtn:active {
+  opacity: 0.8;
+}
+
 .pushTop {
   position: absolute;
   top: 0;
@@ -512,7 +759,7 @@ table tr:hover {
 .currentMainTitle {
   width: 100%;
   text-align: center;
-  margin: 2vh 0 2vh 0;
+  margin: 2em 0 2em 0;
   letter-spacing: 0.15em;
 }
 @media only screen and (max-width: 426px) {
@@ -592,6 +839,8 @@ table tr:hover {
 
 .mainTitle span, .currentMainTitle span, .smallMainTitle span {
   font-family: "Permanent Marker", cursive;
+  font-family: "Knewave", cursive;
+  text-transform: uppercase;
   border-bottom: 0.1em solid #49DBA4;
 }
 
@@ -610,7 +859,7 @@ table tr:hover {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   left: 0;
   top: 0;
   width: 100%;
@@ -744,12 +993,23 @@ table tr:hover {
   }
 }
 
+.fadeIn {
+  opacity: 1;
+  height: 100%;
+}
+
+.hidden {
+  opacity: 0;
+  height: 0;
+}
+
 .dropdown {
   display: flow-root;
   width: 100%;
 }
 
 .dropdown button, .dropdown a {
+  margin: 0;
   display: block;
   vertical-align: top;
   width: 100%;
@@ -783,6 +1043,8 @@ table tr:hover {
 
 .dropdown button:last-child {
   border-bottom: none;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
 }
 
 .dropdown button:nth-child(even) {
@@ -1018,6 +1280,10 @@ table tr:hover {
   cursor: pointer;
 }
 
+.blueText {
+  color: #2980b9;
+}
+
 .linkUnderline {
   cursor: pointer;
   text-decoration: underline;
@@ -1151,12 +1417,12 @@ table tr:hover {
 }
 
 #accountDropdown {
-  display: none;
   position: absolute;
   padding: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  right: 0;
+  border-top: none;
+  border-color: transparent;
+  right: 4em;
+  top: 3.8em;
 }
 @media only screen and (max-width: 426px) {
   #accountDropdown {
@@ -1193,6 +1459,130 @@ table tr:hover {
     font-size: 0.9375em;
   }
 }
+@media only screen and (max-width: 426px) {
+  #accountDropdown {
+    right: 0;
+    top: 6.9em;
+  }
+}
+
+#addCartPopup {
+  background: #FFF;
+  padding: 0.5em;
+  padding-bottom: 2em;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+@media only screen and (max-width: 426px) {
+  #addCartPopup {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #addCartPopup {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #addCartPopup {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #addCartPopup {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (max-width: 426px) {
+  #addCartPopup {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 426px) and (max-width: 426px) {
+  #addCartPopup {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 426px) and (max-width: 769px) {
+  #addCartPopup {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 769px) and (max-width: 1025px) {
+  #addCartPopup {
+    font-size: 1em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 1025px) {
+  #addCartPopup {
+    font-size: 1.25em;
+  }
+}
+
+#addCartPopup .currentMainTitle {
+  margin: 1em 0 1em 0;
+}
+@media only screen and (max-width: 426px) {
+  #addCartPopup .currentMainTitle {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #addCartPopup .currentMainTitle {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #addCartPopup .currentMainTitle {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #addCartPopup .currentMainTitle {
+    font-size: 1.40625em;
+  }
+}
+
+#editCartTable table td:hover {
+  cursor: default;
+}
+
+.deleteProductBtn {
+  color: #2d3436;
+  padding: 0.3em 0.6em 0.3em 0.6em;
+}
+@media only screen and (max-width: 426px) {
+  .deleteProductBtn {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .deleteProductBtn {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .deleteProductBtn {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .deleteProductBtn {
+    font-size: 1.40625em;
+  }
+}
+
+.deleteProductBtn:hover {
+  color: #FFF;
+  cursor: pointer;
+}
 
 #cartDropdown {
   display: none;
@@ -1201,6 +1591,9 @@ table tr:hover {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   right: 0;
+  border: none;
+  box-shadow: 0px 0px 5px #ecf0f1;
+  top: 5.5em;
 }
 @media only screen and (max-width: 426px) {
   #cartDropdown {
@@ -1214,7 +1607,7 @@ table tr:hover {
 }
 @media only screen and (min-width: 769px) {
   #cartDropdown {
-    width: 30vw;
+    width: 25vw;
   }
 }
 @media only screen and (max-width: 426px) {
@@ -1235,6 +1628,11 @@ table tr:hover {
 @media only screen and (min-width: 1025px) {
   #cartDropdown {
     font-size: 0.625em;
+  }
+}
+@media only screen and (max-width: 426px) {
+  #cartDropdown {
+    top: 10.4em;
   }
 }
 
@@ -1267,39 +1665,231 @@ table tr:hover {
   padding: 0.1em;
 }
 
+@media only screen and (max-width: 426px) {
+  #cartDropdown table td {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #cartDropdown table td {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #cartDropdown table td {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #cartDropdown table td {
+    font-size: 1.5625em;
+  }
+}
+
 #cartDropdown table tr:hover {
   cursor: default;
 }
 
-#configTable button {
+#configTable button a {
+  display: inline-block;
   background-color: #49DBA4;
+  text-align: center;
+  width: 100%;
   padding: 0.5em;
 }
 @media only screen and (max-width: 426px) {
-  #configTable button {
+  #configTable button a {
     font-size: 1.71875em;
   }
 }
 @media only screen and (min-width: 426px) and (max-width: 769px) {
-  #configTable button {
+  #configTable button a {
     font-size: 1.71875em;
   }
 }
 @media only screen and (min-width: 769px) and (max-width: 1025px) {
-  #configTable button {
+  #configTable button a {
     font-size: 1.375em;
   }
 }
 @media only screen and (min-width: 1025px) {
-  #configTable button {
+  #configTable button a {
     font-size: 1.71875em;
   }
 }
 
-#cartTotal {
+#cartTotal, #cartTotalPrice {
+  font-family: "Josefin Sans", Helvetica;
   font-weight: bolder;
   letter-spacing: 0.1em;
   color: #e74c3c;
+}
+@media only screen and (max-width: 426px) {
+  #cartTotal, #cartTotalPrice {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #cartTotal, #cartTotalPrice {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #cartTotal, #cartTotalPrice {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #cartTotal, #cartTotalPrice {
+    font-size: 0.9375em;
+  }
+}
+
+#carBuyBar, #returnBar {
+  text-align: center;
+  width: 100%;
+}
+
+#carBuyBar {
+  margin-top: 5em;
+  background-color: #49DBA4;
+}
+
+#returnBar {
+  margin-top: 1em;
+  background-color: #967354;
+}
+
+#carBuyBar button, #returnBar button {
+  background-color: #2d3436;
+  color: #FFF;
+}
+@media only screen and (max-width: 426px) {
+  #carBuyBar button, #returnBar button {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #carBuyBar button, #returnBar button {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #carBuyBar button, #returnBar button {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #carBuyBar button, #returnBar button {
+    font-size: 1.40625em;
+  }
+}
+
+#returnBar button:hover, #carBuyBar button:hover {
+  opacity: 0.8;
+}
+
+#returnBar button {
+  width: 50%;
+  padding: 0.5em;
+}
+
+#deliveryOptions .inputCentered, #paymentOptions .inputCentered {
+  margin: 3em 0 3em 0;
+}
+
+#deliveryOptions .inputCentered label, #paymentOptions .inputCentered label {
+  width: 45%;
+}
+
+#deliveryOptions .inputCentered input, #paymentOptions .inputCentered input {
+  width: 5%;
+  height: 1em;
+}
+
+#deliveryOptions .inputCentered p, #paymentOptions .inputCentered p {
+  width: 45%;
+  text-align: center;
+  margin-top: 1em;
+  padding: 1em;
+  background-color: #e15f41;
+  color: #FFF;
+}
+
+#paymentOptions .inputCentered p {
+  text-align: justify;
+  background-color: #2d3436;
+  color: #FFF;
+}
+
+#paymentDetails {
+  text-align: center;
+}
+
+#paymentDetails img {
+  width: 10em;
+}
+@media only screen and (max-width: 426px) {
+  #paymentDetails img {
+    width: 40%;
+  }
+}
+
+#paymentDetails p {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  #paymentDetails p {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #paymentDetails p {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #paymentDetails p {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #paymentDetails p {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (max-width: 426px) and (max-width: 426px) {
+  #paymentDetails p {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 426px) and (max-width: 769px) {
+  #paymentDetails p {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 769px) and (max-width: 1025px) {
+  #paymentDetails p {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 1025px) {
+  #paymentDetails p {
+    font-size: 1.40625em;
+  }
+}
+
+#orderDetails .mobileTable .alignCenter .subValue, #orderProductsDetails .mobileTable .alignCenter .subValue {
+  text-align: left;
+  font-weight: bold;
+}
+
+#untaggedTitle span {
+  border-color: #c0392b;
+}
+
+#untaggedProductsTableContent table th {
+  background-color: #e74c3c;
 }
 
 /*# sourceMappingURL=user.css.map */

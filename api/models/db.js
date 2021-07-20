@@ -4,7 +4,7 @@ var dbURI = 'mongodb://localhost/local';
 
 mongoose.set('useFindAndModify', false);
 
-mongoose.connect(dbURI, {useNewUrlParser: true});
+mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
 //CONNECTED.
@@ -59,3 +59,5 @@ process.on('SIGTERM', function () {
 require('./products');
 require('./ingredients');
 require('./users');
+require('./grid');
+require('./orders');

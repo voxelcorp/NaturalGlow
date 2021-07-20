@@ -24,15 +24,50 @@ var checkProduct = function (cart, productId) {
 }
 
 //MODULES
+module.exports.orderCompletePage = async function (req, res) {
+  if(!req.session) {
+    res.redirect('/');
+    return;
+  }
+  res.render('orderComplete', {
+    title: 'Encomenda Completa',
+    payment: req.params.paymentType,
+    review: req.params.review,
+    email: process.env.SHOP_EMAIL,
+  });
+}
+
+module.exports.editOrderPage = async function (req, res) {
+  if(!req.session || !req.body.orderID) {
+    res.redirect('/');
+    return;
+  }
+  res.render('editOrder', {
+    title: 'Editar encomenda',
+    orderID: req.body.orderID
+  });
+}
+
+module.exports.orderPage = function (req, res) {
+  if(!req.session) {
+    res.redirect('/');
+    return;
+  }
+  res.render('order', {
+    title: 'Encomendar',
+    cart: req.session.cart
+  });
+}
+
 module.exports.cartEditPage = function (req, res) {
   if(!req.session) {
     res.redirect('/');
     return;
   }
   res.render('cart', {
-    title: 'Editar carrinho'
+    title: 'Editar carrinho',
+    cart: req.session.cart
   });
-  library.sendJsonResponse(res, 200, req.session.cart);
 }
 
 module.exports.getCart = function (req, res) {
@@ -56,7 +91,7 @@ module.exports.addToCart = async function (req, res) {
   //If already has the same product inside the cart
   if(storedProduct.status == true) {
     storedProduct.product.quantity += parseInt(req.params.quantity);
-    storedProduct.product.total = parseFloat(storedProduct.product.price * storedProduct.product.quantity).toFixed(2)
+    storedProduct.product.total = parseFloat(storedProduct.product.price * storedProduct.product.quantity).toFixed(2);
   }else { //First iteration.
     cart.push({
       id: req.params.productId,
@@ -67,4 +102,30 @@ module.exports.addToCart = async function (req, res) {
     });
   }
   library.sendJsonResponse(res, 200, 'product added to cart.');
+}
+
+module.exports.editCart = async function (req, res) {
+  if(!req.body) {
+    library.sendJsonResponse(res, 404, "missing info.");
+  }
+  let update = req.body;
+  let cart = req.session.cart;
+
+  if(update.remove) {
+    var newCart = [];
+    for(var i = 0; i < cart.length; i++) {
+      if(cart[i].id != update.productID) {
+        newCart.push(cart[i]);
+      }
+    }
+    req.session.cart = newCart;
+  }else {
+    for(var i = 0; i < cart.length; i++) {
+      if(cart[i].id == update.productID) {
+        cart[i][update.param] = parseInt(update.value);
+        cart[i]['total'] = parseFloat(parseFloat(cart[i]['quantity']) * parseFloat(cart[i]['price'])).toFixed(2);
+      }
+    }
+  }
+  library.sendJsonResponse(res, 200, 'product updated.');
 }

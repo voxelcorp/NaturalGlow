@@ -1,10 +1,11 @@
 //-Button settings
-button(id='loginPopupBtn') 
+button(id='loginPopupBtn')
   p(id='loginText') Entrar
   span(class='material-icons loginIcon') account_circle
 //MODAL
 #loginPopup(style='z-index: 2')
-  button(id='closeLoginPopupBtn' class='closeBtn resetBtn' onclick='closePopup("loginPopup")') x
+  .desktopOnly
+    button(id='closeLoginPopupBtn' class='closeBtn resetBtn' onclick='closePopup(loginPopup)') x
   h1 Iniciar Sessão
   form(action="#" method="method" id='loginForm' onsubmit='submitLogin(event)')
     .inputCentered

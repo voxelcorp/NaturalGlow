@@ -1,7 +1,7 @@
 //Create product pop up
 #productModal.modal
   .modalContent
-    button(id='closeProductPopupBtn' class='closeBtn resetBtn' onclick='closePopup("productModal")') x
+    button(id='closeProductPopupBtn' class='closeBtn resetBtn' onclick='closePopup(productModal)') x
     .mainTitle#productTitle Adicionar novo produto
     form(enctype='multipart/form-data' method='post' action='/api/products' id='productForm' onsubmit='submitProductForm(this)')
       .formContent
@@ -22,22 +22,28 @@
           #productImagesPreviewContent
         //Name
         #inputNameContent.inputContent
-          label Name
+          label Nome
           input(type='text' name='name' id='productInputName' required)
         //Price  
         #inputPriceContent.inputContent
-          label Price
+          label Preço
           input(type='decimal' name='price' id='productInputPrice' required)
+        //Price
+        br
+        #inputSectionContent.inputContent
+          label Secção
+          select(id='productTag' name='productTag' required) 
         //Quantity
+        br
         #inputQuantityContent.inputContent
-          label Quantity
+          label Quantidade
           input(type='number' name='quantity' id='productInputQuantity' step='0.1' required)
         //Quantity type
         #quantityTypeContent
           select(id='productType' name='quantityType' required)
-            option(value='gr') Grams
-            option(value='oz') Onzes
-            option(value='lt') Liters
+            option(value='gr') Gramas
+            option(value='oz') Onzas
+            option(value='lt') Litros
         //Description  
         .mainTitle 
           span Descricao
@@ -47,7 +53,7 @@
           .mainTitle 
             span Ingredientes
           .inputContent
-            label Name
+            label Nome
             input(list='ingredient' name='ingredient' required)
             datalist(id='ingredient' class='ingredientDatalist')
             button(class='removeBtn hint--error hint--bottom' aria-label='Remover ingrediente.' onclick='removeIngredient(this)') x

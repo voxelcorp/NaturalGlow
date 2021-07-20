@@ -11,20 +11,68 @@ var auth = jwt({
     }
   }
 });
+//FILE UPLOAD CONFIG
+var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './public/images/');
+  },
+  filename: (req, file, cb) => {
+    cb(null,  Date.now() + "_" + file.originalname);
+  }
+});
+
+var fileFilter = (req, file, cb) => {
+  if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png') {
+    cb(null, true);
+  }else {
+    cb(null, false);
+  }
+}
+var upload = multer({storage: storage, fileFilter: fileFilter});
+//---
 
 var ctrlProducts = require('../controllers/products');
 var ctrlIngredients = require('../controllers/ingredients');
+var ctrlGrid = require('../controllers/grid');
 var ctrlPost = require('../controllers/post');
 var ctrlUsers = require('../controllers/users');
+var ctrlOrders = require('../controllers/orders');
 
 //GENERAL
 router.get('/post/:url/:content', ctrlPost.submitPost);
 
+// -> GRIDS <-
+//RETRIEVE GRIDS
+router.get('/grids', ctrlGrid.getGrids);
+router.get('/sections', ctrlGrid.getSections);
+//CREATE GRID PATTERN
+router.post('/grid/new', ctrlGrid.saveGrid);
+
+//GRID-CELLS
+router.post('/cell/remove', ctrlGrid.removeGridCell);
+router.post('/cell/split', ctrlGrid.splitGridCell);
+router.post('/cell/joint', ctrlGrid.jointGridCell);
+router.post('/cell/gridInfo', ctrlGrid.changeGridInfo);
+
+// -> ORDERS <-
+//GET "RETRIEVE"
+router.get('/orders', ctrlOrders.retrieveAllOrders);
+router.get('/order/user/:user', ctrlOrders.retrieveUserOrders);
+router.get('/order/orderID/:orderID', ctrlOrders.retrieveOrderID);
+
+//CREATE AND UPDATE
+router.post('/order/new', ctrlOrders.createOrder);
+router.post('/order/update', ctrlOrders.updateOrder);
+router.get('/order/paid/:orderID', ctrlOrders.paidOrder);
 // -> PRODUCTS <-
 
 //GET "RETRIEVE"
 router.get('/products', ctrlProducts.allProducts);
 router.get('/products/:productId', ctrlProducts.infoSingleProduct);
+router.get('/ghostProducts', ctrlProducts.productsWithoutSection); //Products with removed Sections
+router.post('/products/section', ctrlProducts.productsBySection);
+
 
 //POST "CREATE"
 router.post('/products', auth, ctrlProducts.createProduct);

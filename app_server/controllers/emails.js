@@ -6,18 +6,7 @@ var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
 var axios = require('axios');
 
-//Encrypts the email to be sent by email.
-var tokenInfo = function (info) {
-  if(!info) {
-    console.log('missing email.');
-    return null;
-  }
-  var expiry = Math.floor(Date.now() / 1000) + (60 * 10); //10min expiration.
-  return jwt.sign({
-    info: info,
-    exp: expiry,
-  }, process.env.JWT_SECRET);
-}
+
 
 //Creates the email process.
 var emailConfig = function (to, emailType, id = null) {
@@ -27,10 +16,10 @@ var emailConfig = function (to, emailType, id = null) {
   }
   var tokenId;
   if(id != null) {
-    tokenId = tokenInfo(id);
+    tokenId = library.tokenInfo(id);
   }
 
-  var tokenEmail = tokenInfo(to);
+  var tokenEmail = library.tokenInfo(to);
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -56,6 +45,12 @@ var emailConfig = function (to, emailType, id = null) {
   });
 }
 
+var validateEmail = function (email) {
+  if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+    return true;
+  }
+  return false;
+}
 
 
 //---
@@ -65,10 +60,15 @@ module.exports.sendEmail = function (req, res) {
     library.sendJsonResponse(res, 404, 'missing info.');
     return;
   }
+  let email = req.params.to;
+  if(validateEmail(email) == false) {
+    email = decodeEmail(email).info;
+  }
+
   if(req.params.userId) { //if email requires the user email besides the destination email.
-    emailConfig(req.params.to, req.params.subject, req.params.userId);
+    emailConfig(email, req.params.subject, req.params.userId);
   }else {
-    emailConfig(req.params.to, req.params.subject);
+    emailConfig(email, req.params.subject);
   }
   library.sendJsonResponse(res, 200, 'done.');
 }
@@ -163,6 +163,8 @@ module.exports.newPwPage = function (req, res) {
 // 2 - change password
 // 3 - password changed
 // 4 - change email
+// 5 - new order
+// 6 - payment received
 var emailTexts = function (type, emailToken, idToken = '') {
   var website = 'http://localhost:3000/emailResponse/' + emailToken;
   var confirmedEmailText = '';
@@ -186,6 +188,16 @@ var emailTexts = function (type, emailToken, idToken = '') {
     confirmedEmailText += '<p>Verificamos que efectou um pedido de alteração de email para a sua conta Natural Glow. Tendo isso em conta pedimos que para verificar o seu novo email clique na hiperligação abaixo.</p><br>'
     confirmedEmailText += '<p>Ficamos ansiosos por o ver novamente na nossa loja de cosméticos naturais. Terá de iniciar a sessão novamente.</p>' + greetings;
     confirmedEmailText += '<a href="' + website + '/confirmEmailUpdate/' + idToken + '">Clique aqui: ' + website + '/confirmEmailUpdate/' + idToken + '</a>';
+  }else if(type == 5) {
+    subject = 'Natural Glow - Nova encomenda.';
+    confirmedEmailText += '<p>Temos o prazer de informar que a sua encomenda foi concluida com sucesso. </p>';
+    confirmedEmailText += '<p>Após o pagamento, pode enviar o comprovativo por email para receber a sua encomenda o mais rapidamente possivel.</p>';
+    confirmedEmailText += '<p>Para encontrar mais detalhes pode entrar na sua página de perfil, onde irá conseguir verificar o estado atual da sua encomenda, os dados para o pagamento, e o endereço de email para onde deve enviar o comprovativo.</p>' + greetings;
+  }else if(type == 6) {
+    subject = 'Natural Glow - Em processamento.';
+    confirmedEmailText += '<p>Temos o prazer de informar que o pagamento da sua encomenda foi recebido com sucesso.</p>';
+    confirmedEmailText += '<p>Vamos concluir todos os processos necessários para o envio da sua encomenda o mais brevemente possível. Após ser enviada irá receber um novo email com os dados do envio.</p>';
+    confirmedEmailText += '<p>Para encontrar mais detalhes pode entrar na sua página de perfil onde irá conseguir verificar o estado atual da sua encomenda.</p>' + greetings;
   }
   return {
     html: confirmedEmailText,

@@ -6,11 +6,71 @@ var darkOrange = '#e15f41';
 var darkRed = '#c0392b';
 var grey = '#2d3436';
 
+//LAYOUT SPECIFIC FUNCTION
+//ADDS PRODUCTS SECTIONS
+window.onload = function () {
+  detectHeaderBtnClick();
+}
+
+var detectHeaderBtnClick = function () {
+  let headerProductBtns = document.getElementsByClassName("headerProductBtns");
+  if(headerProductBtns.length < 1) {
+    return;
+  }
+  var addSectionToHeader = async function () {
+    let sectionsContent = document.getElementById("headerProductSections");
+    let sections = await axios('/api/sections');
+    sections = sections.data;
+    let html = '';
+    for(details in sections) {
+      let section = sections[details];
+      html += "<form method='post' action='/section' class='alignCenter'><input type='hidden' name='sectionTitle' value='"+section.title+"'><input type='hidden' name='sectionId' value='"+section._id+"'><button type='submit' class='notice'>"+section.title+"</button></form>";
+    }
+    sectionsContent.innerHTML = html;
+    openPopup(null, sectionsContent, true, true);
+  }
+
+  for(btn in headerProductBtns) {
+    if(headerProductBtns[btn].tagName) {
+      headerProductBtns[btn].addEventListener("click", async function (e) {
+        await addSectionToHeader();
+      });
+    }
+
+  }
+}
+
 //CAN BE REUSED ON MULTIPLE FILES.
 var imagesDir = './images/products/';
 var username = document.getElementById("username").value;
 
 //GENERAL
+var showDiv = function (div) {
+  div.classList.remove("hidden");
+  div.classList.add("fadeIn");
+}
+
+var hideDiv = function (div) {
+  div.classList.remove("fadeIn");
+  div.classList.add("hidden");
+}
+
+var getRandomInt = function (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+var calculateTotal = function (cart) {
+  if(!cart) {
+    return 0;
+  }
+  var total = 0;
+  for (product in cart) {
+    total += cart[product].price * cart[product].quantity;
+  }
+  return total.toFixed(2);
+}
 
 //Creates an uniform response function.
 var sendJsonResponse = function (res, status, content) {
@@ -82,7 +142,12 @@ document.onclick = function (e) {
       }
       var currentPopup = popupsOnPage[i].popup;
       if(!currentPopup.contains(e.target) && popupsOnPage[i].opened == true) {
-        closePopup(currentPopup);
+        if(popupsOnPage[i].visible == true) {
+          closePopup(currentPopup, true, true);
+        }else {
+          closePopup(currentPopup);
+        }
+
       }
       if(popupsOnPage[i]) {
         popupsOnPage[i].opened = true; //Recognize first click as opening.
@@ -120,31 +185,46 @@ var storedPopup = function (checkPopup) {
 
 //Changes the popup display to be shown. Required id.
 //Adds popup to popupsOnPage Array.
-var openPopup = function (btn, popupId, checkClick = true) {
-  var popup = getPopup(popupId);
+var openPopup = function (btn, popupContent, checkClick = true, visible = false) {
+  if(typeof popupContent != 'object') {
+  var popup = getPopup(popupContent);
+  }else {
+  popup = popupContent;
+  }
+
   if(!popup) {
     return null;
   }
 
   if(checkClick == true) {
     if(!storedPopup(popup)) { //Check if already stored.
-      popupsOnPage.push({
-        opened: false,
-        popup: popup
-      });
+      if(visible) {
+        popupsOnPage.push({
+          opened: true,
+          popup: popup,
+          visible: visible
+        });
+      }else {
+        popupsOnPage.push({
+          opened: false,
+          popup: popup,
+          visible: visible
+        });
+      }
+
     }
   }
+  if(visible) {
+    showDiv(popup);
+  }else {
+    popup.style.display = 'block';
+  }
 
-  popup.style.display = 'block';
 }
 
 //Changes the popup display to be hidden. Required id.
 //Removes popup from popupsOnPage Array.
-var closePopup = function (removePopup, checkClick = true) {
-  // var removePopup = getPopup(popupId);
-  // if(!removePopup) {
-  //   return null;
-  // }
+var closePopup = function (removePopup, checkClick = true, visible = false) {
   if(checkClick == true) {
     var updatedPopups = new Array();
     for(popup in popupsOnPage) {
@@ -154,7 +234,11 @@ var closePopup = function (removePopup, checkClick = true) {
     }
     popupsOnPage = updatedPopups;
   }
-  removePopup.style.display = 'none';
+  if(visible == true) {
+    hideDiv(removePopup);
+  }else {
+    removePopup.style.display = 'none';
+  }
 }
 
 //---
@@ -172,7 +256,7 @@ var getFormsData = function (form) {
   for (var i = 0; i < elements.length; i++) {
     var item = elements.item(i);
     //Only store values inserted by the user.
-    if(item.id && (item.tagName === 'INPUT')) {
+    if(item.id && (item.tagName === 'INPUT' || item.tagName === 'TEXTAREA')) {
       obj[item.id] = item.value;
     }
   }
@@ -198,6 +282,14 @@ var fillForm = function (data, fields) {
         fields[i].value = data[inputName];
       }
     }
+  }
+}
+
+//removes all inputs inside form.
+var resetForm = function (form) {
+  var inputs = searchElement(form, "input");
+  while(inputs.length > 0) {
+    inputs[0].parentNode.removeChild(inputs[0]);
   }
 }
 
@@ -331,6 +423,58 @@ var resetInputNotices = function () {
      inputNotices[0].parentNode.removeChild(inputNotices[0]);
    }
  }
+}
+
+//INPUT CREATE
+//Add preview image function to all file input labels.
+var addPreviewImage = function (form) {
+  var fileLabels = document.getElementsByName("imgFile");
+  for(var i = 0; i < fileLabels.length; i++) {
+    fileLabels[i].addEventListener("change", function (e) {
+      var id = this.id.slice(-1);
+      var nameID = "name"+id;
+      var inputName = "nameInput"+id;
+      var imgURL = URL.createObjectURL(this.files[0]);
+
+      document.getElementById("imgContent"+id).innerHTML = "<p><input type='text' name='"+inputName+"'></p><img src='"+imgURL+"' class='containImg' loading='lazy'>";
+      createTextInput(nameID, "name", form);
+      updateTextInput(nameID, "nameInput"+id, id);
+    });
+  }
+}
+
+var createTextInput = function (id, name, form, value=null) {
+  var newInput = document.createElement("input");
+  newInput.type = "text";
+  newInput.id = id;
+  newInput.name = name;
+  newInput.value = value;
+  newInput.required = true;
+  newInput.classList.add("inputFile");
+  form.appendChild(newInput);
+  return newInput;
+}
+
+//Create storage for image in form.
+var createNewFileInput = function (id, name, form) {
+  var newInput = document.createElement("input");
+  newInput.type = "file";
+  newInput.id = id;
+  newInput.name = name;
+  newInput.required = true;
+  newInput.accept ="image/png, image/jpeg";
+  newInput.classList.add("inputFile");
+  form.appendChild(newInput);
+  return newInput;
+}
+
+//Change form value depending on user input.
+var updateTextInput = function (inputStorage, userInput, id) {
+  var section = document.getElementsByName(userInput)[0];
+  var formStorage = document.getElementById(inputStorage);
+  section.addEventListener("keyup", function (e) {
+    formStorage.value = this.value;
+  });
 }
 
 //NOTICES

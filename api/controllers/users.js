@@ -47,6 +47,8 @@ module.exports.login = function (req, res) {
       }
       token = user.generateJwt();
       req.session.token = token;
+      req.session.userID = user._id;
+      req.session.email = user.email;
       req.session.username = user.username;
       req.session.admin = user.admin;
       req.session.cart = new Array();

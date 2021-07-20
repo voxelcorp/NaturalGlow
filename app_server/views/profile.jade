@@ -30,9 +30,9 @@ block content
       .currentMainTitle
         span Alterar Senha
       .inputCentered
-        button(id='openPwPopupBtn' class='indieBtn' onclick='openPopup(this, "profilePwForm", false);closePopup("openPwPopupBtn", false);changeStatusInputs("profilePwForm", event);resetInputs(profilePwForm);') Abrir
+        button(id='openPwPopupBtn' class='indieBtn' onclick='openPopup(this, "profilePwForm", false);changeStatusInputs("profilePwForm", event);resetInputs(profilePwForm);') Abrir
       form(id='profilePwForm' class='noShow borderedContent' onsubmit='validatePasswordForm(event, this)')
-          span(class='closeBtn resetBtn' onclick='closePopup("profilePwForm", false);openPopup(this, "openPwPopupBtn", false)') x
+          span(class='closeBtn resetBtn' onclick='closePopup(profilePwForm, false)') x
           .inputCentered.mediumInput
             label(for='oldPw') Senha atual
             input(type='password' id='oldPw')
@@ -47,15 +47,7 @@ block content
             
     //Order Details
     .halfWidth
+    .currentMainTitle
+      span Encomendas
     #orderDetails
-      .currentMainTitle
-        span Encomendas
-      table
-        tr
-          th Id
-          th Data
-          th Valor
-          th Estado
-        tr
-      .notice Ainda não fez nenhuma encomenda
     script(src='/js/profile.js')

@@ -1,4 +1,7 @@
 //ALL FUNCTIONS RELATED TO THE USER PROFILE
+window.onload = function createTables () {
+  createOrdersTable();
+};
 
 //PASSWORD
 var validatePasswordForm = function (e, form) {
@@ -46,6 +49,37 @@ var validatePasswordForm = function (e, form) {
 
 //---
 //PROFILE
+var createOrdersTable = function () {
+  var container = document.getElementById('orderDetails');
+  if(!container) {
+    return;
+  }
+  axios.get('/api/orders')
+  .then((res) => {
+    data = res.data;
+    if(data.length < 1) {
+      container.innerHTML = "<div class='notice'>Ainda não fez nenhuma encomenda</div>";
+      return;
+    }
+    data = addData(data, [
+      {"paymentInfo": "<a><button class='smallBtn'>Ver</button></a>", value:'payment', href: "href='/order/complete/value/old'"}
+    ]);
+    data = removeData(data, ["products", "orderUser", "orderUserEmail", "phone", "address", "zipCode", "district", "note", "__v", "payment", "delivery"]);
+    data = arrangeArray(data, {
+      "_id": "_id",
+      "Encomenda": "orderNumber",
+      "Data": "date",
+      "Total (€)": "orderTotal",
+      "Estado": "status",
+      "Dados de pagamento": "paymentInfo"
+    }, 'multiple');
+    container.innerHTML = createTable(data, ['_id']);
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  });
+}
 
 var submitProfileChanges = async function (e, form) {
   e.preventDefault();

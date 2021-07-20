@@ -2,11 +2,12 @@
 
 //-----
 //OBJECTIVE: Display popup.
-var displayPopup = function () {
+var displayPopup = async function () {
     var popup = document.getElementById('productModal');
     var newImagesContainer = document.getElementById('imagesPreviewContent');
     var productImagesContainer = document.getElementById('productImagesPreviewContent');
     var productForm = document.getElementById('productForm');
+    var sections = document.getElementById("productTag");
     //---
     popup.style.display = "block";
     //INPUTS RESET
@@ -18,6 +19,8 @@ var displayPopup = function () {
     //INGREDIENTS RESET
     resetIngredients();
     loopIngredientsDataInputs(); //Adds the ingredients to the search method in the ingredients input.
+    //SECTION INSERT
+    sections.innerHTML = await updateSections();
 }
 
 
@@ -40,6 +43,53 @@ var submitProductForm = function (form) {
     document.getElementById('imgsChoosenByUser').value = JSON.stringify(productImages); //Adds images to form.
     form.submit();
   }
+}
+
+// -> SECTIONS <-
+var updateSections = async function (productCurrentSection = null) {
+  var html = "";
+  var storedSections = await storeSections();
+  if(Array.isArray(storedSections) && storedSections.length > 0) {
+    for(var i = 0; i < storedSections.length; i++) {
+      if(productCurrentSection && productCurrentSection == storedSections[i].id) {
+        html += "<option value='"+storedSections[i].id+"' selected>"+storedSections[i].title+"</option>";
+      }else {
+        html += "<option value='"+storedSections[i].id+"'>"+storedSections[i].title+"</option>";
+      }
+    }
+  }
+  return html;
+}
+
+var retrieveGrids = async function () {
+  var grids = await axios.get('/api/grids')
+  .then((data) => {
+    return data;
+  })
+  .catch((err) => {
+    console.log(err);
+    return err;
+  });
+
+  return grids;
+}
+
+var storeSections = async function () {
+  var sections = [];
+  var grids = await retrieveGrids();
+  grids = grids.data;
+  if(grids.length >= 1) {
+    for(var i = 0; i < grids.length; i++) {
+      for(var x = 0; x < grids[i].sections.length; x++) {
+        var currentSection = grids[i]["sections"][x];
+        sections.push({
+          id: currentSection._id,
+          title: currentSection.title,
+        });
+      }
+    }
+  }
+  return sections;
 }
 
 // -> INGREDIENTS <-
@@ -65,9 +115,7 @@ var addIngredientsData = function (datalist, ingredients) {
   var html = '';
   for(var i = 0; i < ingredients.length; i++) {
     html += '<option value="' + ingredients[i].name + '">' + ingredients[i].name + '</option>';
-    console.log(html);
   }
-  console.log(ingredients);
   datalist.innerHTML += html;
 }
 
@@ -296,7 +344,7 @@ var openProductPopup = function (e, element) {
   getSingleProductData(productId)
   .then((productData) => {
     displayPopup();
-    productForm.action += '/update/'+productId;
+    productForm.action = 'api/products/update/'+productId;
     productImagesFileInput.required = false;
     fillPopup(productData, popupInputs);
   })
@@ -308,10 +356,16 @@ var openProductPopup = function (e, element) {
 
 //-----
 //OBJECTIVE: Get the popup inputs and the product data and fills the popup with the info.
-var fillPopup = function (data, fields) {
+var fillPopup = async function (data, fields) {
   fillForm(data, fields);
+  //Must be in its own because requires changes in HTML.
+  await selectCurrentTag(data.tag, fields.productTag);
   //Must be in its own because is required to create new inputs.
   fillIngredients(data.ingredients);
+}
+
+var selectCurrentTag = async function (productTag, formTagSelect) {
+  formTagSelect.innerHTML = await updateSections(productTag);
 }
 
 var fillIngredients = function (ingredients) {

@@ -22,16 +22,6 @@ var displayProductOptions = function (product) {
   });
 }
 
-var showDiv = function (div) {
-  div.classList.remove("hidden");
-  div.classList.add("fadeIn");
-}
-
-var hideDiv = function (div) {
-  div.classList.remove("fadeIn");
-  div.classList.add("hidden");
-}
-
 //Makes search with tag and tag with name.
 var searchElement = function(location, tag, name = null) {
   var elements = location.getElementsByTagName(tag);

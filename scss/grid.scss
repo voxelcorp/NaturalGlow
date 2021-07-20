@@ -1,0 +1,289 @@
+@import 'general.scss';
+@import 'colours.scss';
+
+//EDIT GRID
+#editCellUI {
+  position: absolute;
+  background: $grey;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 2em;
+  padding: .5em 0 .5em 0;
+}
+
+#editCellUI button {
+  display: inline-block;
+  font-family: "cursive";
+  font-weight: lighter;
+  color: #FFF;
+  background-color: $blue;
+  border: none;
+  margin: 0 1% 0 1%;
+
+}
+
+#editCellUI .greenBtn {
+  background-color: $mainGreen;
+}
+
+#editCellUI button[name='removeCell'] {
+  background-color: $orange;
+}
+
+#editCellUI button:hover {
+  opacity: .7;
+}
+
+//ADD GRID FORM
+.gridType {
+  @include responsiveWidth(40%, 5%, 15%);
+  display: inline-block;
+  padding: 2.5%;
+  margin: 1%;
+  border-bottom: .25em solid $grey;
+  border-right: .25em solid $grey;
+  border-radius: .25em;
+}
+
+#gridTypeContent {
+  width: 20%;
+}
+
+.gridType:hover {
+  cursor: pointer;
+  background-color: $clouds;
+
+}
+
+.gridType p {
+  text-align: center;
+}
+
+
+//GRIDS
+.optionsRow {
+  background-color: $lightBrown;
+  display: inline-flex;
+  border-left: .3em solid $grey;
+  border-right: .3em solid $grey;
+  padding: .5em;
+  margin-bottom: 1em;
+}
+
+.optionsRow .gridType {
+  @extend .alignCenter;
+  width: 2em;
+  margin: 0 .5em 0 .5em;
+  padding: 0;
+  border: none;
+  border-radius: .2em;
+}
+
+.gridContainer {
+  @include responsiveWidth(99%, 49%);
+  margin: 2em .5% 2em .5%;
+  display: inline-block;
+  position: relative;
+}
+
+.gridContainer:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.grid {
+  display: inline-flex;
+  flex-wrap: wrap;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.highlightCell {
+  background: $mainGreen;
+}
+
+.albumBorder {
+  background-color: $lightBrown;
+}
+
+.albumContent {
+  overflow: hidden;
+  position: relative;
+}
+
+.albumContent:hover {
+  opacity: .85;
+}
+
+.albumContent p {
+  font-family: "Dancing Script", cursive;
+  font-size: 2vw;
+  z-index: 1;
+  position: absolute;
+  color: #FFF;
+  font-weight: bolder;
+  max-width: 40%;
+  text-align: center;
+  @include mobileOnly {
+    @include responsiveText(18);
+  }
+}
+
+.albumContent p input {
+  font-size: 1vw;
+  width: 100%;
+  background-color: inherit;
+  color: #FFF;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-bottom: .2em solid $grey;
+}
+
+.albumContent label {
+  @include responsiveText(48);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.albumContent label:hover {
+  cursor: pointer;
+  background-color: $clouds;
+}
+
+.albumContent img {
+  height: 100%;
+  width: auto;
+}
+
+.albumContent a, .albumContent form {
+  width: 100%;
+  height: 100%;
+}
+
+.albumContent form button[type='submit'] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+}
+
+//RACTIOS FORMULA: Columns x Rows x SquaredZone
+// - S = Squared + Zone (T = Top, B = Bottom, L = Left , R = Right)
+//Example:
+// 2x1xSR
+/* I = Image
+|-------|
+| I | I |
+| M |---|
+| G | I |
+|-------|
+*/
+
+
+@function calcGrid($gridRatio, $gap) {
+  $grid: 100%;
+  @return $grid / $gridRatio - $gap;
+
+}
+
+.twoByTwo .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(2, $margin);
+  margin: 1%;
+  height: calcGrid(2, $margin);
+}
+//--
+
+.twoByOne .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(2, $margin);
+  margin: 1%;
+  height: calcGrid(1, $margin);
+}
+//--
+
+.oneByTwo .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(1, $margin);
+  margin: 1%;
+  height: calcGrid(2, $margin);
+}
+//--
+
+.oneByOne .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(1, $margin);
+  margin: 1%;
+  height: calcGrid(1, $margin);
+}
+//--
+
+.oneByTwoST .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(2, $margin);
+  margin: 1%;
+  height: calcGrid(2, $margin);
+}
+
+.oneByTwoST .albumContent:last-child {
+  $margin: 2;
+  flex-basis: calcGrid(1, $margin);
+  margin: 1%;
+  height: calcGrid(2, $margin);
+}
+//--
+
+.oneByTwoSB .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(2, $margin);
+  margin: 1%;
+  height: calcGrid(2, $margin);
+}
+
+.oneByTwoSB .albumContent:first-child {
+  $margin: 2;
+  flex-basis: calcGrid(1, $margin);
+  margin: 1%;
+  height: calcGrid(2, $margin);
+}
+//--
+.twoByOneSL, .twoByOneSR {
+    flex-direction: column;
+}
+
+.twoByOneSL .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(2, $margin);
+  margin: 1%;
+  width: calcGrid(2, $margin);
+}
+
+.twoByOneSL .albumContent:first-child {
+  $margin: 2;
+  flex-basis: calcGrid(1, $margin);
+  margin: 1%;
+  width: calcGrid(2, $margin);
+}
+//--
+
+.twoByOneSR .albumContent {
+  $margin: 2;
+  flex-basis: calcGrid(2, $margin);
+  margin: 1%;
+  width: calcGrid(2, $margin);
+}
+
+.twoByOneSR .albumContent:last-child {
+  $margin: 2;
+  flex-basis: calcGrid(1, $margin);
+  margin: 1%;
+  width: calcGrid(2, $margin);
+}

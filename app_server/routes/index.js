@@ -17,11 +17,13 @@ var ctrlAdmin = require('../controllers/admin');
 var ctrlUsers = require('../controllers/users');
 var ctrlEmails = require('../controllers/emails');
 var ctrlCart = require('../controllers/cart');
-
+var ctrlFrontEmail = require('../controllers/homepageEmail');
 //GENERAL
 
 //Home page.
 router.get('/', ctrlProducts.productsList);
+
+router.post('/section', ctrlProducts.renderSectionPage);
 
 //Product Details page. Required product id to be sent by post.
 router.post('/product', ctrlProducts.productDetails);
@@ -36,6 +38,14 @@ router.get('/cart/edit', ctrlCart.cartEditPage);
 router.get('/cart', ctrlCart.getCart)
 //add
 router.get('/cart/:productId/:name/:price/:quantity', ctrlCart.addToCart);
+//edit
+router.post('/cart/update', ctrlCart.editCart);
+
+//---
+//ORDERS
+router.get('/order', ctrlCart.orderPage);
+router.post('/order/edit', ctrlCart.editOrderPage);
+router.get('/order/complete/:paymentType/:review', ctrlCart.orderCompletePage)
 
 //---
 //USERS
@@ -51,6 +61,7 @@ router.get('/profile', auth, ctrlUsers.profilePage);
 
 //SEND
 router.get('/email/:to/:subject/:userId', ctrlEmails.sendEmail);
+router.post('/email', ctrlFrontEmail.sendAnonymousEmail); //Email by user in front homepage.
 
 //Validation email page.
 router.get('/sendEmail/:subject', ctrlEmails.emailPage);

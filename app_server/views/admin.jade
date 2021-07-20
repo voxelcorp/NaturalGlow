@@ -6,7 +6,15 @@ block content
   .content
     h1.currentMainTitle
       span Gestao
+    //ORDERS
+    #ordersOption
+      h1.currentMainTitle
+        span Encomendas
+      #ordersTableContent
     //PRODUCTS
+    h1#untaggedTitle.currentMainTitle.noShow
+      span Produtos sem secção
+    #untaggedProductsTableContent
     #productsOption
       h1.currentMainTitle
         span Produtos
@@ -15,7 +23,7 @@ block content
           button(type='submit' onclick='displayPopup()') Adicionar Produto
         include addOns/addProductPopup
       #productsTableContent
-    //PRODUCTS
+    //INGREDIENTS
     #ingredientsOption
       h1.currentMainTitle
         span Ingredientes
