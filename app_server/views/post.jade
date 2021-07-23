@@ -1,9 +1,0 @@
-doctype html
-html
-  head
-  body
-    form(method='post' action=url id='postForm')
-      each value, index in data
-        input(type='hidden' name=index value=value)
-    script.
-      document.getElementById('postForm').submit()
