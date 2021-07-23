@@ -11,14 +11,20 @@ var auth = jwt({
     }
   }
 });
-//FILE UPLOAD CONFIG
-var multer = require('multer');
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, './public/images/');
-  },
-  filename: (req, file, cb) => {
-    cb(null,  Date.now() + "_" + file.originalname);
+//---
+const aws = require('aws-sdk');
+const s3 = new aws.S3({
+  accessKeyId: process.env.AWS_ID,
+  secretAccessKey: process.env.AWS_SECRET
+});
+
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const storage = multerS3({
+  s3: s3,
+  bucket: process.env.AWS_BUCKET_NAME,
+  key: function (req, file, cb) {
+    cb(null, Date.now().toString());
   }
 });
 
@@ -38,9 +44,11 @@ var ctrlGrid = require('../controllers/grid');
 var ctrlPost = require('../controllers/post');
 var ctrlUsers = require('../controllers/users');
 var ctrlOrders = require('../controllers/orders');
+var ctrlAWS = require('../controllers/uploadAWS');
 
 //GENERAL
 router.get('/post/:url/:content', ctrlPost.submitPost);
+router.get('/uploadUrl', ctrlAWS.generateUploadURL);
 
 // -> GRIDS <-
 //RETRIEVE GRIDS

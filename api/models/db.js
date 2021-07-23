@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 var readLine = require('readline');
-var dbURI = 'mongodb://localhost/local';
+var dbURI = process.env.MONGODB_URI;
 
 mongoose.set('useFindAndModify', false);
 

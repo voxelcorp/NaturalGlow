@@ -15,11 +15,11 @@
   padding-bottom: 1vh;
   border-bottom: 0.75em solid #2c3e50;
   border-radius: 0.75em;
-  height: 77vh;
+  height: 65vh;
 }
 @media only screen and (max-width: 426px) {
   #productDetailsMainImg {
-    height: 62vh;
+    height: 35vh;
   }
 }
 

@@ -17,10 +17,12 @@ var detectHeaderBtnClick = function () {
   if(headerProductBtns.length < 1) {
     return;
   }
+
   var addSectionToHeader = async function () {
     let sectionsContent = document.getElementById("headerProductSections");
     let sections = await axios('/api/sections');
     sections = sections.data;
+    console.log(sections);
     let html = '';
     for(details in sections) {
       let section = sections[details];
@@ -41,7 +43,6 @@ var detectHeaderBtnClick = function () {
 }
 
 //CAN BE REUSED ON MULTIPLE FILES.
-var imagesDir = './images/products/';
 var username = document.getElementById("username").value;
 
 //GENERAL
@@ -98,7 +99,7 @@ var sendEmail = async function (email, emailType) {
     console.log('missing email');
     return null;
   }
-  var axiosRes = await axios.get('/email/'+ email +'/'+ emailType)
+  var axiosRes = await axios.get('/email/'+ email +'/'+ emailType+'/null')
   .then(function (res) {
     console.log('email sent.');
     return 200;
@@ -426,6 +427,21 @@ var resetInputNotices = function () {
 }
 
 //INPUT CREATE
+var saveImgToAWS = async function (file) {
+  let url = await axios.get('/api/uploadUrl');
+  url = url.data;
+  await fetch (url, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    body: file
+  });
+
+  let imageUrl = url.split('?')[0];
+  return imageUrl;
+}
+
 //Add preview image function to all file input labels.
 var addPreviewImage = function (form) {
   var fileLabels = document.getElementsByName("imgFile");

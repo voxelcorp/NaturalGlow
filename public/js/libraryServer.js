@@ -113,7 +113,7 @@ var getSingleProductData = async function (productId) {
 var checkUsername = async function (username, errMsg) {
   if(!username) {
     console.log('missing username.');
-    return null;
+    return 404;
   }
   const response = await axios.get('/api/user/username/'+username)
     .then(function (res) {
@@ -122,15 +122,14 @@ var checkUsername = async function (username, errMsg) {
         if(errMsg) {
           showMsg(errMsg, 'Utilizador já existente. Introduza outro nome de utilizador.', darkRed);
         }
-        errCheck = 400;
+        return 400;
       }
       return res;
     })
     .catch(function (err) {
-      errCheck = 400;
-      return err.response;
+      return 400;
     });
-  return response.data;
+  return 200;
 }
 
 //Check if email exists in database.
@@ -148,15 +147,14 @@ var checkEmail = async function (email, errMsg) {
         if(errMsg) {
           showMsg(errMsg, 'Email já existente. Introduza outro email.', darkRed);
         }
-        errCheck = 400;
+        return 400;
       }
-      return res;
+      return 200;
     })
     .catch(function (err) {
-      errCheck = 400;
-      return err;
+      return 400;
     });
-  return response.data;
+  return 200;
 }
 
 //Check if both inputs match.
@@ -171,9 +169,9 @@ var checkPasswords = async function (inputs, errMsg) {
     if(errMsg) {
       showMsg(errMsg, 'Ambas as senhas precisam de ser iguais.', darkRed);
     }
-    errCheck = 400;
     return 400;
   }
+  return 200;
 }
 
 //Creates a table

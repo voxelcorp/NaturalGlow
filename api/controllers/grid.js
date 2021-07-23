@@ -8,8 +8,8 @@ var Grid = mongoose.model("Grid");
 //-----
 
 //FUNCTIONS
-var arrangeSections = function (sections, files) {
-  if(!sections|| !files) {
+var arrangeSections = function (sections, imgs) {
+  if(!sections|| !imgs) {
     console.log("corrupted information");
     return [];
   }
@@ -18,46 +18,23 @@ var arrangeSections = function (sections, files) {
   if(Array.isArray(sections)) {
     for(var i = 0; i < sections.length; i++) {
       gridSections.push({
-        mainImg: files[i].name,
+        mainImg: imgs[i],
         title: sections[i]
       });
     }
   }else {
     gridSections.push({
-      mainImg: files.name,
+      mainImg: imgs,
       title: sections
     });
   }
   return gridSections;
 }
 
-var getGrids = async function (res) {
-  var grids = await Grid.find({})
-  .then((grids) => {
-    if(!grids) {
-      return {
-        value: null,
-        status: 404
-      }
-    }
-    return {
-      value: JSON.stringify(grids),
-      status: 200
-    }
-  })
-  .catch((err) => {
-    return {
-      value: null,
-      status: 401
-    }
-  });
-  return grids;
-}
-
 var createNewGrid = async function (req, res) {
   var newGrid = new Grid();
-  if(req.files) { //CREATE NEW GRID
-    var storedSection = arrangeSections(req.body.name, req.files["imgFile"]);
+  if(req.body.imgLocation) { //CREATE NEW GRID
+    var storedSection = arrangeSections(req.body.name, req.body.imgLocation);
     newGrid.pattern = req.body.pattern;
 
     for(var i = 0; i < storedSection.length; i++) {
@@ -155,37 +132,28 @@ var jointSectionToNewGrid = async function (sectionInfo) {
 
 //-----
 //MODULES
-module.exports.saveGrid = function (req, res) {
-  if(!req.files || !req.body) {
-    library.sendJsonResponse(res, 404, "missing info.");
-    return;
-  }
-  var files = req.files["imgFile"];
-  var dir = "./public/images/";
-  if(Array.isArray(files)) {
-    for(file in files) {
-      req.files["imgFile"][file]["name"] = Date.now()+req.files["imgFile"][file]["name"].slice(-4); //make it unique by timestamp.
-      var currentFile = files[file];
-      library.moveFile(res, currentFile, dir);
+module.exports.saveGrid = async function (req, res) {
+  try {
+    if(!req.body) {
+      library.sendJsonResponse(res, 404, "missing info.");
+      return;
     }
-  }else {
-    req.files["imgFile"]["name"] = Date.now()+req.files["imgFile"]["name"].slice(-4); //make it unique by timestamp.
-    library.moveFile(res, files, dir);
+    createNewGrid(req, res);
+    res.redirect("/");
   }
-
-  createNewGrid(req, res);
-  res.redirect("/");
+  catch (error) {
+    library.sendJsonResponse(res, 401, error);
+  }
 }
 
 module.exports.getGrids = async function (req, res) {
-  var grids = await getGrids();
-  library.sendJsonResponse(res, grids.status, JSON.parse(grids.value));
+  var grids = await Grid.find({});
+  library.sendJsonResponse(res, 200, grids);
 }
 
 module.exports.getSections = async function (req, res) {
 
-  let grids = await getGrids();
-  let gridsContent = JSON.parse(grids.value);
+  var gridsContent = await Grid.find({});
   var allSections = [];
   if(gridsContent.length > 0) {
     for(sections in gridsContent) {
@@ -204,7 +172,7 @@ module.exports.removeGridCell = async function (req, res) {
     return;
   }
   await removeSectionFromDb(res, req.body);
-  library.deleteImg(req.body.cellImg);
+  library.aws.deleteImg(req.body.cellImg);
   removeAlbumsFromCell(res, req.body.cellTitle);
   library.sendJsonResponse(res, 200, "cell Removed!");
 }

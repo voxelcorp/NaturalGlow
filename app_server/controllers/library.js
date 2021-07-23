@@ -80,7 +80,7 @@ module.exports.formatProductData = function (res, data) {
 
 var storeProductData = function (res, data) {
   var stored = {};
-  var mainImg = "/images/products/" + detectMain(res, data.images);
+  var mainImg = detectMain(res, data.images);
   stored = loopProduct(data);
   stored.mainImg = mainImg;
   return stored;

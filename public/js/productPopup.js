@@ -26,24 +26,71 @@ var displayPopup = async function () {
 
 //-----
 //OBJECTIVE: Adds the main img name to the form before submitting.
-var submitProductForm = function (form) {
+var submitProductForm = async function (form) {
   event.preventDefault();
+  //FUNCTIONS
+  const prepImagesForStorage = async function (imgs, uploadedUrls, type) {
+    //FUNCTIONS
+    const loopImages = function (newPaths) {
+      let newImgs = JSON.parse(imgs.new);
+      for(img in newImgs) {
+        for (path in newPaths) {
+          if(newImgs[img].path == newPaths[path].name) {
+            newImgs[img].path = newPaths[path].url;
+          }
+        }
+      }
+      imgs.new = JSON.stringify(newImgs);
+      return imgs;
+    }
+    //---
+    if(type == 'all') {
+      imgs = loopImages(uploadedUrls);
+      return imgs;
+    }else if(type == 'main'){
+      for (url in uploadedUrls) {
+        if(imgs == uploadedUrls[url].name) {
+          return uploadedUrls[url].url;
+        }
+      }
+    }
+  }
+
+  const uploadImgsToAWS = async function () {
+    const files = document.getElementById("productImages");
+    let imgUrlStorage = [];
+    for(var i = 0; i < files.files.length; i++) {
+      let currentFile = files.files[i];
+      let imgUrl = await saveImgToAWS(currentFile);
+      imgUrlStorage.push({
+        name: currentFile.name,
+        url: imgUrl
+      });
+    }
+    return imgUrlStorage;
+  }
+  //---
   var productImages = document.getElementById('previewMainImg');
   if(!productImages) {
     console.log('missing main img.');
   }else {
+    const uploadedUrls = await uploadImgsToAWS();
+
     var mainImageInput = document.getElementById('mainImgName');
-    mainImageInput.value = productImages.getAttribute('name');
+    mainImageInput.value = await prepImagesForStorage(productImages.getAttribute('name'), uploadedUrls, 'main');
     //---
     //All images to be saved.
     var productImages = {
       new: storeImages('new'),
       current: storeImages('stored')
     }
+    productImages = await prepImagesForStorage(productImages, uploadedUrls, 'all');
     document.getElementById('imgsChoosenByUser').value = JSON.stringify(productImages); //Adds images to form.
     form.submit();
   }
 }
+
+
 
 // -> SECTIONS <-
 var updateSections = async function (productCurrentSection = null) {
@@ -196,8 +243,10 @@ var storeImages = function (imageType) {
 //-----
 //OBJECTIVE: Preview image before being uploaded.
 var showImages = function (event, imgs = null, imagesType = 'new') {
+
   if(imagesType == 'new') {
     var imgContent = document.getElementById("imagesPreviewContent");
+
     imgContent.innerHTML = '<h1 class="mainTitle">Imagens Novas</h1>'; //Remove any stored preview images.
   }else if(imagesType == 'stored') {
     var imgContent = document.getElementById("productImagesPreviewContent");
@@ -228,7 +277,7 @@ var convertImgsToURL = function (allImages) {
   if(convertedImgs.length > 0) {
     return convertedImgs;
   } else {
-    return NULL;
+    return [];
   }
 }
 
@@ -388,7 +437,7 @@ var prepProductImages = function (productImages, prepType) {
   for (var i = 0; i < productImages.length; i++) {
     var newImg = {};
     newImg.name = productImages[i].path;
-    newImg.src = imagesDir + productImages[i].path;
+    newImg.src =productImages[i].path;
     newImg.main = productImages[i].main;
     prepImgs[i] = newImg;
   }

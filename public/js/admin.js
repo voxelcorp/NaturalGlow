@@ -233,17 +233,19 @@ var createOrdersTable = function () {
   axios.get('/api/orders')
   .then((res) => {
     data = res.data;
-    data = removeData(data, ["products", "orderUser", "orderUserEmail", "phone", "address", "zipCode", "district", "note", "__v", "payment", "delivery"]);
-    data = arrangeArray(data, {
-      "_id": "_id",
-      "Nº Encomenda": "orderNumber",
-      "Nome": "name",
-      "Data": "date",
-      "Total (€)": "orderTotal",
-      "Estado": "status"
-    }, 'multiple');
-    container.innerHTML = createTable(data, ['_id']);
-    onClickRow(container.firstChild, redirectToOrder);
+    if(data.length > 0) {
+      data = removeData(data, ["products", "orderUser", "orderUserEmail", "phone", "address", "zipCode", "district", "note", "__v", "payment", "delivery"]);
+      data = arrangeArray(data, {
+        "_id": "_id",
+        "Nº Encomenda": "orderNumber",
+        "Nome": "name",
+        "Data": "date",
+        "Total (€)": "orderTotal",
+        "Estado": "status"
+      }, 'multiple');
+      container.innerHTML = createTable(data, ['_id']);
+      onClickRow(container.firstChild, redirectToOrder);
+    }
   })
   .catch((err) => {
     console.log(err);

@@ -96,6 +96,22 @@ var gridSettings = {
   },
   //Shows user all the grids with available space to be jointed with selected cell.
   configEditGridOptions: function () {
+    //SUBMIT NEW GRID FORM
+    //UPLOAD FILES TO AWS S3
+    var saveGridBtn = document.getElementById("newGridForm");
+    saveGridBtn.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      var form = this;
+      var inputFiles = document.getElementsByName("imgFile");
+      console.log(inputFiles.length);
+      for(var i = 0; i < inputFiles.length; i++) {
+        let imageUrl = await saveImgToAWS(inputFiles[i].files[0]);
+        createTextInput("imgLocation"+i, "imgLocation", form, imageUrl);
+      }
+      this.submit();
+    });
+    //----
+
     var logged = document.getElementById("loggedInfo");
     var gridCells = document.getElementsByClassName("albumContent");
     var gridsCount = document.getElementsByClassName("gridContainer").length;
@@ -115,7 +131,8 @@ var gridSettings = {
     }
 
     var changeCell = async function (cell, url, jointGrid = null) {
-      var cellImg = cell.childNodes[0].childNodes[2].childNodes[1].src.split("/")[4]; //Recovers img name from url.
+      var cellImg = cell.childNodes[0].childNodes[2].childNodes[1].src; //Recovers img name from url.
+      console.log(cellImg);
       var grid = cell.parentNode;
       var gridOptions = gridSettings.gridOptions;
       var gridNewPattern = function (grid, patternType) {
@@ -314,7 +331,6 @@ var gridSettings = {
       for(var i = 0; i < patternCellBtns.length; i++) {
         patternCellBtns[i].addEventListener("click", async function (e) {
           var grid = this.parentNode.parentNode.parentNode;
-          console.log(grid);
           var gridLayout = grid.classList[1];
           if(gridLayout == "oneByOne" || gridLayout == "twoByTwo") {
             return;
@@ -371,7 +387,7 @@ var gridSettings = {
       for(var x = 0; x < grids[i]["sections"].length; x++) {
         //Creates html for each section inside a grid box.
         var section = grids[i]["sections"][x];
-        html += "<div class='albumContent "+section.title+"' id='"+section._id+"'><form method='post' action='/section' class='alignCenter'><input type='hidden' name='sectionTitle' value='"+section.title+"'><input type='hidden' name='sectionId' value='"+section._id+"'><button type='submit' class='alignCenter'><p>"+section.title+"</p><img src='/images/"+section.mainImg+"' class='containImg' loading='lazy'></button></form></div>";
+        html += "<div class='albumContent "+section.title+"' id='"+section._id+"'><form method='post' action='/section' class='alignCenter'><input type='hidden' name='sectionTitle' value='"+section.title+"'><input type='hidden' name='sectionId' value='"+section._id+"'><button type='submit' class='alignCenter'><p>"+section.title+"</p><img src='"+section.mainImg+"' class='containImg' loading='lazy'></button></form></div>";
       }
       html += "</div></div>";
     }

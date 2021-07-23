@@ -8,7 +8,7 @@ module.exports.register = function (req, res) {
     library.sendJsonResponse(res, 400, 'All fields required.');
     return;
   }
-
+  console.log(req.body);
   var user = new User();
 
   user.name = req.body.name;

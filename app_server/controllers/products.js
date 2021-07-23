@@ -5,19 +5,9 @@ var request = library.request;
 var axios = require('axios');
 
 var allGrids = async function () {
-  var grids = await axios.get(apiOptions.server+'/api/grids')
-  .then((data) => {
-    if(!data.data) {
-      return [];
-    }
-    return data.data;
-  })
-  .catch((err) => {
-    return err;
-  });
-
-  if(grids.length > 0) {
-    return grids;
+  var grids = await axios.get(apiOptions.server+'/api/grids');
+  if(grids.data.length > 0) {
+    return grids.data;
   }else {
     return [];
   }
@@ -25,9 +15,9 @@ var allGrids = async function () {
 
 //HOMEPAGE
 var renderHomepage = async function (req, res, productData) {
-  let storeRandomProducts = function () {
+  let storeRandomProducts = function (numberProducts = 3) {
     let randomProducts = [];
-    while(randomProducts.length < 3) {
+    while(randomProducts.length < numberProducts) {
       let nextProductIndex = library.getRandomInt(0, Object.keys(productData).length -1);
       let nextProduct = productData[Object.keys(productData)[nextProductIndex]];
       if(!randomProducts.includes(nextProduct)) {
@@ -40,13 +30,14 @@ var renderHomepage = async function (req, res, productData) {
   var grids = {};
   let pageProducts = [];
   var grids = await allGrids();
+  console.log(Object.keys(productData).length);
   if(Object.keys(productData).length > 0) {
-    pageProducts = storeRandomProducts();
+    pageProducts = storeRandomProducts(1);
   }
   res.render('homepage', {
     grids: grids,
     title: 'Natural Glow',
-    pageProducts: pageProducts,
+    pageProducts: pageProducts
   });
 };
 

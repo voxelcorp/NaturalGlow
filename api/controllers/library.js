@@ -1,7 +1,10 @@
 //GENERAL FUNCTIONS USED ON MORE THEN ONE CONTROLLER. DRY APPROACH.
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const aws = require('aws-sdk');
+const uploadAWS = require('../controllers/uploadAWS');
 module.exports.request = require('request');
+module.exports.aws = uploadAWS;
 module.exports.apiOptions = {
   server: 'http://localhost:3000'
 };
@@ -25,19 +28,6 @@ module.exports.sendJsonResponse = function (res, status, content) {
   res.json(content);
 };
 
-module.exports.moveFile = function (res, file, dirPath) {
-  if(!file) {
-    console.log("corrupted file");
-    return;
-  }
-  file.mv(dirPath+file.name, function(err) {
-    if(err) {
-      library.sendJsonResponse(res, 400, err);
-    }
-    console.log('Success, file ' + file.name + ' was moved.');
-  });
-}
-
 module.exports.orderStatusMeaning = function (orders) {
   if(!orders) {
     return null;
@@ -55,21 +45,4 @@ module.exports.orderStatusMeaning = function (orders) {
     orders[order].orderTotal = parseFloat(orders[order].orderTotal).toFixed(2);
   }
   return orders;
-}
-
-module.exports.deleteImg = function (path) {
-  fs.unlink("./public/images/"+path, (err) => {
-    if(err) {
-      console.log(err);
-      return {
-        status: 401,
-        msg: err
-      };
-    }
-    console.log("deleted");
-    return {
-      status: 200,
-      msg: "Deleted"
-    };
-  });
 }

@@ -8,7 +8,7 @@ block content
   .content
     #productDetailsMainImg
       .albumContent.alignCenter
-        img(src= mainImg)
+        img(src=mainImg)
     #availableText
       p #{ProductInfo.available}
     .container
@@ -29,7 +29,7 @@ block content
             .gridContainer
               .grid.OneByOne.alignCenter
                 .albumContent
-                  img(src= 'images/products/'+image.path class='containImg' lazy)
+                  img(src=image.path class='containImg' loading='lazy')
         //INGREDIENTS
         #ingredients
           .smallMainTitle
