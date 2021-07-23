@@ -28,7 +28,7 @@ app.set('view engine', 'jade');
 
 // Configure Redis.
 var RedisStore = connectRedis(session);
-const redisClient = redis.createClient({process.env.REDISTOGO_URL});
+const redisClient = redis.createClient(process.env.REDISTOGO_URL);
 //
 redisClient.on('error', function (err) {
   console.log('Could not establish a connection with redis. ' + err);
