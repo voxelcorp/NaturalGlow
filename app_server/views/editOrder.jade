@@ -1,0 +1,22 @@
+extends layout
+
+block headExtensions
+  input(type='hidden' id='orderID' value=orderID)
+
+block content
+  .content
+    include addOns/mainLogo
+    h1.currentMainTitle
+      span Editar encomenda
+
+    #orderStatus.alignCenter
+
+    #orderDetails.flatContent
+    #orderEmails
+      .inputCentered
+        button(id='orderPayedBtn' class='indieBtn greenBtn') Pagamento recebido
+    h1.currentMainTitle
+      span Produtos
+    #orderProductsDetails
+  script(src='/js/admin.js')
+      

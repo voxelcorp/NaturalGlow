@@ -1,0 +1,31 @@
+extends layout
+
+block headExtensions
+  link(rel='stylesheet', href='/css/homepage.css')
+  link(rel='stylesheet', href='/css/register.css')
+block content
+  .content
+    include addOns/mainLogo
+    .registerContent
+      .currentMainTitle
+        span Criar nova conta
+      include addOns/userConfirmed
+      form(id='registerForm' class='borderedContent' onsubmit='submitNewUser(event)')
+        .inputCentered
+          label(for='name') Nome
+          input(type='text' id='name' required)
+        .inputCentered
+          label(for='username') Utilizador
+          input(type='text' id='username' required)
+        .inputCentered
+          label(for='email') Email
+          input(type='email' id='email' required)
+        .inputCentered
+          label(for='password') Senha
+          input(type='password' id='password' required)
+        .inputCentered
+          label(for='passwordRepeat') Confirmar Senha
+          input(type='password' id='passwordRepeat' required)
+        button(type='submit' class='indieBtn greenBtn') Registar
+        p(id='registerErrorMsg').errMessage
+  script(src='js/register.js')

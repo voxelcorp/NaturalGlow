@@ -1,0 +1,46 @@
+extends layout
+
+block headExtensions
+  link(rel='stylesheet', href='/css/productDetail.css')
+  link(rel='stylesheet', href='/css/grid.css')
+  input(type='hidden' id='currentProductData' value=JSONProduct)
+block content
+  .content
+    #productDetailsMainImg
+      .albumContent.alignCenter
+        img(src=mainImg)
+    #availableText
+      p #{ProductInfo.available}
+    .container
+      .gridContent
+        //MAIN INFO
+        #productData.flexByHalf.alignCenter
+          #productName.dataContainer
+            p #{ProductInfo.name}
+            p #{ProductInfo.quantity}
+          #productBuy.dataContainer
+            p #{ProductInfo.price} €
+          button(class= 'greenBtn indieBtn' id='addSingleProductBtn') Comprar
+        //IMAGES
+        #productImgs.inputCentered
+          .currentMainTitle
+            span Imagens
+          each image in ProductImages
+            .gridContainer
+              .grid.OneByOne.alignCenter
+                .albumContent
+                  img(src=image.path class='containImg' loading='lazy')
+        //INGREDIENTS
+        #ingredients
+          .smallMainTitle
+            span Ingredientes
+          each ingredient in ProductIngredients
+            .ingredientContainer
+              .tag
+                p #{ingredient.name}
+        //DESCRIPTION
+        #description.flatContent
+          .currentMainTitle
+            span Descrição
+          p #{ProductDescription}
+  script(src='/js/productDetail.js')

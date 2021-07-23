@@ -1,0 +1,25 @@
+extends layout
+
+block headExtensions
+
+
+block content
+  .content
+    include addOns/mainLogo
+    h1.currentMainTitle
+      span O seu carrinho
+    p#emptyCartNotice.highlightText.noShow 
+      span.alignCenter Carrinho vazio
+    #editCartTable
+    #carBuyBar
+      .halfWidth
+        h1.currentMainTitle
+          span Total: 
+          span#cartTotalPrice
+      a(href='/order')
+        button(class='indieBtn') Finalizar
+    #returnBar
+      a(href='/') 
+        button(class='indieBtn') Voltar ao menu principal
+  script(src='/js/editCartPage.js')
+      

@@ -1,0 +1,1469 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Knewave&display=swap");
+@media only screen and (max-width: 426px) {
+  #productData {
+    text-align: center;
+  }
+  #productData #productBuy {
+    border-top: 0.1em solid #49DBA4;
+    padding-top: 0.5em;
+    text-align: center;
+  }
+}
+
+#productDetailsMainImg {
+  padding-bottom: 1vh;
+  border-bottom: 0.75em solid #2c3e50;
+  border-radius: 0.75em;
+  height: 65vh;
+}
+@media only screen and (max-width: 426px) {
+  #productDetailsMainImg {
+    height: 35vh;
+  }
+}
+
+#productDetailsMainImg .albumContent {
+  height: 100%;
+}
+
+#productImgs .gridContainer {
+  display: flex;
+}
+
+#productImgs .albumContent {
+  height: 100%;
+}
+
+#description {
+  padding-bottom: 5em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  color: #2d3436;
+  font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
+}
+
+header {
+  line-height: 3em;
+  height: 3em;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  background: #FFF;
+  width: 95%;
+  padding: 0.5em 2.5% 0.5em 2.5%;
+  box-shadow: 0px 0px 5px #ecf0f1;
+}
+@media only screen and (max-width: 426px) {
+  header {
+    height: 6em;
+  }
+}
+
+#headerSpacing {
+  margin-top: 5em;
+}
+@media only screen and (max-width: 426px) {
+  #headerSpacing {
+    margin-top: 10em;
+  }
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: inline-block;
+}
+@media only screen and (max-width: 426px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 1.875em;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: inherit;
+  color: black;
+  font-weight: bold;
+  padding: 0.25em 0.75em 0.25em 0.75em;
+  border: none;
+  border: 0.1em solid #000;
+}
+@media only screen and (max-width: 426px) {
+  button {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  button {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  button {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  button {
+    font-size: 1.25em;
+  }
+}
+
+button:hover {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+form label {
+  display: inline-block;
+  min-width: 5em;
+  text-align: center;
+  margin-right: 0.5em;
+}
+
+form button {
+  width: 50%;
+  margin: 0 25% 0 25%;
+}
+
+input {
+  padding: 0.1em 1% 0.1em 1%;
+  display: inline-block;
+  vertical-align: top;
+  outline: none;
+}
+
+input:disabled {
+  background-color: #dcdde1;
+}
+
+label, input {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  label, input {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  label, input {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  label, input {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  label, input {
+    font-size: 1.25em;
+  }
+}
+
+input, textarea {
+  border: 0.1em solid #2d3436;
+  border-radius: 0.25em;
+}
+
+textarea {
+  min-width: 90%;
+  max-width: 90%;
+  min-height: 20vh;
+  font-weight: bolder;
+  padding: 1vh 5% 1vh 5%;
+  margin: 1vh 0 1vh 0;
+}
+@media only screen and (max-width: 426px) {
+  textarea {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  textarea {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  textarea {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  textarea {
+    font-size: 1.25em;
+  }
+}
+
+select {
+  padding: 0.5em;
+  border: 0.1em solid #2d3436;
+  border-radius: 0.5em;
+}
+
+select, option {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  select, option {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  select, option {
+    font-size: 1.09375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  select, option {
+    font-size: 0.875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  select, option {
+    font-size: 1.09375em;
+  }
+}
+
+.mobileTable div {
+  width: 100%;
+  background-color: #ecf0f1;
+  margin-top: 1em;
+  display: inline-flex;
+  padding: 1em 0 2em 0;
+}
+@media only screen and (max-width: 426px) {
+  .mobileTable div {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mobileTable div {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mobileTable div {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mobileTable div {
+    font-size: 1.25em;
+  }
+}
+
+.mobileTable div .currentMainTitle span {
+  font-weight: bold;
+}
+@media only screen and (max-width: 426px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.703125em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.703125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.5625em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mobileTable div .currentMainTitle span {
+    font-size: 0.703125em;
+  }
+}
+
+.mobileTable p input {
+  max-width: 50%;
+  text-align: center;
+}
+
+.mobileTable p {
+  margin-bottom: 1em;
+  word-break: break-word;
+}
+
+.subValue {
+  text-align: center;
+  width: 48%;
+  margin: 0 1% 0 1%;
+}
+
+.subTitle {
+  text-align: left;
+  margin-left: 10%;
+  width: 40%;
+  font-weight: bold;
+  color: #967354;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+  border-left: 0.5em solid #2d3436;
+  border-collapse: collapse;
+  margin-top: 5vh;
+  overflow-x: scroll;
+}
+
+table th {
+  cursor: default;
+  background-color: #49DBA4;
+  padding: 0.25em;
+}
+@media only screen and (max-width: 426px) {
+  table th {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  table th {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  table th {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  table th {
+    font-size: 1.875em;
+  }
+}
+
+table td {
+  font-weight: bold;
+  padding: 1vh 0.25em 1vh 0.25em;
+}
+@media only screen and (max-width: 426px) {
+  table td {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  table td {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  table td {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  table td {
+    font-size: 1.25em;
+  }
+}
+
+table td input {
+  text-align: center;
+}
+
+table td input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+table tr:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.mobileOnly {
+  display: none;
+}
+@media only screen and (max-width: 426px) {
+  .mobileOnly {
+    display: inline-block;
+  }
+}
+
+.desktopOnly {
+  display: inline-block;
+}
+@media only screen and (max-width: 426px) {
+  .desktopOnly {
+    display: none;
+  }
+}
+
+.highlightText {
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  .highlightText {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .highlightText {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .highlightText {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .highlightText {
+    font-size: 1.40625em;
+  }
+}
+
+.flexByHalf {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexByHalf > * {
+  flex: 0 0 50%;
+}
+@media only screen and (max-width: 426px) {
+  .flexByHalf > * {
+    flex: 0 0 100%;
+  }
+}
+
+.greenBtn {
+  background-color: #2d3436;
+  border-radius: 0.5em;
+  color: #FFF;
+  margin: 0.5em 0 0 0;
+}
+@media only screen and (max-width: 426px) {
+  .greenBtn {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .greenBtn {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .greenBtn {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .greenBtn {
+    font-size: 0.9375em;
+  }
+}
+
+.greenBtn:hover {
+  opacity: 0.8;
+  color: #2d3436;
+  background-color: #49DBA4;
+  border-color: transparent;
+}
+
+.noShow {
+  display: none;
+}
+
+.lightBg {
+  background-color: #F5F5DC;
+}
+
+.errMessage {
+  color: #c0392b;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+@media only screen and (max-width: 426px) {
+  .errMessage {
+    font-size: 1.171875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .errMessage {
+    font-size: 1.171875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .errMessage {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .errMessage {
+    font-size: 1.171875em;
+  }
+}
+
+.notice {
+  word-break: break-word;
+  text-align: center;
+  font-weight: bolder;
+  padding: 1em;
+}
+@media only screen and (max-width: 426px) {
+  .notice {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .notice {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .notice {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .notice {
+    font-size: 1.5625em;
+  }
+}
+
+.grid {
+  display: inline-grid;
+}
+
+.flatContent {
+  background: #ecf0f1;
+  padding: 2em 0 3em 0;
+  margin: 2em 0 1em 0;
+}
+
+.tinyUpMargin {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.smallMargin {
+  margin: 2em 5% 2em 5%;
+}
+
+.mediumMargin {
+  margin: 4em 10% 4em 10%;
+}
+
+.largeMargin {
+  margin: 8em 20% 8em 20%;
+}
+
+.borderedContent {
+  border: 0.5em solid #49DBA4;
+  border-top-color: #2d3436;
+  border-bottom-color: #2d3436;
+  border-radius: 0.25em;
+  padding: 2em;
+}
+
+.inputCentered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.inputCentered label {
+  min-width: 7.5em;
+}
+
+.inputContent {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  margin-bottom: 2vh;
+}
+
+@media only screen and (max-width: 426px) {
+  .inputContent, .inputContent label {
+    text-align: center;
+  }
+}
+.fullWidthMobile {
+  display: inline-block;
+}
+@media only screen and (max-width: 426px) {
+  .fullWidthMobile {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .fullWidthMobile {
+    width: 100%;
+  }
+}
+
+.halfWidth {
+  display: inline-block;
+  width: 49%;
+}
+
+.halfWidth button {
+  margin: 0 5% 0 5%;
+}
+@media only screen and (max-width: 426px) {
+  .halfWidth button {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .halfWidth button {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .halfWidth button {
+    width: 90%;
+  }
+}
+
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.rightSideContent {
+  display: inline-flex;
+  float: right;
+  height: 100%;
+  position: relative;
+}
+@media only screen and (max-width: 426px) {
+  .rightSideContent {
+    height: auto;
+  }
+}
+
+.rightSideContent button {
+  display: table-row;
+  vertical-align: middle;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin: 0 1em 0 0;
+}
+
+.rightSideContent button p, .rightSideContent button span {
+  display: table-cell;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.content {
+  min-height: 90vh;
+  margin: 5vh 0 5vh 0;
+}
+@media only screen and (max-width: 426px) {
+  .content {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .content {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .content {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+}
+
+.btnsBox {
+  display: inline-block;
+}
+
+.redBtn {
+  border-color: #c0392b;
+  background-color: #e74c3c;
+  border-radius: 0.2em;
+}
+
+.redBtn:hover, .redBtn:active {
+  opacity: 0.8;
+}
+
+.pushTop {
+  position: absolute;
+  top: 0;
+}
+
+.mainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .mainTitle {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mainTitle {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mainTitle {
+    font-size: 2em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mainTitle {
+    font-size: 2.5em;
+  }
+}
+
+.currentMainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2em 0 2em 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .currentMainTitle {
+    font-size: 2.34375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .currentMainTitle {
+    font-size: 2.34375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .currentMainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .currentMainTitle {
+    font-size: 2.34375em;
+  }
+}
+
+.bigMainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .bigMainTitle {
+    font-size: 3.125em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .bigMainTitle {
+    font-size: 3.125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .bigMainTitle {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .bigMainTitle {
+    font-size: 3.125em;
+  }
+}
+
+.smallMainTitle {
+  width: 100%;
+  text-align: center;
+  margin: 2vh 0 2vh 0;
+  letter-spacing: 0.15em;
+}
+@media only screen and (max-width: 426px) {
+  .smallMainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .smallMainTitle {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .smallMainTitle {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .smallMainTitle {
+    font-size: 1.875em;
+  }
+}
+
+.mainTitle span, .currentMainTitle span, .smallMainTitle span {
+  font-family: "Permanent Marker", cursive;
+  font-family: "Knewave", cursive;
+  text-transform: uppercase;
+  border-bottom: 0.1em solid #49DBA4;
+}
+
+.modalDesign {
+  background: #FFF;
+  border: 0.6em solid #2d3436;
+  border-left-color: #49DBA4;
+  border-right-color: #49DBA4;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  border-radius: 1em;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent {
+  position: relative;
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 2em 5% 2em 5%;
+  border: 0.2em solid #2d3436;
+  border-radius: 1em;
+}
+@media only screen and (max-width: 426px) {
+  .modalContent {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .modalContent {
+    width: 70%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .modalContent {
+    width: 50%;
+  }
+}
+
+.alignCenter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.enabledInput {
+  border-bottom: 0.2em solid #2d3436;
+}
+
+@media only screen and (max-width: 426px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .largeInput input, .largeInput label {
+    font-size: 1.5625em;
+  }
+}
+.largeInput input {
+  width: 50%;
+}
+@media only screen and (max-width: 426px) {
+  .largeInput input {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.40625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.125em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .mediumInput input, .mediumInput label {
+    font-size: 1.40625em;
+  }
+}
+
+.mediumInput input {
+  width: 35%;
+}
+@media only screen and (max-width: 426px) {
+  .mediumInput input {
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .smallInput input, .smallInput label {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .smallInput input, .smallInput label {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .smallInput input, .smallInput label {
+    font-size: 1em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .smallInput input, .smallInput label {
+    font-size: 1.25em;
+  }
+}
+
+.smallInput input {
+  width: 20%;
+}
+@media only screen and (max-width: 426px) {
+  .smallInput input {
+    width: auto;
+  }
+}
+
+.fadeIn {
+  opacity: 1;
+  height: 100%;
+}
+
+.hidden {
+  opacity: 0;
+  height: 0;
+}
+
+.dropdown {
+  display: flow-root;
+  width: 100%;
+}
+
+.dropdown button, .dropdown a {
+  margin: 0;
+  display: block;
+  vertical-align: top;
+  width: 100%;
+  border: 0.25em solid #2d3436;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: 0.4em 0 0.4em 0;
+  outline: none;
+}
+@media only screen and (max-width: 426px) {
+  .dropdown button, .dropdown a {
+    font-size: 1.328125em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .dropdown button, .dropdown a {
+    font-size: 1.328125em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .dropdown button, .dropdown a {
+    font-size: 1.0625em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .dropdown button, .dropdown a {
+    font-size: 1.328125em;
+  }
+}
+
+.dropdown button:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.dropdown button:nth-child(even) {
+  background-color: #ced6e0;
+}
+
+.dropdown button:nth-child(odd) {
+  background-color: #f1f2f6;
+}
+
+.dropdown button:hover {
+  color: #0E8F5E;
+}
+
+.inputFile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+@media only screen and (max-width: 426px) {
+  .inputFileLabel, .inputFileLabel i {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .inputFileLabel, .inputFileLabel i {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .inputFileLabel, .inputFileLabel i {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .inputFileLabel, .inputFileLabel i {
+    font-size: 1.5625em;
+  }
+}
+
+.inputFileLabel {
+  color: #FFFF;
+  text-align: center;
+  background-color: #49DBA4;
+  padding: 1vh 2.5% 1vh 2.5%;
+  display: inline-block;
+}
+
+.inputFileLabel * {
+  vertical-align: middle;
+}
+
+.inputFileLabel:hover {
+  background-color: #0E8F5E;
+  cursor: pointer;
+}
+
+.inputFile:focus + label {
+  outline-offset: 0.1em;
+  outline: 0.2em dotted white;
+  outline: -webkit-focus-ring-color auto 0.2em;
+}
+
+.resetBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.deleteBtn {
+  display: none;
+  margin-left: 40%;
+  font-weight: bolder;
+  padding: 0;
+  position: absolute;
+  top: -0.75em;
+  color: #FFF;
+  background-color: #e74c3c;
+  border: 0.1em solid #c0392b;
+  border-radius: 0.5em;
+}
+@media only screen and (max-width: 426px) {
+  .deleteBtn {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .deleteBtn {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .deleteBtn {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .deleteBtn {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .deleteBtn {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .deleteBtn {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  .deleteBtn {
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .deleteBtn {
+    display: block;
+  }
+}
+@media only screen and (max-width: 426px) and (max-width: 426px) {
+  .deleteBtn {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 426px) and (max-width: 769px) {
+  .deleteBtn {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 769px) and (max-width: 1025px) {
+  .deleteBtn {
+    font-size: 2em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 1025px) {
+  .deleteBtn {
+    font-size: 2.5em;
+  }
+}
+
+.closeBtn {
+  float: right;
+  top: 1vh;
+  right: 2.5%;
+  font-weight: bolder;
+  color: #2d3436;
+}
+@media only screen and (max-width: 426px) {
+  .closeBtn {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .closeBtn {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .closeBtn {
+    font-size: 2em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .closeBtn {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (max-width: 426px) {
+  .closeBtn {
+    text-align: center;
+    color: #2d3436;
+    background-color: inherit;
+    border-bottom: 0.2em solid #49DBA4;
+  }
+}
+
+.smallBtn, .indieBtn {
+  width: 30%;
+  margin: 0 35% 0 35%;
+}
+@media only screen and (max-width: 426px) {
+  .smallBtn, .indieBtn {
+    width: 70%;
+    margin: 0 15% 0 15%;
+  }
+}
+
+.indieBtn {
+  margin: 1em 0 1em 0;
+  border: 0.25em solid #2d3436;
+  border-radius: 0.5em;
+}
+@media only screen and (max-width: 426px) {
+  .indieBtn {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .indieBtn {
+    font-size: 1.5625em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .indieBtn {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .indieBtn {
+    font-size: 1.5625em;
+  }
+}
+
+.colouredHover:hover {
+  background-color: #49DBA4;
+  color: #2d3436;
+}
+
+.closeBtn:hover {
+  color: #49DBA4;
+  cursor: pointer;
+}
+
+.blueText {
+  color: #2980b9;
+}
+
+.linkUnderline {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #2980b9;
+  text-decoration-color: #2980b9;
+  border: none;
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  .linkUnderline {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  .linkUnderline {
+    font-size: 0.9375em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  .linkUnderline {
+    font-size: 0.75em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  .linkUnderline {
+    font-size: 0.9375em;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  #fullImgShowcase {
+    width: 85%;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #fullImgShowcase {
+    width: 85%;
+  }
+}
+@media only screen and (min-width: 769px) {
+  #fullImgShowcase {
+    width: 65%;
+  }
+}
+
+#contact, #about {
+  background-color: #ecf0f1;
+  margin: 5em 0 10em 0;
+}
+
+#sections {
+  margin: 5em 0 15em 0;
+}
+
+#about {
+  padding: 5em 15% 5em 15%;
+}
+
+#about p {
+  text-align: justify;
+  font-weight: bolder;
+}
+@media only screen and (max-width: 426px) {
+  #about p {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #about p {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #about p {
+    font-size: 1.5em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #about p {
+    font-size: 1.875em;
+  }
+}
+@media only screen and (max-width: 426px) {
+  #about p {
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 426px) and (max-width: 426px) {
+  #about p {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 426px) and (max-width: 769px) {
+  #about p {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 769px) and (max-width: 1025px) {
+  #about p {
+    font-size: 1em;
+  }
+}
+@media only screen and (max-width: 426px) and (min-width: 1025px) {
+  #about p {
+    font-size: 1.25em;
+  }
+}
+
+.serviceContent {
+  display: inline-block;
+  margin: 2em 5% 2em 5%;
+}
+
+.serviceImgContent {
+  height: 20em;
+}
+@media only screen and (max-width: 426px) {
+  .serviceImgContent {
+    height: 10em;
+  }
+}
+
+#contact {
+  width: 100%;
+  padding: 1em 0 1em 0;
+}
+
+#contact form {
+  margin: 0 20% 0 20%;
+}
+
+@media only screen and (max-width: 426px) {
+  #contact .mainTitle {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 426px) and (max-width: 769px) {
+  #contact .mainTitle {
+    font-size: 2.5em;
+  }
+}
+@media only screen and (min-width: 769px) and (max-width: 1025px) {
+  #contact .mainTitle {
+    font-size: 2em;
+  }
+}
+@media only screen and (min-width: 1025px) {
+  #contact .mainTitle {
+    font-size: 2.5em;
+  }
+}
+
+#editCellUI {
+  position: absolute;
+  background: #2d3436;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 2em;
+}
+
+#editCellUI button {
+  font-family: "cursive";
+  font-weight: lighter;
+  color: #FFF;
+  background-color: #2980b9;
+  border-top: 0.1em solid #2d3436;
+  margin: 0 1% 0 1%;
+}
+
+#editCellUI .greenBtn {
+  background-color: #49DBA4;
+}
+
+#editCellUI button[name=removeCell] {
+  background-color: #e15f41;
+}
+
+#editCellUI button:hover {
+  opacity: 0.7;
+}
+
+/*# sourceMappingURL=updateHomepage.css.map */

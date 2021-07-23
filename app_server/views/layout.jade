@@ -1,0 +1,45 @@
+doctype html
+html
+  head
+    title= title
+    input(type='hidden' id='username' value=user.username)
+    meta(name='viewport', content='width=device-width', initial-scale='1.0')
+    link(rel="icon" href="/icons/logoIcon.png")
+    link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+    link(rel='stylesheet', href='/css/layout.css')
+    link(rel='stylesheet', href='/css/updateLayout.css')
+    link(rel='stylesheet', href='/css/addOns.css')
+    link(rel='stylesheet', href='/css/productPopup.css')
+    link(rel='stylesheet', href='/css/user.css')
+    link(rel='stylesheet', href='/css/external/hint.css')
+    script(src='https://unpkg.com/axios/dist/axios.min.js')
+    script(src='/js/library.js')
+    script(src='/js/cart.js')
+    script(src='/js/libraryServer.js')
+    block headExtensions
+  body
+    header
+      .container
+        a(href='/')
+          .mobileOnly
+            h1 NGlow
+          .desktopOnly
+            h1 Natural Glow |
+        button(class='desktopOnly headerProductBtns') Produtos
+        .rightSideContent
+          //LOGIN CHECK
+          //-UI options
+          if user.username
+            include addOns/accountDropdown
+            include addOns/cartPopup
+          else
+            include addOns/loginPopup
+        .alignCenter
+          button(class='mobileOnly greenBtn headerProductBtns' style='margin: 0;')  &#9662; Produtos &#9662;
+      #headerProductSections.hidden
+    #headerSpacing
+      include addOns/addCartPopup
+      block content
+    footer
+      #copyrights
+        p | &copy; Voxel.Inc || &copy; DisparoDuplo.Lda | 2020

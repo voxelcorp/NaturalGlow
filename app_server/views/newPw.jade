@@ -1,0 +1,26 @@
+extends layout
+
+block headExtensions
+  link(rel='stylesheet', href='/css/homepage.css')
+block content
+  .content
+    include addOns/mainLogo
+    #newPwContent
+      .currentMainTitle 
+        span #{pageTitle}
+      form(class='borderedContent' onsubmit='pwVerification(event)' style='margin-top: 2em;')
+        input(type='hidden' id='userEmail' value=userEmail)
+        .inputCentered
+          label(for='pw' style='min-width: 7.5em') Nova senha
+          input(type='password' id='pw' class='largeInput' required)
+        .inputCentered
+          label(for='pwVerify' style='min-width: 7.5em') Confirmar senha
+          input(type='password' id='pwVerify' class='largeInput' required)
+        p(id='pwErrorMsg').errMessage
+        button(type='submit' id='submitEmail' class='colouredHover smallBtn' style='margin-top: 1em;') Enviar
+    #successMsg.borderedContent(style='text-align:center;display:none;')
+      p.notice Sucesso, nova senha criada.
+      button
+        a(href='/') Voltar à página principal
+  script(src='/js/newPwPage.js')
+        

@@ -1,0 +1,731 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Knewave&display=swap');
+@import 'library.scss';
+@import 'colours.scss';
+//---
+//TBR
+#productData {
+  @include mobileOnly {
+    text-align: center;
+    #productBuy {
+      border-top: .1em solid $mainGreen;
+      padding-top: .5em;
+      text-align: center;
+    }
+  }
+}
+
+#productDetailsMainImg {
+  padding-bottom: 1vh;
+  border-bottom: 0.75em solid #2c3e50;
+  border-radius: 0.75em;
+  height: 65vh;
+  @include mobileOnly {
+    height: 35vh;
+  }
+}
+
+#productDetailsMainImg .albumContent {
+  height: 100%;
+}
+
+#productImgs .gridContainer {
+  display: flex;
+}
+
+#productImgs .albumContent {
+  height: 100%;
+}
+
+#description {
+  padding-bottom: 5em;
+}
+//---
+* {
+  margin: 0;
+  padding: 0;
+  color: $grey;
+  font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
+}
+
+header {
+  line-height: 3em;
+  height: 3em;
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  background: #FFF;
+  width: 95%;
+  padding: .5em 2.5% .5em 2.5%;
+  box-shadow:0px 0px 5px $clouds;
+  @include mobileOnly{
+    height: 6em;
+  }
+}
+
+#headerSpacing {
+  margin-top: 5em;
+  @include mobileOnly {
+    margin-top: 10em;
+  }
+}
+
+img {
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @include responsiveText(24);
+  display: inline-block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  @include responsiveText(16);
+  background: inherit;
+  color: black;
+  font-weight: bold;
+  padding: .25em .75em .25em .75em;
+  border: none;
+  border: .1em solid #000;
+}
+
+button:hover {
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+form label {
+  display: inline-block;
+  min-width: 5em;
+  text-align: center;
+  margin-right: .5em;
+}
+
+form button {
+  width: 50%;
+  margin: 0 25% 0 25%;
+}
+
+input {
+  padding: .1em 1% .1em 1%;
+  display: inline-block;
+  vertical-align: top;
+  outline: none;
+}
+
+input:disabled {
+  background-color: #dcdde1;
+}
+
+label, input {
+  @include responsiveText(16);
+  font-weight: bolder;
+}
+
+input, textarea {
+  border: .1em solid $grey;
+  border-radius: .25em;
+}
+
+textarea {
+  @include responsiveText(16);
+  min-width: 90%;
+  max-width: 90%;
+  min-height: 20vh;
+  font-weight: bolder;
+  padding: 1vh 5% 1vh 5%;
+  margin: 1vh 0 1vh 0;
+}
+
+select {
+  padding: .5em;
+  border: .1em solid $grey;
+  border-radius: .5em;
+}
+
+select, option {
+  @include responsiveText(14);
+  font-weight: bolder;
+}
+
+//TABLES
+$tableBorderColor: $grey;
+//MOBILE
+.mobileTable div {
+  @include responsiveText(16);
+  width: 100%;
+  background-color: $clouds;
+  margin-top: 1em;
+  display: inline-flex;
+  padding: 1em 0 2em 0;
+}
+
+.mobileTable div .currentMainTitle span {
+  @include responsiveText(9);
+  font-weight: bold;
+}
+
+.mobileTable p input {
+  max-width: 50%;
+  text-align: center;
+
+}
+.mobileTable p {
+  margin-bottom: 1em;
+  word-break: break-word;
+}
+
+.subValue {
+  text-align: center;
+  width: 48%;
+  margin: 0 1% 0 1%;
+}
+
+.subTitle {
+  text-align: left;
+  margin-left: 10%;
+  width: 40%;
+  font-weight: bold;
+  color: $lightBrown;
+}
+
+//DESKTOP / TABLET
+table {
+    width: 100%;
+    text-align: center;
+    border-left: .5em solid $tableBorderColor;
+    border-collapse: collapse;
+    margin-top: 5vh;
+    overflow-x: scroll;
+}
+
+table th {
+  cursor: default;
+  @include responsiveText(24);
+  background-color: $mainGreen;
+  padding: .25em;
+}
+
+table td {
+  @include responsiveText(16);
+  font-weight: bold;
+  padding: 1vh .25em 1vh .25em;
+}
+
+table td input {
+  text-align: center;
+
+}
+
+table td input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+table tr:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+//CLASSES
+.mobileOnly {
+  display: none;
+  @include mobileOnly {
+    display: inline-block;
+  }
+}
+
+.desktopOnly {
+  display: inline-block;
+  @include mobileOnly {
+    display: none;
+  }
+}
+
+.highlightText {
+  @include responsiveText(18);
+  font-weight: bolder;
+}
+
+.flexByHalf {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flexByHalf > * {
+  flex: 0 0 50%;
+  @include mobileOnly {
+    flex: 0 0 100%;
+  }
+}
+
+.greenBtn {
+  @include responsiveText(12);
+  background-color: $grey;
+  border-radius: .5em;
+  color: #FFF;
+  margin: .5em 0 0 0;
+}
+
+.greenBtn:hover {
+  opacity: .8;
+  color: $grey;
+  background-color: $mainGreen;
+  border-color: transparent;
+}
+
+.noShow {
+  display: none;
+}
+
+.lightBg {
+  background-color: $cream;
+}
+
+.errMessage {
+  @include responsiveText(15);
+  color: $darkRed;
+  font-weight: bolder;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.notice {
+  @include responsiveText(20);
+  word-break: break-word;
+  text-align: center;
+  font-weight: bolder;
+  padding: 1em;
+}
+
+.grid {
+  display: inline-grid;
+}
+
+.flatContent {
+  background: $clouds;
+  padding: 2em 0 3em 0;
+  margin: 2em 0 1em 0;
+}
+
+.tinyUpMargin {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.smallMargin {
+  margin: 2em 5% 2em 5%;
+}
+
+.mediumMargin {
+  margin: 4em 10% 4em 10%;
+}
+
+.largeMargin {
+  margin: 8em 20% 8em 20%;
+}
+
+.borderedContent {
+  border: .5em solid $mainGreen;
+  border-top-color: $grey;
+  border-bottom-color: $grey;
+  border-radius: .25em;
+  padding: 2em;
+}
+
+.inputCentered {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.inputCentered label {
+  min-width: 7.5em;
+}
+
+.inputContent {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+  margin-bottom: 2vh;
+}
+
+@include mobileOnly {
+  .inputContent, .inputContent label {
+    text-align: center;
+  }
+}
+
+.fullWidthMobile {
+  @include mobileWidth(100%);
+  display: inline-block;
+}
+
+.halfWidth {
+  display: inline-block;
+  width: 49%;
+}
+
+.halfWidth button {
+  @include responsiveWidth(90%, 90%);
+  margin: 0 5% 0 5%;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+}
+
+.rightSideContent {
+  display: inline-flex;
+  float: right;
+  height: 100%;
+  position: relative;
+  @include mobileOnly {
+    height: auto;
+  }
+}
+
+.rightSideContent button {
+  display: table-row;
+  vertical-align: middle;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin: 0 1em 0 0;
+}
+
+.rightSideContent button p, .rightSideContent button span {
+  display: table-cell;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.content {
+  @include responsiveWidth(90%, 70%, 90%, true);
+  min-height: 90vh;
+  margin: 5vh 0 5vh 0;
+}
+
+.btnsBox {
+  display: inline-block;
+}
+
+.redBtn {
+  border-color: $darkRed;
+  background-color: $red;
+  border-radius: .2em;
+}
+
+.redBtn:hover, .redBtn:active {
+  opacity: .8;
+}
+
+.pushTop {
+  position: absolute;
+  top: 0;
+}
+
+.mainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(32);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.currentMainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(30);
+  margin: 2em 0 2em 0;
+  letter-spacing: .15em;
+}
+
+.bigMainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(40);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.smallMainTitle {
+  width: 100%;
+  text-align: center;
+  @include responsiveText(24);
+  margin: 2vh 0 2vh 0;
+  letter-spacing: .15em;
+}
+
+.mainTitle span, .currentMainTitle span, .smallMainTitle span {
+  font-family: 'Permanent Marker', cursive;
+  font-family: "Knewave", cursive;
+  text-transform: uppercase;
+  // font-weight: bold;
+  border-bottom: .1em solid $mainGreen;
+}
+
+//MODALS
+
+.modalDesign {
+  background: #FFF;
+  border: .6em solid $grey;
+  border-left-color: $mainGreen;
+  border-right-color: $mainGreen;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  border-radius: 1em;
+  padding: .5em;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent {
+  @include responsiveWidth(70%, 50%, 70%);
+  position: relative;
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 2em 5% 2em 5%;
+  border: .2em solid $grey;
+  border-radius: 1em;
+}
+
+//INPUTS
+.alignCenter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.enabledInput {
+  border-bottom: .2em solid $grey;
+
+}
+
+.largeInput input, .largeInput label {
+  @include responsiveText(20);
+  @include mobileOnly {
+
+  }
+}
+
+.largeInput input {
+  width: 50%;
+  @include mobileOnly {
+    width: auto;
+  }
+}
+
+.mediumInput input, .mediumInput label {
+  @include responsiveText(18);
+}
+
+.mediumInput input {
+  width: 35%;
+  @include mobileOnly {
+    width: auto;
+  }
+}
+
+.smallInput input, .smallInput label {
+  @include responsiveText(16);
+}
+
+.smallInput input {
+  width: 20%;
+  @include mobileOnly {
+    width: auto;
+  }
+}
+
+//DROPDOWN
+.fadeIn {
+  opacity: 1;
+  height: 100%;
+}
+
+.hidden {
+  opacity: 0;
+  height: 0;
+}
+
+.dropdown {
+  display: flow-root;
+  width: 100%;
+}
+
+.dropdown button, .dropdown a {
+  @include responsiveText(17);
+  margin: 0;
+  display: block;
+  vertical-align: top;
+  width: 100%;
+  border: .25em solid $grey;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: .4em 0 .4em 0;
+  outline: none;
+}
+
+.dropdown button:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+
+.dropdown button:nth-child(even) {
+  background-color: #ced6e0;
+}
+
+.dropdown button:nth-child(odd) {
+  background-color: #f1f2f6;
+}
+
+.dropdown button:hover {
+  color: $darkGreen;
+}
+
+//FILE
+.inputFile {
+  width: .1px;
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputFileLabel, .inputFileLabel i {
+  @include responsiveText(20);
+}
+
+.inputFileLabel {
+  color: #FFFF;
+  text-align: center;
+  background-color: $mainGreen;
+  padding: 1vh 2.5% 1vh 2.5%;
+  display: inline-block;
+}
+
+.inputFileLabel * {
+  vertical-align: middle;
+}
+
+.inputFileLabel:hover {
+  background-color: $darkGreen;
+  cursor: pointer;
+}
+
+.inputFile:focus + label {
+  outline-offset: .1em;
+  outline: .2em dotted white;
+  outline: -webkit-focus-ring-color auto .2em;
+}
+
+//BUTTONS
+
+.resetBtn {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.deleteBtn {
+  @include responsiveText(24);
+  @include responsiveWidth(50%, 30%, 50%, true);
+  display: none;
+  margin-left: 40%;
+  font-weight: bolder;
+  padding: 0;
+  position: absolute;
+  top: -.75em;
+  color: #FFF;
+  background-color: $red;
+  border: .1em solid $darkRed;
+  border-radius: .5em;
+  @include mobileOnly {
+    @include responsiveText(32);
+    display: block;
+  }
+}
+
+.closeBtn {
+  @include responsiveText(32);
+  float: right;
+  top: 1vh;
+  right: 2.5%;
+  font-weight: bolder;
+  color: $grey;
+  @include mobileOnly {
+    text-align: center;
+    color: $grey;
+    background-color: inherit;
+    border-bottom: .2em solid $mainGreen;
+  }
+}
+
+.smallBtn {
+  width: 30%;
+  margin: 0 35% 0 35%;
+  @include mobileOnly {
+    width: 70%;
+    margin: 0 15% 0 15%;
+  }
+}
+
+.indieBtn {
+  @extend .smallBtn;
+  @include responsiveText(20);
+  margin: 1em 0 1em 0;
+  border: .25em solid $grey;
+  border-radius: .5em;
+}
+
+.colouredHover:hover {
+  background-color: $mainGreen;
+  color: $grey;
+}
+
+.closeBtn:hover {
+  color: $mainGreen;
+  cursor: pointer;
+}
+
+.blueText {
+  color: $blue;
+}
+
+.linkUnderline {
+  @include responsiveText(12);
+  cursor: pointer;
+  text-decoration: underline;
+  color: $blue;
+  text-decoration-color: $blue;
+  border: none;
+  font-weight: bolder;
+}
