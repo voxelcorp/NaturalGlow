@@ -12,7 +12,6 @@ var passport = require('passport');
 //Redis
 var redis = require('redis');
 var connectRedis = require('connect-redis');
-var redisUrl = process.env.REDIS_URL;
 
 require('./api/models/db');
 require('./api/config/passport');
@@ -28,7 +27,7 @@ app.set('view engine', 'jade');
 
 // Configure Redis.
 var RedisStore = connectRedis(session);
-const redisClient = redis.createClient(process.env.REDISTOGO_URL);
+const client = redis.createClient(process.env.REDIS_URL);
 //
 redisClient.on('error', function (err) {
   console.log('Could not establish a connection with redis. ' + err);
@@ -46,7 +45,7 @@ app.use(fileUpload());
 
 //Configure session middleware;
 app.use(session({
-  store: new RedisStore({client: redisClient}),
+  store: new RedisStore({client: client}),
   secret: process.env.JWT_SECRET,
   resave: false,
   saveUninitialized: false,
